@@ -95,15 +95,15 @@ const successHandler = (response: AxiosResponse) => {
   store.dispatch("Loader/DONE");
   let message = null;
   if (typeof response.data === "object") {
-    message = "Processed successfully";
+    message = response.data.message ? response.data.message : "Success";
   } else {
     const messages = response.data.split("\n");
-    // const msg = JSON.parse(messages[messages.length - 1]);
-    message = "Processed successfully";
+    const msg = JSON.parse(messages[messages.length - 1]);
+    message = msg.message;
   }
 
   const payload: SnackBarPayload = {
-    title: capitalize("Success"),
+    title: capitalize(message),
     color: "success",
     icon: "mdi-information",
     class: "message success--text",
@@ -111,9 +111,9 @@ const successHandler = (response: AxiosResponse) => {
 
   switch (response.config.method) {
     case "put":
-    case "patch":
     case "post":
     case "delete":
+    case "patch":
       store.dispatch("SnackBar/SHOW", payload);
   }
   return response;

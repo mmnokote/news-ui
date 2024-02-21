@@ -9,13 +9,20 @@
       </v-btn> -->
     </v-card-actions>
     <v-card>
-      <v-data-table
+      <!-- <v-data-table
         :headers="data.headers"
         :items="users"
         :single-expand="true"
         class="elevation-1"
         disable-pagination
         hide-default-footer
+      > -->
+      <v-data-table
+        :headers="data.headers"
+        :items="users"
+        :single-expand="true"
+        class="elevation-1"
+        disable-pagination
       >
         <template v-slot:[`item.createdAt`]="{ item }">
           <span>{{ item.createdAt | format() }}</span>
@@ -74,13 +81,13 @@
             <span>Delete</span>
           </v-tooltip> -->
         </template>
-        <template v-slot:footer>
+        <!-- <template v-slot:footer>
           <Paginate
             :params="data.response"
             :rows="data.rows"
             @onPageChange="getData"
           />
-        </template>
+        </template> -->
       </v-data-table>
     </v-card>
     <Modal :modal="data.modal" :width="750">

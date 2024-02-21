@@ -10,4 +10,5 @@ export interface User {
   phone_number: string;
   age: number;
   roles: [];
+  menus: [];
 }

@@ -493,6 +493,7 @@ export default {
           fees: "Tshs 50,000",
           fees2: "Tshs 60,000",
           dialogName: "dialog2",
+          Benefit_Packages: "Conference Registration and meals)",
         },
         {
           sno: 2,
@@ -500,28 +501,42 @@ export default {
           fees: "Tshs 120,000",
           fees2: "Tshs 200,000",
           dialogName: "dialog3",
+          Benefit_Packages: "Conference Registration and meals)",
         },
         {
           sno: 3,
           categoryName: "International Delegate from East Africa",
-          fees: "55 USD",
-          fees2: "80 USD",
+          fees: "100 USD",
+          fees2: "120 USD",
           dialogName: "dialog4",
+          Benefit_Packages: "Conference Registration and meals)",
         },
         {
           sno: 4,
           categoryName: "Other international delegate",
           fees: "200 USD",
           fees2: "250 USD",
-          dialogName: "dialog5",
+          dialogName: "dialog4",
+          Benefit_Packages: "Conference Registration and meals)",
         },
         {
           sno: 5,
+          categoryName:
+            "Forum (Please communicate with organizer first to secure a slot)",
+          fees: "5000 USD - A one hour and 30 minutes slot for the forum of your interest",
+          fees2:
+            "5000 USD - A one hour and 30 minutes slot for the forum of your",
+          dialogName: "dialog5",
+          Benefit_Packages: "Free participation of 10 delegates)",
+        },
+        {
+          sno: 6,
           categoryName:
             "Booth(Category A) NB: Please communicate with organizer first to secure a slot.",
           fees: "800 USD",
           fees2: "800 USD",
           dialogName: "dialog5",
+          Benefit_Packages: "At the front",
         },
         {
           sno: 6,
@@ -530,14 +545,16 @@ export default {
           fees: "500 USD",
           fees2: "500 USD",
           dialogName: "dialog5",
+          Benefit_Packages: "At the middle",
         },
         {
           sno: 7,
           categoryName:
             "Booth(Category C) NB: Please communicate with organizer first to secure a slot.",
-          fees: "250 USD",
-          fees2: "250 USD",
+          fees: "300 USD",
+          fees2: "300 USD",
           dialogName: "dialog5",
+          Benefit_Packages: "At the rear",
         },
       ],
       tableHeaders: [
@@ -545,6 +562,7 @@ export default {
         { text: "Category Name", value: "categoryName" },
         { text: "Early Payment (up to 15th March 2024)", value: "fees" },
         { text: "Late registration (From 16th March 2024)", value: "fees2" },
+        { text: "Benefit Packages ", value: "Benefit_Packages" },
         // { text: "Actions", value: "actions" },
       ],
       fetchedData: null,

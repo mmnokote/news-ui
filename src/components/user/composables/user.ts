@@ -67,11 +67,14 @@ export const useUser = (type?: string): Record<string, unknown> => {
     ],
     headers: [
       // { text: "NIN", value: "nin_number" },
-      { text: "Phone Number", value: "phone_number" },
       { text: "Name", align: "start", sortable: false, value: "fullName" },
+      { text: "Phone Number", value: "phone_number" },
+
       { text: "Email", value: "email" },
-      { text: "Roles", value: "displayRoles" },
-      { text: "Activation", value: "activations", sortable: false },
+      // { text: "Roles", value: "displayRoles" },
+      { text: "Country", value: "country.name" },
+      { text: "Organization", value: "organization" },
+      // { text: "Activation", value: "activations", sortable: false },
       { text: "Actions", value: "actions", sortable: false },
     ],
     approval_header: [
@@ -403,6 +406,7 @@ export const useUser = (type?: string): Record<string, unknown> => {
     data.roleModal = !data.roleModal;
     data.formData.id = payload.id;
     data.formData.roles = payload.roles;
+    data.formData.menus = payload.menus;
     data.userObject = payload;
   };
 
@@ -487,6 +491,11 @@ export const useUser = (type?: string): Record<string, unknown> => {
     });
   };
 
+  const getFullFilePath = (path) => {
+    // Assuming "uploads/path_file" is the prefix
+    return `uploads/${path}`;
+  };
+
   const openActivationDialog = (user: any) => {
     data.status = user.active ? "Activate" : "De-Activate";
     data.user = user;
@@ -535,6 +544,7 @@ export const useUser = (type?: string): Record<string, unknown> => {
 
   return {
     data,
+    getFullFilePath,
     openActivationDialog,
     openApprovalRoleDialog,
     filterTrushedUser,

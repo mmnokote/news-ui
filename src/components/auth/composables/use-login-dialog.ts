@@ -43,8 +43,8 @@ export const useLoginDialog = (): any => {
     };
 
     authenticate(payload).then((response: AxiosResponse) => {
-      if (response.status === 200) {
-        setUser(response.data.data.user);
+      if (response.status === 201) {
+        setUser(response.data);
         cancelDialog();
         router.go(0);
         store.dispatch("LoginDialog/DONE");

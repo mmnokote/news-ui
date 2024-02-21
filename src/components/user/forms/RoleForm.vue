@@ -97,6 +97,7 @@ export default defineComponent({
       default: {},
     },
   },
+
   setup(props, { emit }) {
     const data = reactive({
       valid: true,
@@ -134,12 +135,16 @@ export default defineComponent({
     const selectedRoles = computed(() => {
       return props.formData.roles || [];
     });
+    const selectedMenus = computed(() => {
+      return props.formData.menus || [];
+    });
 
     return {
       save,
       data,
       closeDialog,
       selectedRoles,
+      selectedMenus,
     };
   },
 });

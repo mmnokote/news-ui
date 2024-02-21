@@ -5,6 +5,7 @@ import VueRouteMiddleware from "vue-route-middleware";
 import { dashboardRoutes } from "@/components/dashboard";
 import { userRoutes } from "@/components/user";
 import { roleRoutes } from "@/components/role";
+import { registryRoutes } from "@/components/registry";
 import { levelRoutes } from "@/components/admin-area/level";
 import { adminAreaRoutes } from "@/components/admin-area/admin-area";
 import { queryRoutes } from "@/components/query";
@@ -102,6 +103,7 @@ const routes: Array<RouteConfig> = [
       ...queryDetailUserRoutes,
       ...queryUserRoutes,
       ...queryPriorityRoutes,
+      ...registryRoutes,
       ...notFoundRoute,
     ],
   },

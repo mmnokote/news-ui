@@ -34,7 +34,7 @@
         <template v-slot:[`item.displayRoles`]="{ item }">
           <span>{{ item.displayRoles }}</span>
         </template>
-        <template v-slot:[`item.activations`]="{ item }">
+        <!-- <template v-slot:[`item.activations`]="{ item }">
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <v-switch
@@ -49,7 +49,7 @@
             </template>
             <span>Role and Menu Management</span>
           </v-tooltip>
-        </template>
+        </template> -->
         <template v-slot:[`item.actions`]="{ item }">
           <!-- <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
@@ -66,6 +66,27 @@
             <span>Reset Password</span>
           </v-tooltip> -->
 
+          <!-- <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <a
+                :href="getFullFilePath(item.jisajilis[0]?.path_file)"
+                target="_blank"
+              >
+                <span v-if="item.jisajilis.length > 0">
+                  <v-icon color="green" v-bind="attrs" v-on="on" class="mr-2">
+                    mdi-printer-eye
+                  </v-icon>
+                </span>
+                <span v-else>
+                  <v-icon color="red" v-bind="attrs" v-on="on" class="mr-2">
+                    mdi-printer-eye
+                  </v-icon>
+                </span>
+              </a>
+            </template>
+            <span>Preview Recept</span>
+          </v-tooltip> -->
+
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <v-icon
@@ -75,7 +96,7 @@
                 class="mr-2"
                 @click="openDialog(item)"
               >
-                mdi-pencil-box-outline
+                mdi-pencil
               </v-icon>
             </template>
             <span>Upate</span>
@@ -262,6 +283,7 @@ export default defineComponent({
   setup() {
     const {
       data,
+      getFullFilePath,
       openApprovalRoleDialog,
       openDialog,
       cancelDialog,
@@ -272,6 +294,7 @@ export default defineComponent({
       filterRoles,
       toggleStatus,
       selectedRoles,
+      selectedMenus,
       loadLocationChildren,
       loadFacilities,
       getNodes,
@@ -306,6 +329,7 @@ export default defineComponent({
 
     return {
       data,
+      getFullFilePath,
       message,
       confirmTitle,
       trushedNew,
@@ -318,6 +342,7 @@ export default defineComponent({
       openActivationDialog,
       filterRoles,
       selectedRoles,
+      selectedMenus,
       loadLocationChildren,
       loadFacilities,
       getNodes,
