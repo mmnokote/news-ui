@@ -9,6 +9,7 @@ import {
   destroy,
   searchCategories,
   getStatuses,
+  sendPaymentNotification,
 } from "../services/query-category.service";
 import { printReportJasper } from "../../../../components/report/services/report.services";
 
@@ -46,12 +47,16 @@ export const useQueryCategory = (): any => {
       { text: "Actions", value: "actions", sortable: false },
     ],
     modal: false,
+    modal2: false,
     deletemodal: false,
     items: dataItems,
     itemsToFilter: [],
     formData: {
       status: null,
       rejectionComment: "",
+    },
+    formData2: {
+      body: null,
     },
     documentcategories: [],
     rows: ["10", "20", "50", "100"],
@@ -129,8 +134,12 @@ export const useQueryCategory = (): any => {
   };
 
   const cancelDialog = () => {
-    data.formData = {} as QueryCategory;
+    data.formData = {};
     data.modal = !data.modal;
+  };
+  const cancelDialog2 = () => {
+    data.formData2 = {};
+    data.modal2 = !data.modal2;
   };
 
   const cancelConfirmDialog = () => {
@@ -153,12 +162,30 @@ export const useQueryCategory = (): any => {
     }
   };
 
-  const openDialog = (formData?: any) => {
+  const save2 = () => {
+    sendPaymentNotification(data.formData2).then((response: AxiosResponse) => {
+      if (response) {
+        cancelDialog2();
+      }
+    });
+  };
+  // const openDialog = (formData?: User) => {
+  //   sendPaymentNotification(data.formData).then((response: AxiosResponse) => {});
+  // };
+
+  const openDialog1 = (formData?: any) => {
     if (formData.id) {
       data.formData = formData;
       data.modalTitle = "Set Approval Status";
     }
     data.modal = !data.modal;
+  };
+  const openDialog = (formData?: any) => {
+    if (formData.id) {
+      data.formData = formData;
+      data.modalTitle = "Send email";
+    }
+    data.modal2 = !data.modal2;
   };
 
   const updateQueryCategory = (data: any) => {
@@ -219,11 +246,14 @@ export const useQueryCategory = (): any => {
   return {
     data,
     openDialog,
+    openDialog1,
     shouldShowRejectionComment,
     cancelDialog,
+    cancelDialog2,
     getDocument,
     updateQueryCategory,
     save,
+    save2,
     reloadData,
     remove,
     cancelConfirmDialog,

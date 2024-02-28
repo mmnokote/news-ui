@@ -4,7 +4,7 @@
     <v-container class="mt-10">
       <v-row>
         <v-col cols="12">
-          <h1 class="text-center mb-5 color-title">About Conference Portal</h1>
+          <h1 class="text-center mb-5 color-title">About IPHCC</h1>
           <hr class="centered-line" />
           <v-divider class="mb-5"></v-divider>
 

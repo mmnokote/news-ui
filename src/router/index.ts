@@ -16,6 +16,7 @@ import { queryUserRoutes } from "@/components/query-user";
 import { queryPriorityRoutes } from "@/components/setup/query-priority";
 
 import { queryCategoryRoutes } from "@/components/setup/query-category";
+import { queryCategoryRoutes as myAb } from "@/components/setup/my-query-category";
 import { queryStatusRoutes } from "@/components/setup/query-status";
 import { queryDocumentTypeRoutes } from "@/components/setup/query-document_type";
 import { menuRoutes } from "@/components/menu";
@@ -86,6 +87,7 @@ const routes: Array<RouteConfig> = [
       title: "Dashboard",
       middleware: [setTitle, validateToken, setHeaders, auth],
     },
+
     children: [
       ...dashboardRoutes,
       ...userRoutes,
@@ -93,6 +95,7 @@ const routes: Array<RouteConfig> = [
       ...levelRoutes,
       ...adminAreaRoutes,
       ...queryCategoryRoutes,
+      ...myAb,
       ...queryStatusRoutes,
       ...queryDocumentTypeRoutes,
       ...roleRoutes,

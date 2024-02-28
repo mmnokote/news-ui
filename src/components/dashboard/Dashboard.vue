@@ -1,6 +1,7 @@
 <template>
   <v-card flat class="">
     <v-container>
+      <v-col cols="12">
       <v-card-actions class="pa-0">
         <h2>{{ "Profile Details" }}</h2>
         <v-spacer></v-spacer>
@@ -21,11 +22,13 @@
           @click="openDialog()"
         >
           <v-icon>mdi-upload</v-icon>
-          Uploaded your payment document
+          Uploaded your receipt
         </v-btn>
       </v-card-actions>
-
+      </v-col>
       <v-card flat max-width="100%" class="">
+        <v-col cols="12">
+
         <span
           >Payment Status:
           {{
@@ -38,29 +41,13 @@
             )
           }}</span
         >
-        <!-- <v-card-actions>
-          <span
-            >Abstract Status:
-            {{
-              getStatusText(
-                this.userb &&
-                  this.userb.jisajilis &&
-                  this.userb.jisajilis[0].status
-                  ? true
-                  : false
-              )
-            }}</span
-          >
-        </v-card-actions> -->
+        
         <p v-if="userb.jisajilis.length > 0">
-          <!-- <v-list-item-icon v-if="regInfromation">
-            <v-icon color="primary">mdi-attachment</v-icon>
-          </v-list-item-icon> -->
           <a :href="getFullFilePath(regInfromation?.path_file)" target="_blank">
             <span>{{ "Download Uploaded Receipt" }}</span>
           </a>
         </p>
-        <v-col cols="12">
+
           <v-btn
             class="d-md-none white--text"
             color="green"
@@ -79,13 +66,16 @@
             color="primary"
             large
             @click="openDialog()"
+            :disabled="userb.jisajilis.length > 0"
           >
             <v-icon>mdi-plus</v-icon>
-            Uploaded your payment document
+            Uploaded your receipt
           </v-btn>
         </v-col>
         <!-- Add more details as needed -->
+        <v-col cols="12">
         <h1><hr class="centered-line2" /></h1>
+        </v-col>
         <v-container>
           <v-row justify="center">
             <v-col cols="12" sm="12" md="8">

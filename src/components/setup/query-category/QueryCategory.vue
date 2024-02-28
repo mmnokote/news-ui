@@ -3,10 +3,10 @@
     <v-card-actions class="pa-0">
       <h2>{{ data.title }}</h2>
       <v-spacer></v-spacer>
-      <!-- <v-btn large color="teal" class="white--text" @click="openDialog">
-        <v-icon>mdi-plus</v-icon>
-        Add New
-      </v-btn> -->
+      <v-btn large color="teal" class="white--text" @click="openDialog">
+        <!-- <v-icon>mdi-send</v-icon> -->
+        Send Email Notification For Abstract Correction
+      </v-btn>
     </v-card-actions>
     <v-card>
       <!-- <v-data-table
@@ -64,7 +64,7 @@
                 v-bind="attrs"
                 v-on="on"
                 class="mr-2"
-                @click="openDialog(item)"
+                @click="openDialog1(item)"
               >
                 mdi-pencil-box-outline
               </v-icon>
@@ -92,7 +92,10 @@
     </v-card>
     <Modal :modal="data.modal" :width="750">
       <template v-slot:header>
-        <ModalHeader :title="`${data.modalTitle}`" />
+        <ModalHeader
+          @closeDialog="cancelDialog()"
+          :title="`${data.modalTitle}`"
+        />
       </template>
       <template v-slot:body>
         <ModalBody v-if="data.formData">
@@ -134,6 +137,37 @@
         <ModalFooter>
           <v-btn color="red darken-1" text @click="cancelDialog">Cancel</v-btn>
           <v-btn color="green darken-1" text @click="save">{{ "Save" }} </v-btn>
+        </ModalFooter>
+      </template>
+    </Modal>
+    <Modal :modal="data.modal2" :width="750">
+      <template v-slot:header>
+        <ModalHeader @closeDialog="cancelDialog2()" :title="`Send Email`" />
+      </template>
+      <template v-slot:body>
+        <ModalBody v-if="data.formData">
+          <v-form ref="form" enctype="multipart/form-data">
+            <v-container>
+              <v-row>
+                <v-col cols="12" md="12" class="mb-n8">
+                  <v-textarea
+                    v-model="data.formData2.body"
+                    outlined
+                    label="Email Body"
+                    required
+                  ></v-textarea>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-form>
+        </ModalBody>
+      </template>
+      <template v-slot:footer>
+        <ModalFooter>
+          <v-btn color="red darken-1" text @click="cancelDialog2">Cancel</v-btn>
+          <v-btn color="green darken-1" text @click="save2"
+            >{{ "Send" }}
+          </v-btn>
         </ModalFooter>
       </template>
     </Modal>
@@ -188,14 +222,20 @@ export default defineComponent({
       users,
       printFromServer,
       fetchSubthemes,
+      save2,
+      cancelDialog2,
+      openDialog1,
     } = useQueryCategory();
 
     return {
       data,
+      cancelDialog2,
+      save2,
       shouldShowRejectionComment,
       fetchSubthemes,
       users,
       openDialog,
+      openDialog1,
       getData,
       cancelDialog,
       getDocumentCategory,

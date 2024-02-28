@@ -8,8 +8,8 @@
         Restore Trashed Users
       </v-btn>
       <v-btn large color="teal" class="white--text" @click="openDialog">
-        <v-icon>mdi-plus</v-icon>
-        Sendpayment Notification
+        <!-- <v-icon>mdi-send</v-icon> -->
+        Send Email Notification For Payment Reminder
       </v-btn>
     </v-card-actions>
 
