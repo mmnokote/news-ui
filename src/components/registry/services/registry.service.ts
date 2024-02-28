@@ -6,6 +6,7 @@ const APIUSERQUERY = "/api/v1/user-queries";
 const APIALL = "/api/v1/users/users/search";
 const APISENDMAIL = "/api/v1/users/sendMail";
 const APISENDSUBMISSIONMAIL = "/api/v1/users/sendSubmissionMail";
+const APIPAYMENTnOTIFICATION = "/api/v1/abstarcts/send-mails";
 
 const wait = (ms: number, value) => {
   return new Promise((resolve) => setTimeout(resolve, ms, value));
@@ -37,6 +38,9 @@ const sendMailForSubmition = async (payload: any) => {
 
 const saveUserQuety = async (payload: any) => {
   return await axios.post(`${APIUSERQUERY}`, payload);
+};
+const sendPaymentNotification = async () => {
+  return await axios.post(`${APIPAYMENTnOTIFICATION}`);
 };
 
 const update = async (payload: any) => {
@@ -87,4 +91,5 @@ export {
   sendMail,
   sendMailForSubmition,
   maprole,
+  sendPaymentNotification,
 };

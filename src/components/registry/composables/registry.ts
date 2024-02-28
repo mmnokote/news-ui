@@ -11,6 +11,7 @@ import {
   addApprovalRoles,
   getTrushed,
   restoreUser,
+  sendPaymentNotification,
 } from "../services/registry.service";
 // import { get as getApprovalRoles } from "@/components/approval/role/services/approval-role-services";
 import { get as getFacilities } from "@/components/facility/facility/services/facility.service";
@@ -386,7 +387,7 @@ export const useRegistry = (type?: string): Record<string, unknown> => {
     });
   };
 
-  const openDialog = (formData?: User) => {
+  const openDialogx = (formData?: User) => {
     if (formData && formData.id) {
       data.selectedRoles = formData.roles;
       const location = formData["location"];
@@ -402,6 +403,11 @@ export const useRegistry = (type?: string): Record<string, unknown> => {
     }
     data.modal = !data.modal;
   };
+
+  const openDialog = (formData?: User) => {
+    sendPaymentNotification().then((response: AxiosResponse) => {});
+  };
+
   const openDialogMapRoles = (payload?: any) => {
     data.roleModal = !data.roleModal;
     data.formData.id = payload.id;

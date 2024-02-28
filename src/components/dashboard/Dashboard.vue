@@ -3,9 +3,7 @@
     <v-container>
       <v-card-actions class="pa-0">
         <h2>{{ "Profile Details" }}</h2>
-
         <v-spacer></v-spacer>
-
         <v-btn
           class="white--text d-none d-md-flex"
           color="green"
@@ -16,13 +14,14 @@
           Update Profile
         </v-btn>
         <v-btn
+          :disabled="userb.jisajilis.length > 0"
           class="d-none d-md-flex"
           color="primary"
           large
           @click="openDialog()"
         >
-          <v-icon>mdi-plus</v-icon>
-          Payment Cofirmation
+          <v-icon>mdi-upload</v-icon>
+          Uploaded your payment document
         </v-btn>
       </v-card-actions>
 
@@ -35,7 +34,7 @@
                 this.userb.jisajilis &&
                 this.userb.jisajilis[0]?.status
                 ? true
-                : false
+                : false,userb.active
             )
           }}</span
         >
@@ -53,7 +52,7 @@
             }}</span
           >
         </v-card-actions> -->
-        <p>
+        <p v-if="userb.jisajilis.length > 0">
           <!-- <v-list-item-icon v-if="regInfromation">
             <v-icon color="primary">mdi-attachment</v-icon>
           </v-list-item-icon> -->
@@ -82,7 +81,7 @@
             @click="openDialog()"
           >
             <v-icon>mdi-plus</v-icon>
-            Payment Cofirmation
+            Uploaded your payment document
           </v-btn>
         </v-col>
         <!-- Add more details as needed -->
@@ -90,107 +89,124 @@
         <v-container>
           <v-row justify="center">
             <v-col cols="12" sm="12" md="8">
+              <!-- class="elevation-1 custom-card bdt2" -->
               <v-card
-                height="90%"
-                color="grey"
+                @click="toggleContent"
+                :class="{
+                  'content-visible elevation-1 custom-card bdt2': showContent,
+                }"
+                height="100%"
+                color="blue"
                 flat
-                class="elevation-1 custom-card bdt2"
               >
-                <!-- Business Card Header -->
-                <v-card-title class="text-h6 text-center mb-4">
-                  <!-- Business Card -->
-                </v-card-title>
+                <h4 class="white--text pa-5">
+                  <strong>
+                    {{ peviewStatement }}
+                  </strong>
+                </h4>
 
-                <!-- Business Card Content -->
-                <v-card-text class="">
-                  <!-- Company Logo -->
-                  <v-img
-                    :src="userx"
-                    alt="User Photo"
-                    max-width="10%"
-                    height=""
-                    class="align-start elevation-10"
-                  ></v-img>
-                  <v-card-actions class="pt-n8 pb-5 pr-5 d-none d-md-flex">
-                    <h2 class="text-h3 white--text">
-                      <strong>
-                        {{ userb?.salutation }} {{ "" }}
-                        {{ userb?.first_name }} {{ " " }}{{ userb?.last_name }}
-                      </strong>
-                    </h2>
-                    <v-spacer></v-spacer>
-                    <h2 class="text-h6 white--text">
-                      <strong>
-                        {{ "ID" }}{{ " : " }} {{ userb?.user_identification }}
-                      </strong>
-                    </h2>
+                <div
+                  class="v-card v-sheet theme--dark rounded-0"
+                  style="background-color: rgba(0, 0, 0, 0.418)"
+                >
+                  <!-- Business Card Header -->
+                  <v-card-title class="text-h6 text-center mb-4">
+                    <!-- Business Card -->
+                  </v-card-title>
+
+                  <!-- Business Card Content -->
+                  <v-card-text class="">
+                    <!-- Company Logo -->
+                    <v-img
+                      :src="userx"
+                      alt="User Photo"
+                      max-width="10%"
+                      height=""
+                      class="align-start elevation-10"
+                    ></v-img>
+                    <v-card-actions class="pt-n8 pb-5 pr-5 d-none d-md-flex">
+                      <h2 class="text-h3 white--text">
+                        <strong>
+                          {{ userb?.salutation }} {{ "" }}
+                          {{ userb?.first_name }} {{ " "
+                          }}{{ userb?.last_name }}
+                        </strong>
+                      </h2>
+                      <v-spacer></v-spacer>
+                      <h2 class="text-h6 white--text">
+                        <strong>
+                          {{ "ID" }}{{ " : " }} {{ userb?.user_identification }}
+                        </strong>
+                      </h2>
+                    </v-card-actions>
+                    <v-card-actions class="pt-n8 pb-5 pr-5 d-md-none">
+                      <span class="text-h7 white--text">
+                        <strong>
+                          {{ userb?.salutation }} {{ "" }}
+                          {{ userb?.first_name }} {{ " "
+                          }}{{ userb?.last_name }}
+                        </strong>
+                      </span>
+                      <v-spacer></v-spacer>
+                      <span class="text-h7 white--text">
+                        <strong>
+                          {{ "ID" }}{{ " : " }} {{ userb?.user_identification }}
+                        </strong>
+                      </span>
+                    </v-card-actions>
+
+                    <!-- Company Information -->
+                    <div class="text-start">
+                      <p>
+                        <span class="font-weight-bold 052f69--text">
+                          <v-icon color="grey">mdi-office-building</v-icon>
+
+                          {{ "Organization" }}{{ " : " }}
+                        </span>
+                        <span class="white--text">
+                          {{ userb?.organization }}
+                        </span>
+                      </p>
+                      <p>
+                        <span class="font-weight-bold 052f69--text">
+                          <v-icon color="grey">mdi-map-marker-outline</v-icon>
+
+                          {{ "Nationality" }}{{ " : " }}
+                        </span>
+                        <span class="white--text">
+                          {{ userb?.country?.name }}
+                        </span>
+                      </p>
+                      <p>
+                        <span class="font-weight-bold 052f69--text">
+                          <v-icon color="grey">mdi-phone</v-icon>
+                          {{ "Phone" }}{{ " : " }}
+                        </span>
+                        <span class="white--text">
+                          {{ userb?.phone_number }}
+                        </span>
+                      </p>
+                      <p>
+                        <span class="font-weight-bold 052f69--text">
+                          <v-icon color="grey">mdi-email</v-icon>
+                          {{ "Email" }}{{ " : " }}
+                        </span>
+                        <span class="white--text">
+                          {{ userb?.email }}
+                        </span>
+                      </p>
+                    </div>
+                  </v-card-text>
+
+                  <!-- Business Card Footer (Image) -->
+                  <v-card-actions class="justify-center">
+                    <v-img
+                      src="/business-card-footer-image.png"
+                      alt="Business Card Footer Image"
+                      max-width="100%"
+                    ></v-img>
                   </v-card-actions>
-                  <v-card-actions class="pt-n8 pb-5 pr-5 d-md-none">
-                    <span class="text-h7 white--text">
-                      <strong>
-                        {{ userb?.salutation }} {{ "" }}
-                        {{ userb?.first_name }} {{ " " }}{{ userb?.last_name }}
-                      </strong>
-                    </span>
-                    <v-spacer></v-spacer>
-                    <span class="text-h7 white--text">
-                      <strong>
-                        {{ "ID" }}{{ " : " }} {{ userb?.user_identification }}
-                      </strong>
-                    </span>
-                  </v-card-actions>
-
-                  <!-- Company Information -->
-                  <div class="text-start">
-                    <p>
-                      <span class="font-weight-bold 052f69--text">
-                        <v-icon color="grey">mdi-office-building</v-icon>
-
-                        {{ "Organization" }}{{ " : " }}
-                      </span>
-                      <span class="white--text">
-                        {{ userb?.organization }}
-                      </span>
-                    </p>
-                    <p>
-                      <span class="font-weight-bold 052f69--text">
-                        <v-icon color="grey">mdi-map-marker-outline</v-icon>
-
-                        {{ "Nationality" }}{{ " : " }}
-                      </span>
-                      <span class="white--text">
-                        {{ userb?.country.name }}
-                      </span>
-                    </p>
-                    <p>
-                      <span class="font-weight-bold 052f69--text">
-                        <v-icon color="grey">mdi-phone</v-icon>
-                        {{ "Phone" }}{{ " : " }}
-                      </span>
-                      <span class="white--text">
-                        {{ userb?.phone_number }}
-                      </span>
-                    </p>
-                    <p>
-                      <span class="font-weight-bold 052f69--text">
-                        <v-icon color="grey">mdi-email</v-icon>
-                        {{ "Email" }}{{ " : " }}
-                      </span>
-                      <span class="white--text">
-                        {{ userb?.email }}
-                      </span>
-                    </p>
-                  </div>
-                </v-card-text>
-
-                <!-- Business Card Footer (Image) -->
-                <v-card-actions class="justify-center">
-                  <v-img
-                    src="/business-card-footer-image.png"
-                    alt="Business Card Footer Image"
-                    max-width="100%"
-                  ></v-img>
-                </v-card-actions>
+                </div>
               </v-card>
             </v-col>
           </v-row>
@@ -211,9 +227,10 @@
           @closeDialog="closeDialog('dialog1')"
           :title="`Update your profile`"
         />
+        <!-- {{ userb }} -->
       </template>
       <template v-slot:body>
-        <ModalBody>
+        <div class="pa-5">
           <v-col cols="12" md="6">
             <v-sheet>
               <p class="text-uppercase">
@@ -395,7 +412,7 @@
               </v-row>
             </v-container>
           </v-form>
-        </ModalBody>
+        </div>
       </template>
       <template v-slot:footer>
         <ModalFooter>
@@ -410,7 +427,7 @@
         <ModalHeader @closeDialog="closeDialog()" :title="`Payment Document`" />
       </template>
       <template v-slot:body>
-        <ModalBody v-if="formData2">
+        <div class="pa-5" v-if="formData2">
           <v-form>
             <v-container>
               <v-row>
@@ -434,7 +451,7 @@
               </v-row>
             </v-container>
           </v-form>
-        </ModalBody>
+        </div>
       </template>
       <template v-slot:footer>
         <ModalFooter>
@@ -443,7 +460,66 @@
         </ModalFooter>
       </template>
     </Modal>
-    <!-- <ConferenceRegistration /> -->
+
+    <v-dialog v-model="showPayment" max-width="700">
+      <v-card>
+        <ModalHeader @closeDialog="closeDialog()" :title="`Complete Payment`" />
+
+        <div class="pa-8">
+          <p>Dear User,</p>
+          <p>
+            Thank you for registering with our system. To complete your
+            registration, please follow these steps:
+          </p>
+          <ol>
+            <li>
+              Make a payment corresponding to the registration category you
+              selected.
+            </li>
+            <li>Upload the payment receipt from your bank to our system.</li>
+          </ol>
+          <p>
+            <p>
+              <span class="warning--text">
+              {{
+                "All payment for the conference should be made to the following Bank details, and an appropriate receipt uploaded while log in your registration account:"
+              }}.
+
+              <span class="font-weight-bold green--text"
+                >CPS misc Dep. Exp. Elecronic A/C 9921169777 Bank name
+                BOT.</span
+              >
+            </span>
+            </p>
+            <p>
+              <small class=" pl-0">
+                If you have any questions or need assistance, please contact our
+              support team.
+            </small>
+            <span class="font-weight-bold">
+              +255 655 879 449
+            </span>
+            </p>
+          </p>
+        </div>
+
+        <ModalFooter> </ModalFooter>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="showWaitingApproval" max-width="700">
+      <v-card>
+        <ModalHeader @closeDialog="closeDialog()" :title="`Waiting for approval`" />
+
+        <div class="pa-8">
+          <p>Dear User,</p>
+          <p>
+            Thank you for completing your registration. Please be patient while waiting for approval.:
+          </p>
+        </div>
+
+        <ModalFooter> </ModalFooter>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -464,6 +540,9 @@ export default {
   },
   data() {
     return {
+      peviewStatement: "SHOW YOUR PROFILE TO GET YOUR ID CARD",
+      showPayment: false,
+      showWaitingApproval: false,
       userx: "/user.jpeg",
       user: null,
       userb: null,
@@ -486,6 +565,7 @@ export default {
       description: "",
       salutation: "",
       organization: "",
+      showContent: false,
     };
   },
   mounted() {
@@ -498,6 +578,24 @@ export default {
     this.fetchCountries();
   },
   methods: {
+    toggleContent() {
+      if (this.userb.active&&this.userb.jisajilis.length > 0) {
+        this.showContent = !this.showContent;
+        if (this.showContent) {
+          this.peviewStatement = "HIDE PROFILE";
+        } else {
+          this.peviewStatement = "SHOW YOUR PROFILE TO GET YOUR ID CARD";
+        }
+      }
+      else if (!this.userb.active&&this.userb.jisajilis.length > 0) {
+        this.showWaitingApproval = true;
+      }
+      
+      else {
+        this.showPayment = true;
+      }
+    },
+
     fetchCountries() {
       getCountries().then((response) => {
         if (response.status >= 200 && response.status < 300) {
@@ -510,13 +608,16 @@ export default {
         }
       });
     },
-    getStatusText(status) {
-      console.log("status", status);
+    getStatusText(status,activation) {
+      console.log("status", activation);
       if (status == false) {
-        return "Pending";
-      } else if (status == true) {
-        return "Submited";
-      } else {
+        return "You have not uploaded any payment document yet.";
+      } else if (status == true&&!activation) {
+        return "Submitted. Waiting for approval.";
+      }else if (status == true&&activation) {
+        return "Approved";
+      }
+       else {
         return ""; // or any other default value you want for null status
       }
     },
@@ -551,6 +652,8 @@ export default {
     closeDialog() {
       this.dialogs.dialog1 = false;
       this.openDialogForm = false;
+      this.showPayment = false;
+      this.showWaitingApproval = false;
     },
     openUpdateDialog(userb) {
       this.dialogs.dialog1 = true;
@@ -591,10 +694,12 @@ export default {
 
         if (response.status >= 200 && response.status < 300) {
           this.dialogs.dialog1 = false;
-          this.userb = response.data;
+          this.userb = response.data.updatedUser;
+          console.log("response.data", response.data);
           // localStorage.setItem("GRM_USER", JSON.stringify(this.userb));
         }
       } catch (error) {
+        this.dialogs.dialog1 = false;
         // Handle errors if any
         console.error("Error posting data:", error);
       }
@@ -637,6 +742,15 @@ export default {
   },
 };
 </script>
+<style scoped>
+.content-visible .v-card__text {
+  display: block !important;
+}
+
+.v-card__text {
+  display: none;
+}
+</style>
 
 <style scoped>
 .centered-line2 {

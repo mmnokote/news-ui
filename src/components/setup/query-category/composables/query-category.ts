@@ -210,7 +210,10 @@ export const useQueryCategory = (): any => {
   });
 
   const shouldShowRejectionComment = computed(() => {
-    return data.formData.status?.code === "RJ";
+    return (
+      data.formData.status?.code === "RJ" ||
+      data.formData.status?.code === "PAAC"
+    );
   });
 
   return {

@@ -7,10 +7,10 @@
         <v-icon>mdi-delete-empty-outline</v-icon>
         Restore Trashed Users
       </v-btn>
-      <!-- <v-btn large color="teal" class="white--text" @click="openDialog">
+      <v-btn large color="teal" class="white--text" @click="openDialog">
         <v-icon>mdi-plus</v-icon>
-        Add New
-      </v-btn> -->
+        Sendpayment Notification
+      </v-btn>
     </v-card-actions>
 
     <v-card>
@@ -44,8 +44,8 @@
                 @click.native.stop
                 v-model="item.active"
                 @change="openActivationDialog(item)"
-                :disabled="item.id === data.currentUser.id"
               ></v-switch>
+              <!-- :disabled="item.id === data.currentUser.id" -->
             </template>
             <span>Role and Menu Management</span>
           </v-tooltip>
