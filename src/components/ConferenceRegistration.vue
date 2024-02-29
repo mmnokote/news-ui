@@ -92,6 +92,7 @@
                       clearable
                     >
                     </v-select>
+
                     <!-- <v-text-field
                       v-else
                       outlined
@@ -104,6 +105,19 @@
                   </v-col>
 
                   <!-- item-title="name"-->
+                  <v-col cols="12">
+                    <v-select
+                      v-if="group === 'Forum'"
+                      outlined
+                      v-model="subTheme"
+                      :items="subThemes"
+                      item-text="name"
+                      item-value="id"
+                      label="Select Forum Sub-Theme"
+                      clearable
+                      class="align-left-dropdown"
+                    ></v-select>
+                  </v-col>
                   <v-col
                     :cols="group === 'Individual' ? 12 : 12"
                     :md="group === 'Individual' ? 6 : 12"
@@ -481,6 +495,7 @@ import {
   registerUser,
   getCountries,
   getRegistrationCategories,
+  getSubthemes,
 } from "./services";
 
 export default {
@@ -578,6 +593,8 @@ export default {
         dialog6: false,
         dialog7: false,
       },
+      subThemes: [],
+
       valid: true,
       inline: true,
       selectedOption: null,
@@ -685,6 +702,11 @@ export default {
       getRegistrationCategories().then((response) => {
         if (response.status >= 200 && response.status < 300) {
           this.registrationCategories = response.data; // Update this line
+        }
+      });
+      getSubthemes().then((response) => {
+        if (response.status >= 200 && response.status < 300) {
+          this.subThemes = response.data; // Update this line
         }
       });
     },

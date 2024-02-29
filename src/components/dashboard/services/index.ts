@@ -37,6 +37,10 @@ export const getRegInfo = async (payload: any) => {
   });
 };
 
+export const getSubthemes = async () => {
+  return axios.get("/api/v1/subthemes");
+};
+
 export const getRegInfox = async (payload: any) => {
   // console.log("data", payload);
   return await axios.get(`/api/v1/jisajilis/jisajilis/search`, {

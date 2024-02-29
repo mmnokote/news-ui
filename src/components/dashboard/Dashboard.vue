@@ -107,6 +107,8 @@
                   <!-- Business Card Content -->
                   <v-card-text class="">
                     <!-- Company Logo -->
+                    <v-card-actions class="pt-n8 pb-5 pr-5 d-none d-md-flex">
+
                     <v-img
                       :src="userx"
                       alt="User Photo"
@@ -114,8 +116,25 @@
                       height=""
                       class="align-start elevation-10"
                     ></v-img>
+                    <v-spacer></v-spacer>
+                    <h2 class="text-h6 white--text">
+                        <strong class="text-uppercase">
+                          <span class="grey--text">
+                            {{ "REGISTRATION GROUP" }}
+                          </span>{{ " : " }} {{ userb?.group }}
+                        </strong>
+                      </h2>
+                    <h5 class="text-h6 white--text pl-10">
+                        <strong>
+                          <span class="grey--text">
+                            {{ "ID" }}
+                          </span>{{ " : " }} {{ userb?.user_identification }}
+                        </strong>
+                      </h5>
+                    </v-card-actions>
+
                     <v-card-actions class="pt-n8 pb-5 pr-5 d-none d-md-flex">
-                      <h2 class="text-h3 white--text">
+                      <h2 class="text-h5 white--text">
                         <strong>
                           {{ userb?.salutation }} {{ "" }}
                           {{ userb?.first_name }} {{ " "
@@ -123,11 +142,9 @@
                         </strong>
                       </h2>
                       <v-spacer></v-spacer>
-                      <h2 class="text-h6 white--text">
-                        <strong>
-                          {{ "ID" }}{{ " : " }} {{ userb?.user_identification }}
-                        </strong>
-                      </h2>
+
+                        
+                      
                     </v-card-actions>
                     <v-card-actions class="pt-n8 pb-5 pr-5 d-md-none">
                       <span class="text-h7 white--text">
@@ -231,6 +248,19 @@
           <v-form v-model="valid" @submit.prevent="submitForm">
             <v-container>
               <v-row>
+                <v-col cols="12">
+                    <v-select
+                      v-if="group === 'Forum'"
+                      outlined
+                      v-model="subTheme"
+                      :items="subThemes"
+                      item-text="name"
+                      item-value="id"
+                      label="Select Forum Sub-Theme"
+                      clearable
+                      class="align-left-dropdown"
+                    ></v-select>
+                  </v-col>
                 <v-col cols="12" md="6">
                   <v-select
                     v-if="group === 'Individual'"
@@ -514,7 +544,7 @@
 </template>
 
 <script>
-import { uploadFile, saveRegistration, getRegInfo } from "./services";
+import { uploadFile, saveRegistration, getRegInfo,getSubthemes } from "./services";
 import {
   registerUser,
   updateUser,
@@ -530,6 +560,7 @@ export default {
   },
   data() {
     return {
+      subThemes: [],
       peviewStatement: "SHOW YOUR PROFILE TO GET YOUR ID CARD",
       showPayment: false,
       showWaitingApproval: false,
@@ -597,6 +628,11 @@ export default {
           this.registrationCategories = response.data; // Update this line
         }
       });
+      getSubthemes().then((response) => {
+        if (response.status >= 200 && response.status < 300) {
+          this.subThemes = response.data; // Update this line
+        }
+      });
     },
     getStatusText(status,activation) {
       console.log("status", activation);
@@ -656,6 +692,7 @@ export default {
       this.email = userb.email;
       this.phoneNumber = userb.phone_number;
       this.username = userb.username;
+      this.subTheme = userb.subTheme;
       this.group = userb.group;
       this.description = userb.description;
       this.salutation = userb.salutation;
@@ -678,6 +715,7 @@ export default {
           group: this.group,
           description: this.description,
           salutation: this.salutation,
+          subTheme: this.subTheme,
           organization: this.organization,
           // Add more key-value pairs as needed
         });

@@ -16,7 +16,7 @@ import { queryUserRoutes } from "@/components/query-user";
 import { queryPriorityRoutes } from "@/components/setup/query-priority";
 
 import { queryCategoryRoutes } from "@/components/setup/query-category";
-import { queryCategoryRoutes as myAb } from "@/components/setup/my-query-category";
+import { queryCategoryRoutes as myAb } from "@/components/setup/query-category copy";
 import { queryStatusRoutes } from "@/components/setup/query-status";
 import { queryDocumentTypeRoutes } from "@/components/setup/query-document_type";
 import { menuRoutes } from "@/components/menu";
