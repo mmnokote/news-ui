@@ -5,6 +5,10 @@
       <v-card-actions class="pa-0">
         <h2>{{ "Profile Details" }}</h2>
         <v-spacer></v-spacer>
+        <v-btn large color="blue" class="white--text" @click="printFromServer()">
+        <v-icon>mdi-printer</v-icon>
+        Print Invoice
+      </v-btn>
         <v-btn
           class="white--text d-none d-md-flex"
           color="green"
@@ -14,6 +18,7 @@
           <v-icon color="white">mdi-account</v-icon>
           Update Profile
         </v-btn>
+        
         <v-btn
           :disabled="userb.jisajilis.length > 0"
           class="d-none d-md-flex"
@@ -47,7 +52,12 @@
             <span>{{ "Download Uploaded Receipt" }}</span>
           </a>
         </p>
-
+        <p>
+          <v-btn  block large color="blue" class="white--text d-md-none white--text" @click="printFromServer()">
+        <v-icon>mdi-printer</v-icon>
+        Print Invoice
+      </v-btn>
+        </p>
           <v-btn
             class="d-md-none white--text"
             color="green"
@@ -260,6 +270,17 @@
                       clearable
                       class="align-left-dropdown"
                     ></v-select>
+                  </v-col>
+                  <v-col cols="12" md="12">
+                    <v-select
+                      outlined
+                      v-model="boothCategory"
+                      item-text="name"
+                      item-value="code"
+                      :items="bCategories"
+                      label="Select Booth Categoty"
+                    >
+                    </v-select>
                   </v-col>
                 <v-col cols="12" md="6">
                   <v-select
@@ -551,6 +572,8 @@ import {
   getCountries,
   getRegistrationCategories,
 } from "../services";
+import { printReportJasper } from "../../components/report/services/report.services";
+
 // import ConferenceRegistration from "../Authentication.vue";
 
 export default {
@@ -560,6 +583,23 @@ export default {
   },
   data() {
     return {
+      bCategories: [
+        {
+          id: 1,
+          name: "Category One",
+          code: "C1",
+        },
+        {
+          id: 2,
+          name: "Category Two",
+          code: "C2",
+        },
+        {
+          id: 3,
+          name: "Category Three",
+          code: "C3",
+        },
+      ],
       subThemes: [],
       peviewStatement: "SHOW YOUR PROFILE TO GET YOUR ID CARD",
       showPayment: false,
@@ -576,6 +616,7 @@ export default {
       country: "",
       registationcategory: "",
       gender: "",
+      boothCategory: null,
       first_name: "",
       middle_name: "",
       last_name: "",
@@ -599,6 +640,13 @@ export default {
     this.fetchCountries();
   },
   methods: {
+     printFromServer () {
+    const params = {
+      user_id:this.userb.id
+    };
+    printReportJasper("invoice", params);
+  },
+
     toggleContent() {
       if (this.userb.active&&this.userb.jisajilis.length > 0) {
         this.showContent = !this.showContent;
@@ -686,6 +734,7 @@ export default {
       this.country = userb.country;
       this.registationcategory = userb.registationcategory;
       this.gender = userb.sex;
+      this.boothCategory = userb.boothCategory;
       this.firstname = userb.first_name;
       this.middlename = userb.middle_name;
       this.lastname = userb.last_name;
@@ -714,6 +763,7 @@ export default {
           username: this.username,
           group: this.group,
           description: this.description,
+          boothCategory: this.boothCategory,
           salutation: this.salutation,
           subTheme: this.subTheme,
           organization: this.organization,

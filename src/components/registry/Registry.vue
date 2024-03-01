@@ -11,6 +11,10 @@
         <!-- <v-icon>mdi-send</v-icon> -->
         Send Email Notification For Payment Reminder
       </v-btn>
+      <v-btn large color="blue" class="white--text" @click="printFromServer()">
+        <v-icon>mdi-printer</v-icon>
+        Print Summary Report
+      </v-btn>
     </v-card-actions>
 
     <v-card>
@@ -321,6 +325,7 @@ export default defineComponent({
       openRestoreTrashedDialog,
       filterTrushedUser,
       openDialogMapRoles,
+      printFromServer,
     } = useRegistry();
 
     const showRoles = (roles) => {
@@ -329,6 +334,7 @@ export default defineComponent({
 
     return {
       data,
+      printFromServer,
       getFullFilePath,
       message,
       confirmTitle,

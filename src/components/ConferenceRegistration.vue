@@ -80,7 +80,7 @@
             <v-form v-model="valid" @submit.prevent="submitForm">
               <v-container>
                 <v-row>
-                  <v-col cols="12" md="6">
+                  <v-col cols="12" md="12">
                     <v-select
                       v-if="group === 'Individual'"
                       outlined
@@ -118,9 +118,20 @@
                       class="align-left-dropdown"
                     ></v-select>
                   </v-col>
+                  <v-col cols="12" md="12">
+                    <v-select
+                      outlined
+                      v-model="boothCategory"
+                      item-text="name"
+                      item-value="code"
+                      :items="bCategories"
+                      label="Select Booth Categoty"
+                    >
+                    </v-select>
+                  </v-col>
                   <v-col
                     :cols="group === 'Individual' ? 12 : 12"
-                    :md="group === 'Individual' ? 6 : 12"
+                    :md="group === 'Individual' ? 12 : 12"
                   >
                     <v-autocomplete
                       outlined
@@ -501,6 +512,23 @@ import {
 export default {
   data() {
     return {
+      bCategories: [
+        {
+          id: 1,
+          name: "Category One",
+          code: "C1",
+        },
+        {
+          id: 2,
+          name: "Category Two",
+          code: "C2",
+        },
+        {
+          id: 3,
+          name: "Category Three",
+          code: "C3",
+        },
+      ],
       tableData: [
         {
           sno: 1,
@@ -605,6 +633,7 @@ export default {
       group: null,
       organization: null,
       gender: null,
+      boothCategory: null,
       selectedGender: null,
       selectedCategoryItem: null,
       column: null,
@@ -677,6 +706,7 @@ export default {
           phone_number: this.phoneNumber,
           username: this.username,
           group: this.group,
+          boothCategory: this.boothCategory,
           description: this.description,
           salutation: this.salutation,
           organization: this.organization,
@@ -743,6 +773,7 @@ export default {
       this.phoneNumber = "";
       this.username = "";
       this.description = "";
+      this.boothCategory = "";
       this.salutation = "";
       this.group = "";
       this.organization = "";

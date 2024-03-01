@@ -13,6 +13,8 @@ import {
   restoreUser,
   sendPaymentNotification,
 } from "../services/registry.service";
+import { printReportJasper } from "../../../components/report/services/report.services";
+
 // import { get as getApprovalRoles } from "@/components/approval/role/services/approval-role-services";
 import { get as getFacilities } from "@/components/facility/facility/services/facility.service";
 import { User } from "../types/Registry";
@@ -128,6 +130,10 @@ export const useRegistry = (type?: string): Record<string, unknown> => {
   //     initialize();
   //   }
   // });
+  const printFromServer = () => {
+    const params = {};
+    printReportJasper("summary", params);
+  };
 
   const filterTrushedUser = () => {
     if (data.searchTermTrushed.length > 3) {
@@ -550,6 +556,7 @@ export const useRegistry = (type?: string): Record<string, unknown> => {
 
   return {
     data,
+    printFromServer,
     getFullFilePath,
     openActivationDialog,
     openApprovalRoleDialog,
