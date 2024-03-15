@@ -18,8 +18,9 @@
         :items="users"
         :single-expand="true"
         class="elevation-1"
-        disable-pagination
       >
+        <!-- disable-pagination -->
+
         <template v-slot:[`item.createdAt`]="{ item }">
           <span>{{ item.createdAt | format() }}</span>
         </template>
@@ -57,6 +58,7 @@
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-icon
+                v-if="!isButtonDisabled"
                 v-bind="attrs"
                 v-on="on"
                 class="mr-2"
@@ -101,7 +103,7 @@
               <v-row justify="center">
                 <v-col cols="12" md="6">
                   <v-text-field
-                    :value="data.formData.email"
+                    v-model="data.formData.email"
                     @input="updateEmail"
                     :rules="emailRules"
                     label="Valid E-mail"
@@ -376,9 +378,11 @@ export default defineComponent({
       save2,
       cancelDialog2,
       openDialog1,
+      isButtonDisabled,
     } = useQueryCategory();
 
     return {
+      isButtonDisabled,
       data,
       cancelDialog2,
       save2,

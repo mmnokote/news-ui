@@ -7,7 +7,7 @@
           Abstract submission {{ currentYear }}
         </h1>
         <h3 class="text-center">
-          <span class="warning--text">Final date: 10/03/2024</span>
+          <span class="warning--text">Final date: 15/03/2024</span>
         </h3>
         <hr class="centered-line" />
         <v-divider class="mb-2"></v-divider>
@@ -24,7 +24,7 @@
                   <v-row justify="center">
                     <v-col cols="12" md="6">
                       <v-text-field
-                        :value="formData.email"
+                        v-model="formData.email"
                         @input="updateEmail"
                         :rules="emailRules"
                         label="Valid E-mail"
@@ -204,13 +204,26 @@
                   <!-- Buttons -->
                   <v-card-actions class="pt-n8 pb-5 pr-5">
                     <v-spacer></v-spacer>
-                    <v-btn color="error" @click="cancelForm">Cancel</v-btn>
+                    <v-btn
+                      :disabled="isButtonDisabled"
+                      color="error"
+                      @click="cancelForm"
+                      >Cancel</v-btn
+                    >
 
                     <!-- Reset Button -->
-                    <v-btn @click="resetFormData" color="info">Reset</v-btn>
+                    <v-btn
+                      :disabled="isButtonDisabled"
+                      @click="resetFormData"
+                      color="info"
+                      >Reset</v-btn
+                    >
 
                     <!-- Submit Button -->
-                    <v-btn type="submit" color="primary">Submit</v-btn>
+                    <v-btn v-if="isButtonDisabled" type="submit" color="warning"
+                      >DUE DATE PASSED YOU CAN NOT SUBMIT</v-btn
+                    >
+                    <v-btn v-else type="submit" color="primary">Submit</v-btn>
                   </v-card-actions>
                 </v-container>
               </v-form>
@@ -231,6 +244,7 @@ export default {
   name: "Abstract",
   data() {
     return {
+      disableDate: new Date("2024-03-16"), // March 16, 2024
       maxWordLimit: 200, // Set your desired word limit
       maxWordLimitBackground: 200, // Set your desired word limit
       formData: {
@@ -268,6 +282,10 @@ export default {
     };
   },
   computed: {
+    isButtonDisabled() {
+      const currentDate = new Date();
+      return currentDate > this.disableDate;
+    },
     wordCount() {
       // Remove extra whitespaces and split the text into words
       const words = this.formData?.methodology.trim().split(/\s+/);

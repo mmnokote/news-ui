@@ -18,6 +18,7 @@ export const useQueryCategory = (): any => {
   let documentCategoryData: QueryCategory;
 
   const data = reactive({
+    disableDate: new Date("2024-03-16"), // March 16, 2024
     subThemes: [],
     file: "",
     title: "Manage My Abstracts",
@@ -42,6 +43,12 @@ export const useQueryCategory = (): any => {
         align: "start",
         sortable: false,
         value: "title",
+      },
+      {
+        text: "Status",
+        align: "start",
+        sortable: false,
+        value: "rejectionComment",
       },
 
       { text: "Actions", value: "actions", sortable: false },
@@ -190,6 +197,7 @@ export const useQueryCategory = (): any => {
 
   const updateQueryCategory = (data: any) => {
     const { fullName, ...newData } = data; // Create a new object without the 'fullName' key
+    // console.log("newwwww", newData);
     update(newData).then(() => {
       reloadData();
       cancelDialog();
@@ -242,6 +250,10 @@ export const useQueryCategory = (): any => {
       data.formData.status?.code === "PAAC"
     );
   });
+  const isButtonDisabled = computed(() => {
+    const currentDate = new Date();
+    return currentDate > data.disableDate;
+  });
 
   return {
     data,
@@ -263,5 +275,6 @@ export const useQueryCategory = (): any => {
     deleteDialog,
     users,
     printFromServer,
+    isButtonDisabled,
   };
 };

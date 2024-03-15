@@ -18,6 +18,8 @@
     </v-card-actions>
 
     <v-card>
+      <!-- disable-pagination -->
+
       <v-data-table :headers="data.headers" :items="users" class="elevation-1">
         <template v-slot:top>
           <v-card-title>

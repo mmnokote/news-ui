@@ -3,11 +3,28 @@
     <v-card-actions class="pa-0">
       <h2>{{ data.title }}</h2>
       <v-spacer></v-spacer>
-      <v-btn large color="teal" class="white--text" @click="openDialog">
+      <v-btn
+        large
+        color="teal"
+        class="white--text d-none d-md-flex"
+        @click="openDialog"
+      >
         <!-- <v-icon>mdi-send</v-icon> -->
-        Send Email Notification For Abstract Correction
+        Send Email For Abstract Correction
       </v-btn>
     </v-card-actions>
+    <p>
+      <v-btn
+        block
+        large
+        color="teal"
+        class="white--text d-md-none"
+        @click="openDialog"
+      >
+        <!-- <v-icon>mdi-send</v-icon> -->
+        Send Email For Abstract Correction
+      </v-btn>
+    </p>
     <v-card>
       <!-- <v-data-table
         :headers="data.headers"
@@ -22,8 +39,9 @@
         :items="users"
         :single-expand="true"
         class="elevation-1"
-        disable-pagination
       >
+        <!-- disable-pagination -->
+
         <template v-slot:[`item.createdAt`]="{ item }">
           <span>{{ item.createdAt | format() }}</span>
         </template>

@@ -29,9 +29,9 @@
                 <v-text-field
                   label="Jina la kati(Middle Name) *"
                   v-model="formData.middle_name"
-                  :rules="data.userValidation.middleName"
                   outlined
                 >
+                  <!-- :rules="data.userValidation.middleName" -->
                 </v-text-field>
               </v-col>
               <v-col cols="12" lg="4" md="4" sm="12">
@@ -58,10 +58,10 @@
                 <v-text-field
                   label="Namba ya simu(Phone Number) *"
                   v-model="formData.phone_number"
-                  :rules="data.userValidation.PhoneNoRequired"
                   outlined
                 >
                 </v-text-field>
+                <!-- :rules="data.userValidation.PhoneNoRequired" -->
               </v-col>
 
               <!-- <v-col cols="12" lg="6" md="6" sm="12" class="mt-n5">
@@ -134,7 +134,7 @@
               </v-col>
               <v-col cols="12" lg="6" md="6" sm="12" class="mt-n5">
                 <v-text-field
-                  type="password"
+                  type="text"
                   label="Nywila(Password)"
                   v-model="formData.password"
                   :rules="data.requiredRules"

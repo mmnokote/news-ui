@@ -1,5 +1,5 @@
 {
-  "name": "GRN",
+  "name": "IPHCC",
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
@@ -17,6 +17,7 @@
     "core-js": "^3.6.5",
     "dayjs": "^1.11.1",
     "element-ui": "^2.15.14",
+    "firebase": "^10.9.0",
     "fusioncharts": "^3.21.0",
     "jspdf": "^2.3.1",
     "jspdf-autotable": "^3.5.20",

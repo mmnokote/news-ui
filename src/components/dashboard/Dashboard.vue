@@ -5,7 +5,7 @@
       <v-card-actions class="pa-0">
         <h2>{{ "Profile Details" }}</h2>
         <v-spacer></v-spacer>
-        <v-btn large color="blue" class="white--text" @click="printFromServer()">
+        <v-btn large color="blue" class="white--text d-none d-md-flex" @click="printFromServer()">
         <v-icon>mdi-printer</v-icon>
         Print Invoice
       </v-btn>
@@ -259,6 +259,18 @@
             <v-container>
               <v-row>
                 <v-col cols="12">
+            <v-radio-group
+            v-if="!userb.jisajilis.length > 0"
+              row
+              class="text-center"
+              v-model="group"
+            >
+              <v-radio label="Individual" value="Individual"></v-radio>
+              <v-radio label="Booth" value="Booth"></v-radio>
+              <v-radio label="Forum" value="Forum"></v-radio>
+            </v-radio-group>
+                  </v-col>
+                <v-col cols="12">
                     <v-select
                       v-if="group === 'Forum'"
                       outlined
@@ -273,6 +285,7 @@
                   </v-col>
                   <v-col cols="12" md="12">
                     <v-select
+                      v-if="group === 'Booth'"
                       outlined
                       v-model="boothCategory"
                       item-text="name"

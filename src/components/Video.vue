@@ -81,7 +81,7 @@ export default {
       `;
     },
     attachPlayListeners() {
-      const videoElements = this.$refs.videoElement;
+      let videoElements = this.$refs.videoElement;
       if (videoElements) {
         if (!Array.isArray(videoElements)) {
           videoElements = [videoElements];

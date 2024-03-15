@@ -7,17 +7,95 @@
         <v-icon>mdi-delete-empty-outline</v-icon>
         Restore Trashed Users
       </v-btn>
-      <v-btn large color="teal" class="white--text" @click="openDialog">
+      <v-btn
+        large
+        color="teal"
+        class="white--text d-none d-md-flex"
+        @click="openDialog"
+      >
         <!-- <v-icon>mdi-send</v-icon> -->
-        Send Email Notification For Payment Reminder
+        <v-icon>mdi-send</v-icon>
+
+        Send Email For Payment Reminder
       </v-btn>
-      <v-btn large color="blue" class="white--text" @click="printFromServer()">
+      <div class="text-center pl-5 d-none d-md-flex">
+        <v-menu offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn large color="primary" dark v-bind="attrs" v-on="on">
+              <v-icon>mdi-printer</v-icon>
+
+              Reports
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item v-for="(item, index) in data.reports" :key="index">
+              <v-list-item-title
+                @click="printFromServer(item.name)"
+                style="cursor: pointer"
+              >
+                <v-icon>mdi-file-outline</v-icon>
+                {{ item.title }}
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
+      <!-- <v-btn
+        large
+        color="blue"
+        class="white--text d-none d-md-flex"
+        @click="printFromServer()"
+      >
         <v-icon>mdi-printer</v-icon>
         Print Summary Report
-      </v-btn>
+      </v-btn> -->
     </v-card-actions>
 
+    <p>
+      <v-btn
+        large
+        block
+        color="teal"
+        class="white--text d-md-none"
+        @click="openDialog"
+      >
+        <v-icon>mdi-send</v-icon>
+        Send Email For Payment Reminder
+      </v-btn>
+    </p>
+    <div class="text-center pb-5 d-md-none">
+      <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn block large color="primary" dark v-bind="attrs" v-on="on">
+            <v-icon>mdi-printer</v-icon>
+
+            Reports
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item v-for="(item, index) in data.reports" :key="index">
+            <v-list-item-title
+              @click="printFromServer(item.name)"
+              style="cursor: pointer"
+            >
+              <v-icon>mdi-file-outline</v-icon>
+              {{ item.title }}
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </div>
     <v-card>
+      <!-- <v-btn
+        block
+        large
+        color="blue"
+        class="white--text d-md-none"
+        @click="printFromServer()"
+      >
+        <v-icon>mdi-printer</v-icon>
+        Print Summary Report
+      </v-btn> -->
       <v-data-table :headers="data.headers" :items="users" class="elevation-1">
         <template v-slot:top>
           <v-card-title>

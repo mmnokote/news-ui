@@ -64,7 +64,7 @@
                           class="mr-3 ml-3"
                         ></v-text-field>
                       </v-col>
-                      <v-col cols="12" sm="12" md="12">
+                      <!-- <v-col cols="12" sm="12" md="12">
                         <v-text-field
                           prepend-inner-icon="mdi-email"
                           label="Valid email"
@@ -74,7 +74,7 @@
                           :rules="data.emailRules"
                           class="mr-3 ml-3"
                         ></v-text-field>
-                      </v-col>
+                      </v-col> -->
                     </v-row>
                   </v-container>
                 </v-form>
@@ -219,10 +219,11 @@ export default Vue.extend({
       data.openDialogForm = false;
     };
     const save = () => {
-      console.log("formData", data.formData2);
+      // console.log("formData", data.formData2);
       // this.openDialogForm = false;
       restoreRegistration(data.formData2).then((response) => {
-        console.log("response:", response);
+        closeDialog();
+        // console.log("response:", response);
       });
     };
 

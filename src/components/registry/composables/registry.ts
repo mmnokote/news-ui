@@ -27,6 +27,10 @@ export const useRegistry = (type?: string): Record<string, unknown> => {
   const dataItems: Array<User> = [];
   const userData = {} as User;
   const data = reactive({
+    reports: [
+      { title: "Registrations by Country and Expertise", name: "summary" },
+      { title: "Registration by Group", name: "summaryb" },
+    ],
     title: "Manage Registration",
     currentUser: null,
     status: "",
@@ -130,9 +134,9 @@ export const useRegistry = (type?: string): Record<string, unknown> => {
   //     initialize();
   //   }
   // });
-  const printFromServer = () => {
+  const printFromServer = (reportName) => {
     const params = {};
-    printReportJasper("summary", params);
+    printReportJasper(reportName, params);
   };
 
   const filterTrushedUser = () => {

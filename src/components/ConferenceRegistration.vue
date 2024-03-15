@@ -65,7 +65,7 @@
         <template v-slot:header>
           <ModalHeader
             @closeDialog="closeDialog('dialog1')"
-            :title="`Conference Registration Form`"
+            :title="`Registration Form`"
           />
         </template>
         <template v-slot:body>
@@ -120,6 +120,7 @@
                   </v-col>
                   <v-col cols="12" md="12">
                     <v-select
+                      v-if="group === 'Booth'"
                       outlined
                       v-model="boothCategory"
                       item-text="name"
