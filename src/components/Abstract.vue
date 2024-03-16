@@ -244,7 +244,7 @@ export default {
   name: "Abstract",
   data() {
     return {
-      disableDate: new Date("2024-03-16"), // March 16, 2024
+      disableDate: new Date("2024-03-17"), // March 16, 2024
       maxWordLimit: 200, // Set your desired word limit
       maxWordLimitBackground: 200, // Set your desired word limit
       formData: {
