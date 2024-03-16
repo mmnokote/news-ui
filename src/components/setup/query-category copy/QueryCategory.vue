@@ -40,7 +40,14 @@
             </v-col>
           </v-card-title>
         </template>
-
+        <template v-slot:[`item.rejectionComment`]="{ item }">
+          <span
+            v-if="item.rejectionComment === 'Abstract Accepted'"
+            class="green--text"
+            >{{ item.rejectionComment }}</span
+          >
+          <span v-else class="red--text">{{ item.rejectionComment }}</span>
+        </template>
         <template v-slot:[`item.actions`]="{ item }">
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">

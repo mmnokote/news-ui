@@ -713,14 +713,21 @@ export default {
           organization: this.organization,
           // Add more key-value pairs as needed
         });
+        console.log("MXXXXXXXXXXXXXXXXXXXXXXXX", response.data.user);
 
-        if (response.status >= 200 && response.status < 300) {
+        if (
+          response.status >= 200 &&
+          response.status < 300 &&
+          response.data.user == null
+        ) {
+          console.log("message", response.data.user);
+        } else {
           this.dialogs.dialog1 = false;
           this.resetForm();
         }
       } catch (error) {
         // Handle errors if any
-        console.error("Error posting data:", error);
+        // console.error("Error posting data:", error);
       }
     },
 

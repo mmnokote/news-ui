@@ -43,6 +43,12 @@ export const useQueryCategory = (): any => {
         sortable: false,
         value: "title",
       },
+      {
+        text: "Status",
+        align: "start",
+        sortable: false,
+        value: "rejectionComment",
+      },
 
       { text: "Actions", value: "actions", sortable: false },
     ],
