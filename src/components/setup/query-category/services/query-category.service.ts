@@ -14,13 +14,12 @@ const getStatuses = async () => {
 // const get = async (payload: any) => {
 //   return await axios.get("/api/v1/abstarcts", { params: payload });
 // };
+
 const search = async (payload: any) => {
-  return await axios.get(`/api/v1/abstarcts/`, {
-    params: {
-      search: JSON.stringify(payload),
-    },
-  });
+  console.log("data", payload);
+  return await axios.get(`/api/v1/abstarcts/filter`, { params: payload });
 };
+
 const searchCategories = async (payload: any) => {
   return await axios.get(`/api/v1/docabstracts/`, {
     params: {

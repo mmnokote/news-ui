@@ -8,6 +8,7 @@
         Restore Trashed Users
       </v-btn>
       <v-btn
+        disabled
         large
         color="teal"
         class="white--text d-none d-md-flex"
@@ -53,6 +54,7 @@
 
     <p>
       <v-btn
+        disabled
         large
         block
         color="teal"
@@ -169,7 +171,7 @@
             <span>Preview Recept</span>
           </v-tooltip>
 
-          <v-tooltip top>
+          <!-- <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <v-icon
                 v-bind="attrs"
@@ -182,7 +184,7 @@
               </v-icon>
             </template>
             <span>View</span>
-          </v-tooltip>
+          </v-tooltip> -->
           <!-- <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <v-icon

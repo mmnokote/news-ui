@@ -1,4 +1,8 @@
 import Vue from "vue";
+import VueQrcode from "@chenfengyuan/vue-qrcode";
+
+Vue.component(VueQrcode.name, VueQrcode);
+
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 

@@ -12,12 +12,18 @@ import {
   sendPaymentNotification,
 } from "../services/query-category.service";
 import { printReportJasper } from "../../../report/services/report.services";
+import { uploadFile } from "@/components/dashboard/services";
 
 export const useQueryCategory = (): any => {
   const dataItems: Array<QueryCategory> = [];
   let documentCategoryData: QueryCategory;
 
   const data = reactive({
+    selectedFile: "",
+    openUploadDialogForm: false,
+    selectedAB: "",
+    path_file: "/Abstract Guide.odp",
+    path_filew: "/Abstract Guide.docx",
     disableDate: new Date("2024-03-16"), // March 16, 2024
     subThemes: [],
     file: "",
@@ -144,6 +150,11 @@ export const useQueryCategory = (): any => {
     data.formData = {};
     data.modal = !data.modal;
   };
+  const cancelDialogx = () => {
+    data.formData = {};
+    data.openUploadDialogForm = false;
+  };
+
   const cancelDialog2 = () => {
     data.formData2 = {};
     data.modal2 = !data.modal2;
@@ -200,7 +211,9 @@ export const useQueryCategory = (): any => {
     // console.log("newwwww", newData);
     update(newData).then(() => {
       reloadData();
-      cancelDialog();
+      cancelDialogx();
+      data.modal = false;
+      // cancelDialog();
     });
   };
 
@@ -255,13 +268,89 @@ export const useQueryCategory = (): any => {
     return currentDate > data.disableDate;
   });
 
+  const getFullFilePath = (path) => {
+    // Assuming "uploads/path_file" is the prefix
+    return `${path}`;
+  };
+  const getFullFilePathW = (pathW) => {
+    // Assuming "uploads/path_file" is the prefix
+    return `${pathW}`;
+  };
+
+  const fileUrl = computed(() => {
+    return getFullFilePath(data.path_file);
+  });
+
+  const fileUrlWord = computed(() => {
+    return getFullFilePathW(data.path_filew);
+  });
+
+  const openUploadDialog = (item) => {
+    data.openUploadDialogForm = true;
+    data.selectedAB = item;
+  };
+
+  const savePPT = () => {
+    if (data.formData.id) {
+      updateQueryCategory(data.formData);
+    } else {
+      createData(data.formData);
+    }
+  };
+
+  const clearFile = () => {
+    data.selectedFile = null; // Clear the selected file
+  };
+  const saveFile = (file) => {
+    console.log("itemitem:", data.selectedAB);
+
+    if (file) {
+      // Check if the selected file is an ODP file
+      if (file.type !== "application/vnd.oasis.opendocument.presentation") {
+        // Inform the user that only ODP files are allowed
+        alert("Only ODP files are allowed");
+        clearFile();
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      // Append all items from data.selectedAB to formData
+      for (const key in data.selectedAB) {
+        if (data.selectedAB.hasOwnProperty(key)) {
+          data.formData[key] = data.selectedAB[key];
+        }
+      }
+
+      // Upload the formData as needed
+      uploadFile(formData).then((response) => {
+        const fileInfo = {
+          file_path: response.data.current_name,
+        };
+        console.log("path:", data.formData);
+        data.formData.path_file = response.data.current_name;
+        //remove duplicates but keep the last updated score!
+        // data.formData.files.reverse();
+        // data.formData.files = _.uniqBy(data.formData, "current_name");
+        // this.loading2 = false;
+      });
+    }
+  };
+
   return {
     data,
+    savePPT,
+    saveFile,
+    openUploadDialog,
+    fileUrl,
+    fileUrlWord,
     fetchSubthemes,
     openDialog,
     openDialog1,
     shouldShowRejectionComment,
     cancelDialog,
+    cancelDialogx,
     cancelDialog2,
     getDocument,
     updateQueryCategory,

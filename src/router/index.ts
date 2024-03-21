@@ -31,6 +31,8 @@ import ConferenceRegistration from "@/components/ConferenceRegistration.vue";
 import Abstract from "@/components/Abstract.vue";
 import Authentication from "@/components/Authentication.vue";
 import Video2 from "@/components/Video2.vue";
+import Scan from "@/components/Scan.vue";
+import Doccuments from "@/components/Doccuments.vue";
 
 Vue.use(VueRouter);
 
@@ -59,9 +61,19 @@ const routes: Array<RouteConfig> = [
         component: Video2,
       },
       {
+        path: "/scan",
+        name: "Scan",
+        component: Scan,
+      },
+      {
         path: "/about-page",
         name: "Conference About",
         component: About,
+      },
+      {
+        path: "/document-page",
+        name: "Doccuments",
+        component: Doccuments,
       },
       {
         path: "/registration-page",

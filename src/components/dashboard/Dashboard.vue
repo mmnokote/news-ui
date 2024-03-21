@@ -5,6 +5,7 @@
       <v-card-actions class="pa-0">
         <h2>{{ "Profile Details" }}</h2>
         <v-spacer></v-spacer>
+        
         <v-btn large color="blue" class="white--text d-none d-md-flex" @click="printFromServer()">
         <v-icon>mdi-printer</v-icon>
         Print Invoice
@@ -20,38 +21,21 @@
         </v-btn>
         
         <v-btn
-          :disabled="userb.jisajilis.length > 0"
+          :disabled="userb?.jisajilis.length > 0"
           class="d-none d-md-flex"
           color="primary"
           large
           @click="openDialog()"
         >
           <v-icon>mdi-upload</v-icon>
-          Uploaded your receipt
+          Upload your receipt
         </v-btn>
       </v-card-actions>
       </v-col>
       <v-card flat max-width="100%" class="">
         <v-col cols="12">
 
-        <span
-          >Payment Status:
-          {{
-            getStatusText(
-              this.userb &&
-                this.userb.jisajilis &&
-                this.userb.jisajilis[0]?.status
-                ? true
-                : false,userb.active
-            )
-          }}</span
-        >
-        
-        <p v-if="userb.jisajilis.length > 0">
-          <a :href="getFullFilePath(regInfromation?.path_file)" target="_blank">
-            <span>{{ "Download Uploaded Receipt" }}</span>
-          </a>
-        </p>
+       
         <p>
           <v-btn  block large color="blue" class="white--text d-md-none white--text" @click="printFromServer()">
         <v-icon>mdi-printer</v-icon>
@@ -76,12 +60,32 @@
             color="primary"
             large
             @click="openDialog()"
-            :disabled="userb.jisajilis.length > 0"
+            :disabled="userb?.jisajilis.length > 0"
           >
             <v-icon>mdi-plus</v-icon>
-            Uploaded your receipt
+            Upload your receipt
           </v-btn>
         </v-col>
+        <span
+          ><span class="">
+            Payment Status:
+          </span>
+          {{
+            getStatusText(
+              this.userb &&
+                this.userb?.jisajilis &&
+                this.userb?.jisajilis[0]?.status
+                ? true
+                : false,userb?.active
+            )
+          }}</span
+        >
+        
+        <p v-if="userb?.jisajilis.length > 0">
+          <a :href="getFullFilePath(regInfromation?.path_file)" target="_blank">
+            <span>{{ "Download Uploaded Receipt" }}</span>
+          </a>
+        </p>
         <!-- Add more details as needed -->
         <v-col cols="12">
         <h1><hr class="centered-line2" /></h1>
@@ -127,23 +131,17 @@
                       class="align-start elevation-10"
                     ></v-img>
                     <v-spacer></v-spacer>
-                    <h2 class="text-h6 white--text">
-                        <strong class="text-uppercase">
-                          <span class="grey--text">
-                            {{ "REGISTRATION GROUP" }}
-                          </span>{{ " : " }} {{ userb?.group }}
-                        </strong>
-                      </h2>
+                    
                     <h5 class="text-h6 white--text pl-10">
                         <strong>
-                          <span class="grey--text">
-                            {{ "ID" }}
-                          </span>{{ " : " }} {{ userb?.user_identification }}
+                         <qrcode :value="userb?.user_identification" :options="{ width: 150 }"></qrcode>
+
                         </strong>
                       </h5>
                     </v-card-actions>
 
                     <v-card-actions class="pt-n8 pb-5 pr-5 d-none d-md-flex">
+                      
                       <h2 class="text-h5 white--text">
                         <strong>
                           {{ userb?.salutation }} {{ "" }}
@@ -151,29 +149,44 @@
                           }}{{ userb?.last_name }}
                         </strong>
                       </h2>
+                      
                       <v-spacer></v-spacer>
-
+                      <h2 class="text-h6 white--text">
+                        <strong class="text-uppercase">
+                          <span class="grey--text">
+                            {{ "REGISTRATION GROUP" }}
+                          </span>{{ " : " }} {{ userb?.group }}
+                        </strong>
+                      </h2>
                         
                       
                     </v-card-actions>
                     <v-card-actions class="pt-n8 pb-5 pr-5 d-md-none">
-                      <span class="text-h7 white--text">
-                        <strong>
-                          {{ userb?.salutation }} {{ "" }}
-                          {{ userb?.first_name }} {{ " "
-                          }}{{ userb?.last_name }}
-                        </strong>
-                      </span>
+                      <v-img
+                      :src="userx"
+                      alt="User Photo"
+                      max-width="10%"
+                      height=""
+                      class="align-start elevation-10"
+                    ></v-img>
                       <v-spacer></v-spacer>
-                      <span class="text-h7 white--text">
-                        <strong>
-                          {{ "ID" }}{{ " : " }} {{ userb?.user_identification }}
-                        </strong>
-                      </span>
+                      <qrcode :value="userb?.user_identification" :options="{ width: 100 }"></qrcode>
+
                     </v-card-actions>
 
                     <!-- Company Information -->
                     <div class="text-start">
+                      <p>
+                        <span class="text-h7 white--text d-md-none">
+                        <h2 class="white--text">
+                          <strong>
+                          {{ userb?.salutation }} {{ "" }}
+                          {{ userb?.first_name }} {{ " "
+                          }}{{ userb?.last_name }}
+                        </strong>
+                        </h2>
+                      </span>
+                      </p>
                       <p>
                         <span class="font-weight-bold 052f69--text">
                           <v-icon color="grey">mdi-office-building</v-icon>
@@ -214,7 +227,6 @@
                       </p>
                     </div>
                   </v-card-text>
-
                   <!-- Business Card Footer (Image) -->
                   <v-card-actions class="justify-center">
                     <v-img
@@ -255,12 +267,12 @@
               </p>
             </v-sheet>
           </v-col>
-          <v-form v-model="valid" @submit.prevent="submitForm">
+          <v-form  @submit.prevent="submitForm">
             <v-container>
               <v-row>
                 <v-col cols="12">
             <v-radio-group
-            v-if="!userb.jisajilis.length > 0"
+            v-if="!userb?.jisajilis.length > 0"
               row
               class="text-center"
               v-model="group"
@@ -311,7 +323,6 @@
                       v-else
                       outlined
                       v-model="organization"
-                      :rules="nameRules"
                       label="Organization"
                       required
                       @input="updateOrganization"
@@ -376,42 +387,34 @@
                   <v-text-field
                     outlined
                     v-model="organization"
-                    :rules="nameRules"
                     label="Organization"
                     required
-                    @input="updateOrganization"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" md="4">
                   <v-text-field
                     outlined
                     v-model="firstname"
-                    :rules="nameRules"
                     label="First name"
                     required
-                    @input="updateFirstName"
                   ></v-text-field>
                 </v-col>
 
                 <v-col cols="12" md="4">
                   <v-text-field
                     v-model="middlename"
-                    :rules="nameRules"
                     label="Middle name"
                     required
                     outlined
-                    @input="updateMiddleName"
                   ></v-text-field>
                 </v-col>
 
                 <v-col cols="12" md="4">
                   <v-text-field
                     v-model="lastname"
-                    :rules="nameRules"
                     label="Last name"
                     required
                     outlined
-                    @input="updateLastName"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -421,11 +424,9 @@
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="email"
-                    :rules="emailRules"
                     label="E-mail"
                     outlined
                     required
-                    @input="updateEmail"
                     ref="email"
                   ></v-text-field>
                 </v-col>
@@ -433,9 +434,7 @@
                 <v-col cols="12" md="6">
                   <v-text-field
                     v-model="phoneNumber"
-                    :rules="phoneRules"
                     label="Phone Number"
-                    @input="formatPhoneNumber"
                     outlined
                     required
                     ref="phone_number"
@@ -445,7 +444,6 @@
                 <v-col cols="12" md="12">
                   <v-text-field
                     v-model="username"
-                    :rules="nameRules"
                     label="User Name"
                     required
                     outlined
@@ -586,16 +584,19 @@ import {
   getRegistrationCategories,
 } from "../services";
 import { printReportJasper } from "../../components/report/services/report.services";
+// import QrcodeVue from 'qrcode.vue';
 
 // import ConferenceRegistration from "../Authentication.vue";
 
 export default {
   name: "UserProfile",
   components: {
-    // ConferenceRegistration,
-  },
+    // QrcodeVue  
+    },
   data() {
     return {
+      xxx: 'https://example.com',
+      size: 300,
       bCategories: [
         {
           id: 1,
@@ -631,11 +632,15 @@ export default {
       gender: "",
       boothCategory: null,
       first_name: "",
+      lastname: "",
+      middlename: "",
+      firstname: "",
       middle_name: "",
       last_name: "",
       email: "",
       phoneNumber: "",
       username: "",
+      countries: [],
       group: "",
       description: "",
       salutation: "",
@@ -644,10 +649,11 @@ export default {
     };
   },
   mounted() {
+
     this.getUserFromLocalStorage();
 
     // Retrieve user from local storage when the component is mounted
-    if (this.userb.jisajilis.length > 0) {
+    if (this.userb?.jisajilis.length > 0) {
       this.getUserRegistrationInfo();
     }
     this.fetchCountries();
@@ -661,7 +667,7 @@ export default {
   },
 
     toggleContent() {
-      if (this.userb.active&&this.userb.jisajilis.length > 0) {
+      if (this.userb?.active&&this.userb?.jisajilis.length > 0) {
         this.showContent = !this.showContent;
         if (this.showContent) {
           this.peviewStatement = "HIDE PROFILE";
@@ -669,7 +675,7 @@ export default {
           this.peviewStatement = "SHOW YOUR PROFILE TO GET YOUR ID CARD";
         }
       }
-      else if (!this.userb.active&&this.userb.jisajilis.length > 0) {
+      else if (!this.userb?.active&&this.userb?.jisajilis.length > 0) {
         this.showWaitingApproval = true;
       }
       
@@ -810,26 +816,53 @@ export default {
       });
     },
 
-    saveFile(file) {
-      if (file) {
-        const formData = new FormData();
-        formData.append("file", file);
-        uploadFile(formData).then((response) => {
-          console.log("response:", response);
-          const fileInfo = {
-            file_path: response.data.current_name,
-          };
-          console.log("path:", this.formData2);
-          this.formData2.path_file = response.data.current_name;
-          this.formData2.userId = this.userb.id;
-          this.formData2.status = true;
-          //remove duplicates but keep the last updated score!
-          // data.formData.files.reverse();
-          // data.formData.files = _.uniqBy(data.formData2, "current_name");
-          // this.loading2 = false;
-        });
-      }
-    },
+  saveFile(file) {
+  if (file) {
+    // Check if file size exceeds 1MB
+    if (file.size > 1024 * 1024) {
+      alert("File size exceeds 1MB. Please select a smaller file.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+    uploadFile(formData).then((response) => {
+      console.log("response:", response);
+      const fileInfo = {
+        file_path: response.data.current_name,
+      };
+      console.log("path:", this.formData2);
+      this.formData2.path_file = response.data.current_name;
+      this.formData2.userId = this.userb.id;
+      this.formData2.status = true;
+      //remove duplicates but keep the last updated score!
+      // data.formData.files.reverse();
+      // data.formData.files = _.uniqBy(data.formData2, "current_name");
+      // this.loading2 = false;
+    });
+  }
+},
+
+    // saveFile(file) {
+    //   if (file) {
+    //     const formData = new FormData();
+    //     formData.append("file", file);
+    //     uploadFile(formData).then((response) => {
+    //       console.log("response:", response);
+    //       const fileInfo = {
+    //         file_path: response.data.current_name,
+    //       };
+    //       console.log("path:", this.formData2);
+    //       this.formData2.path_file = response.data.current_name;
+    //       this.formData2.userId = this.userb.id;
+    //       this.formData2.status = true;
+    //       //remove duplicates but keep the last updated score!
+    //       // data.formData.files.reverse();
+    //       // data.formData.files = _.uniqBy(data.formData2, "current_name");
+    //       // this.loading2 = false;
+    //     });
+    //   }
+    // },
   },
 };
 </script>

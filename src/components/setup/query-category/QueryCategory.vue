@@ -51,6 +51,19 @@
           <v-card-title>
             <v-spacer></v-spacer>
             <v-col cols="6" sm="12" md="4" class="pa-0">
+              <v-select
+                @change="filterDocument()"
+                outlined
+                v-model="data.searchTerm"
+                :items="data.subThemes"
+                item-text="name"
+                item-value="id"
+                label="Filter By Sub-Theme"
+                clearable
+                class="align-left-dropdown"
+              ></v-select>
+            </v-col>
+            <!-- <v-col cols="6" sm="12" md="4" class="pa-0">
               <v-text-field
                 outlined
                 label="Search"
@@ -60,7 +73,7 @@
                 @click:clear="resetSearchText()"
                 clearable
               ></v-text-field>
-            </v-col>
+            </v-col> -->
           </v-card-title>
         </template>
         <template v-slot:[`item.rejectionComment`]="{ item }">
@@ -93,7 +106,7 @@
                 class="mr-2"
                 @click="openDialog1(item)"
               >
-                mdi-pencil-box-outline
+                mdi-pencil
               </v-icon>
             </template>
             <span>Aproval</span>
@@ -101,12 +114,29 @@
 
           <!-- <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
-              <v-icon v-bind="attrs" v-on="on" @click="deleteDialog(item.id)"
-                >mdi-trash-can-outline</v-icon
+              <v-icon v-bind="attrs" v-on="on" @click="openUploadDialog(item)"
+                >mdi-upload</v-icon
               >
             </template>
-            <span>Delete</span>
+            <span>Upload PPT</span>
           </v-tooltip> -->
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <a
+                v-if="item.path_file"
+                :href="getFullFilePath(item.path_file)"
+                download
+                target="_blank"
+              >
+                <v-icon color="green" v-bind="attrs" v-on="on"
+                  >mdi-download</v-icon
+                >
+              </a>
+              <v-icon v-else disabled>mdi-download</v-icon>
+            </template>
+            <span v-if="item.path_file">Download PPT</span>
+            <span v-else>No file available</span>
+          </v-tooltip>
         </template>
         <!-- <template v-slot:footer>
           <Paginate
@@ -117,6 +147,53 @@
         </template> -->
       </v-data-table>
     </v-card>
+    <Modal :modal="data.openUploadDialogForm" :width="600">
+      <template v-slot:header>
+        <ModalHeader @closeDialog="cancelDialogx()" :title="`PPT Document`" />
+      </template>
+      <template v-slot:body>
+        <div class="pa-5">
+          <v-form>
+            <v-container>
+              <v-row>
+                <v-col cols="12" sm="12" md="12">
+                  <label for="file" class="label">
+                    <!-- <small class="t-color">
+                      {{ "Attachment " }}
+                    </small> -->
+                  </label>
+                  <v-file-input
+                    @change="saveFile($event)"
+                    color=""
+                    placeholder="Attach"
+                    filled
+                    outlined
+                    v-model="data.selectedFile"
+                    label="Select ODP file"
+                    accept="application/vnd.oasis.opendocument.presentation"
+                    :show-size="1000"
+                  >
+                  </v-file-input>
+                  <!-- <v-file-input
+                    accept="application/vnd.oasis.opendocument.presentation"
+                    label="Select ODP file"
+                    @change="saveFile($event)"
+                  ></v-file-input> -->
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-form>
+        </div>
+      </template>
+      <template v-slot:footer>
+        <ModalFooter>
+          <v-btn color="red darken-1" text @click="cancelDialog">Cancel</v-btn>
+          <v-btn color="green darken-1" text @click="savePPT"
+            >{{ "Save" }}
+          </v-btn>
+        </ModalFooter>
+      </template>
+    </Modal>
     <Modal :modal="data.modal" :width="750">
       <template v-slot:header>
         <ModalHeader
@@ -141,6 +218,16 @@
                     return-object
                     class="align-left-dropdown"
                   ></v-select>
+                </v-col>
+                <v-col cols="12" md="12">
+                  <v-select
+                    v-if="!shouldShowRejectionComment"
+                    outlined
+                    v-model="data.formData.template"
+                    :items="['PPT', 'POSTER']"
+                    label="Template to upload"
+                  >
+                  </v-select>
                 </v-col>
                 <v-col
                   cols="12"
@@ -231,8 +318,10 @@ export default defineComponent({
       openDialog,
       getData,
       cancelDialog,
+      cancelDialogx,
       getDocumentCategory,
       save,
+      savePPT,
       reloadData,
       remove,
       cancelConfirmDialog,
@@ -252,21 +341,31 @@ export default defineComponent({
       save2,
       cancelDialog2,
       openDialog1,
+      openUploadDialog,
+      saveFile,
+      getFullFilePath,
+      fetchSubthemese,
     } = useQueryCategory();
 
     return {
       data,
+      saveFile,
+      fetchSubthemese,
+      getFullFilePath,
+      cancelDialogx,
       cancelDialog2,
       save2,
       shouldShowRejectionComment,
       fetchSubthemes,
       users,
       openDialog,
+      openUploadDialog,
       openDialog1,
       getData,
       cancelDialog,
       getDocumentCategory,
       save,
+      savePPT,
       reloadData,
       remove,
       cancelConfirmDialog,

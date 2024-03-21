@@ -42,11 +42,17 @@
           @click="handleButtonClick1"
           ><h3 class="font-weight-bold text-3 basil--text">Register</h3></v-btn
         >
-        <v-btn
+        <!-- <v-btn
           class="font-weight-bold text-3 basil--text"
           text
           @click="handleButtonAbstract"
           ><h3 class="font-weight-bold text-3 basil--text">Abstract</h3></v-btn
+        > -->
+        <v-btn
+          class="font-weight-bold text-3 basil--text"
+          text
+          @click="handleButtonDcocument"
+          ><h3 class="font-weight-bold text-3 basil--text">Documents</h3></v-btn
         >
         <v-btn
           class="font-weight-bold text-3 basil--text"
@@ -219,6 +225,9 @@ export default {
     },
     handleButtonAbstract() {
       this.$router.push({ path: "/abstract-page" });
+    },
+    handleButtonDcocument() {
+      this.$router.push({ path: "/document-page" });
     },
   },
 };

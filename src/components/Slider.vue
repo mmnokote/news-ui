@@ -72,7 +72,7 @@
                         </div>
                         <div class="row no-gutters">
                           <div class="text-right col">
-                            <v-btn
+                            <!-- <v-btn
                               @click="goHome"
                               class="pa-6 text-transform-none font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg v-btn--router v-btn--tile theme--dark v-size--default success"
                               ><span class="v-btn__content">
@@ -81,15 +81,16 @@
                                   aria-hidden="true"
                                   class="v-icon notranslate mdi mdi-arrow-up-thin theme--dark"
                                 ></i></span
-                            ></v-btn>
+                            ></v-btn> -->
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div></div
-          ></v-carousel-item>
+              </div>
+            </div></v-carousel-item
+          >
         </v-carousel>
       </div>
     </div>
@@ -116,6 +117,10 @@ export default {
       // Use the Vue Router to navigate to the home route
       this.$router.push({ path: "/registration-page" });
     },
+    // goHome() {
+    //   // Use the Vue Router to navigate to the home route
+    //   this.$router.push({ name: "registration-page" });
+    // },
   },
 };
 </script>

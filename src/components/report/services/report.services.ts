@@ -51,6 +51,46 @@ const printReportJasper = async (reportID: any, payload?: any) => {
       window.open(fileURL);
     });
 };
+const printReportJasperWord = async (reportID: any, payload?: any) => {
+  await axios
+    .get(`/${APINEWREPORT}/reports/conference/${reportID}.docx`, {
+      // Change .pdf to .docx for Word document
+      params: payload,
+      responseType: "arraybuffer",
+      auth: {
+        username: REPORTSERVERUSER,
+        password: REPORTSERVERPASSWORD,
+      },
+    })
+    .then((response: any) => {
+      console.log("file", response.data);
+      const file = new Blob([response.data], {
+        type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // Set MIME type for Word document
+      });
+      const fileURL = URL.createObjectURL(file);
+      window.open(fileURL);
+    });
+};
+
+// const printReportJasperWord = async (reportID: any, payload?: any) => {
+//   await axios
+//     .get(`/${APINEWREPORT}/reports/conference/${reportID}.pdf`, {
+//       params: payload,
+//       responseType: "arraybuffer",
+//       auth: {
+//         username: REPORTSERVERUSER,
+//         password: REPORTSERVERPASSWORD,
+//       },
+//     })
+//     .then((response: any) => {
+//       console.log("file", response.data);
+//       const file = new Blob([response.data], {
+//         type: "application/pdf",
+//       });
+//       const fileURL = URL.createObjectURL(file);
+//       window.open(fileURL);
+//     });
+// };
 
 const printReportJasperExcell = async (reportID: any, payload?: any) => {
   if (payload) {
@@ -143,6 +183,7 @@ export {
   allreportFilters,
   toggleActive,
   printReportJasperExcell,
+  printReportJasperWord,
 };
 function s2ab(s) {
   const buf = new ArrayBuffer(s.length);

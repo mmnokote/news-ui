@@ -3,6 +3,32 @@
     <v-card-actions class="pa-0">
       <h2>{{ data.title }}</h2>
       <v-spacer></v-spacer>
+      <v-btn class="warning">
+        <a
+          :href="fileUrl"
+          target="_blank"
+          style="text-decoration: none; color: inherit"
+        >
+          <span class="white--text">
+            <v-icon>mdi-file-powerpoint</v-icon>
+            {{ "Abstract PPT Template" }}
+            <v-icon>mdi-download</v-icon>
+          </span>
+        </a>
+      </v-btn>
+      <v-btn class="primary">
+        <a
+          :href="fileUrlWord"
+          target="_blank"
+          style="text-decoration: none; color: inherit"
+        >
+          <span class="white--text">
+            <v-icon>mdi-microsoft-word</v-icon>
+            {{ " Abstract Word Template" }}
+            <v-icon>mdi-download</v-icon>
+          </span>
+        </a>
+      </v-btn>
     </v-card-actions>
     <v-card>
       <!-- <v-data-table
@@ -40,6 +66,7 @@
             </v-col>
           </v-card-title>
         </template>
+
         <template v-slot:[`item.rejectionComment`]="{ item }">
           <span
             v-if="item.rejectionComment === 'Abstract Accepted'"
@@ -64,8 +91,9 @@
           </v-tooltip>
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
+              <!-- v-if="!isButtonDisabled" -->
               <v-icon
-                v-if="!isButtonDisabled"
+                :disabled="item.rejectionComment == 'Abstract Accepted'"
                 v-bind="attrs"
                 v-on="on"
                 class="mr-2"
@@ -85,7 +113,20 @@
             </template>
             <span>Delete</span>
           </v-tooltip> -->
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon
+                :disabled="item.rejectionComment !== 'Abstract Accepted'"
+                v-bind="attrs"
+                v-on="on"
+                @click="openUploadDialog(item)"
+                >mdi-upload</v-icon
+              >
+            </template>
+            <span>Upload {{ item.template }}</span>
+          </v-tooltip>
         </template>
+
         <!-- <template v-slot:footer>
           <Paginate
             :params="data.response"
@@ -95,6 +136,53 @@
         </template> -->
       </v-data-table>
     </v-card>
+    <Modal :modal="data.openUploadDialogForm" :width="600">
+      <template v-slot:header>
+        <ModalHeader @closeDialog="cancelDialogx()" :title="`PPT Document`" />
+      </template>
+      <template v-slot:body>
+        <div class="pa-5">
+          <v-form>
+            <v-container>
+              <v-row>
+                <v-col cols="12" sm="12" md="12">
+                  <label for="file" class="label">
+                    <!-- <small class="t-color">
+                      {{ "Attachment " }}
+                    </small> -->
+                  </label>
+                  <v-file-input
+                    @change="saveFile($event)"
+                    color=""
+                    placeholder="Attach"
+                    filled
+                    outlined
+                    v-model="data.selectedFile"
+                    label="Select ODP file"
+                    accept="application/vnd.oasis.opendocument.presentation"
+                    :show-size="1000"
+                  >
+                  </v-file-input>
+                  <!-- <v-file-input
+                    accept="application/vnd.oasis.opendocument.presentation"
+                    label="Select ODP file"
+                    @change="saveFile($event)"
+                  ></v-file-input> -->
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-form>
+        </div>
+      </template>
+      <template v-slot:footer>
+        <ModalFooter>
+          <!-- <v-btn color="red darken-1" text @click="cancelDialog">Cancel</v-btn> -->
+          <v-btn color="green darken-1" text @click="savePPT"
+            >{{ "Save" }}
+          </v-btn>
+        </ModalFooter>
+      </template>
+    </Modal>
     <Modal :modal="data.modal" :width="1500">
       <template v-slot:header>
         <ModalHeader
@@ -360,6 +448,8 @@ export default defineComponent({
   setup() {
     const {
       data,
+      savePPT,
+      openUploadDialog,
       shouldShowRejectionComment,
       openDialog,
       getData,
@@ -386,11 +476,21 @@ export default defineComponent({
       cancelDialog2,
       openDialog1,
       isButtonDisabled,
+      fileUrl,
+      fileUrlWord,
+      saveFile,
+      cancelDialogx,
     } = useQueryCategory();
 
     return {
-      isButtonDisabled,
       data,
+      cancelDialogx,
+      saveFile,
+      savePPT,
+      openUploadDialog,
+      fileUrl,
+      fileUrlWord,
+      isButtonDisabled,
       cancelDialog2,
       save2,
       shouldShowRejectionComment,
