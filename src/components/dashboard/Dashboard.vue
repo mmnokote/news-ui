@@ -2,72 +2,103 @@
   <v-card flat class="">
     <v-container>
       <v-col cols="12">
-      <v-card-actions class="pa-0">
-        <h2>{{ "Profile Details" }}</h2>
-        <v-spacer></v-spacer>
-        
-        <v-btn large color="blue" class="white--text d-none d-md-flex" @click="printFromServer()">
-        <v-icon>mdi-printer</v-icon>
-        Print Invoice
-      </v-btn>
-        <v-btn
-          class="white--text d-none d-md-flex"
-          color="green"
-          large
-          @click="openUpdateDialog(userb)"
-        >
-          <v-icon color="white">mdi-account</v-icon>
-          Update Profile
-        </v-btn>
-        
-        <v-btn
-          :disabled="userb?.jisajilis.length > 0"
-          class="d-none d-md-flex"
-          color="primary"
-          large
-          @click="openDialog()"
-        >
-          <v-icon>mdi-upload</v-icon>
-          Upload your receipt
-        </v-btn>
-      </v-card-actions>
+        <v-card-actions class="pa-0">
+  <h2>{{ "Profile Details" }}</h2>
+
+  <v-spacer></v-spacer>
+
+  <v-btn large color="blue" class="white--text d-none d-md-flex" @click="printFromServer()">
+    <v-icon>mdi-printer</v-icon>
+    Print Invoice
+  </v-btn>
+  
+  <v-btn
+    class="white--text d-none d-md-flex"
+    color="green"
+    large
+    @click="openUpdateDialog(userb)"
+  >
+    <v-icon color="white">mdi-account</v-icon>
+    Update Profile
+  </v-btn>
+  
+  <v-btn
+    :disabled="userb?.jisajilis.length > 0"
+    class="d-none d-md-flex"
+    color="primary"
+    large
+    @click="openDialog()"
+  >
+    <v-icon>mdi-upload</v-icon>
+    Upload your receipt
+  </v-btn>
+
+
+</v-card-actions>
+
+<v-col cols="12">
+      <hr class="centered-line2" />
+        </v-col>
       </v-col>
       <v-card flat max-width="100%" class="">
-        <v-col cols="12">
-
-       
-        <p>
-          <v-btn  block large color="blue" class="white--text d-md-none white--text" @click="printFromServer()">
-        <v-icon>mdi-printer</v-icon>
-        Print Invoice
-      </v-btn>
-        </p>
-          <v-btn
-            class="d-md-none white--text"
-            color="green"
-            large
-            block
-            @click="openUpdateDialog(userb)"
+       <!-- mmmmmmmmmmmm -->
+<p>
+  <v-btn  block large color="blue" class="white--text d-md-none white--text" @click="printFromServer()">
+<v-icon>mdi-printer</v-icon>
+Print Invoice
+</v-btn>
+</p>
+ <p>
+  <v-btn
+    class="d-md-none white--text"
+    color="teal"
+    large
+    block
+    @click="openUpdateDialog(userb)"
+  >
+    <v-icon color="white">mdi-account</v-icon>
+    Update Profile
+  </v-btn>
+ </p>
+ <p>
+  <v-btn
+    block
+    class="d-md-none"
+    color="primary"
+    large
+    @click="openDialog()"
+    :disabled="userb?.jisajilis.length > 0"
+  >
+    <v-icon>mdi-plus</v-icon>
+    Upload your receipt
+  </v-btn>
+ </p>
+       <!-- mmmmmmmmmmmmmmm -->
+        
+        <!-- Add more details as needed -->
+        
+        <v-alert
+      text
+      prominent
+      type="error"
+      icon="mdi-cloud-download"
+    >
+    Download the <span class="black--text font-weight-black">QR code below</span> that will be used to verify your payment details. Please ensure you have the QR code either printed or available on your phone for easier scanning. The scanning process will take place on the day of the conference.    </v-alert>
+        <v-container>
+          <v-row justify="center">
+            <v-col cols="12" sm="12" md="12">
+              <!-- class="elevation-1 custom-card bdt2" -->
+              <v-card
+              :class="{
+                  'content-visible elevation-1 custom-card bdt2': showContent,
+                }"
+                height="100%"
+                color="blue"
+                flat
+              >
+              <span
           >
-            <v-icon color="white">mdi-account</v-icon>
-            Update Profile
-          </v-btn>
-        </v-col>
-        <v-col cols="12">
-          <v-btn
-            block
-            class="d-md-none"
-            color="primary"
-            large
-            @click="openDialog()"
-            :disabled="userb?.jisajilis.length > 0"
-          >
-            <v-icon>mdi-plus</v-icon>
-            Upload your receipt
-          </v-btn>
-        </v-col>
-        <span
-          ><span class="">
+          <span class="">
             Payment Status:
           </span>
           {{
@@ -84,17 +115,10 @@
         <p v-if="userb?.jisajilis.length > 0">
           <a :href="getFullFilePath(regInfromation?.path_file)" target="_blank">
             <span>{{ "Download Uploaded Receipt" }}</span>
+
           </a>
         </p>
-        <!-- Add more details as needed -->
-        <v-col cols="12">
-        <h1><hr class="centered-line2" /></h1>
-        </v-col>
-        <v-container>
-          <v-row justify="center">
-            <v-col cols="12" sm="12" md="8">
-              <!-- class="elevation-1 custom-card bdt2" -->
-              <v-card
+              <!-- <v-card
                 @click="toggleContent"
                 :class="{
                   'content-visible elevation-1 custom-card bdt2': showContent,
@@ -102,12 +126,12 @@
                 height="100%"
                 color="blue"
                 flat
-              >
-                <h4 class="white--text pa-5">
+              > -->
+                <!-- <h4 class="white--text pa-5">
                   <strong>
                     {{ peviewStatement }}
                   </strong>
-                </h4>
+                </h4> -->
 
                 <div
                   class="v-card v-sheet theme--dark rounded-0"
@@ -132,12 +156,15 @@
                     ></v-img>
                     <v-spacer></v-spacer>
                     
-                    <h5 class="text-h6 white--text pl-10">
-                        <strong>
-                         <qrcode :value="userb?.user_identification" :options="{ width: 150 }"></qrcode>
+                    <span class="text-h6 white--text pt-10">
+                      <qrcode :value="userb?.user_identification" :options="{ width: 100 }" ref="qrcode">
+                      </qrcode>
+                      <p>
+                        <button @click="downloadQRCode">Download QR Code</button>
 
-                        </strong>
-                      </h5>
+                      </p>
+                      </span>
+                     
                     </v-card-actions>
 
                     <v-card-actions class="pt-n8 pb-5 pr-5 d-none d-md-flex">
@@ -170,8 +197,14 @@
                       class="align-start elevation-10"
                     ></v-img>
                       <v-spacer></v-spacer>
-                      <qrcode :value="userb?.user_identification" :options="{ width: 100 }"></qrcode>
+                      <span class="text-h6 white--text pt-10">
+                      <qrcode :value="userb?.user_identification" :options="{ width: 100 }" ref="qrcode">
+                      </qrcode>
+                      <p>
+                        <button @click="downloadQRCode">Download QR Code</button>
 
+                      </p>
+                      </span>
                     </v-card-actions>
 
                     <!-- Company Information -->
@@ -577,6 +610,8 @@
 
 <script>
 import { uploadFile, saveRegistration, getRegInfo,getSubthemes } from "./services";
+import QRCode from 'qrcode';
+
 import {
   registerUser,
   updateUser,
@@ -645,7 +680,8 @@ export default {
       description: "",
       salutation: "",
       organization: "",
-      showContent: false,
+      showContent: true,
+      showContentQR: false,
     };
   },
   mounted() {
@@ -659,6 +695,29 @@ export default {
     this.fetchCountries();
   },
   methods: {
+    async downloadQRCode() {
+  try {
+    if (!this.userb?.user_identification) {
+      throw new Error('Invalid user identification data');
+    }
+
+    const canvas = document.createElement('canvas');
+    await QRCode.toCanvas(canvas, this.userb.user_identification, { width: 400, height: 400 });
+
+    const url = canvas.toDataURL('image/png');
+    
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'qrcode.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  } catch (error) {
+    console.error('Failed to download QR code:', error);
+  }
+},
+   
+  
      printFromServer () {
     const params = {
       user_id:this.userb.id
@@ -670,10 +729,27 @@ export default {
       if (this.userb?.active&&this.userb?.jisajilis.length > 0) {
         this.showContent = !this.showContent;
         if (this.showContent) {
-          this.peviewStatement = "HIDE PROFILE";
+          // this.peviewStatement = "HIDE PROFILE";
         } else {
-          this.peviewStatement = "SHOW YOUR PROFILE TO GET YOUR ID CARD";
+          // this.peviewStatement = "SHOW YOUR PROFILE TO GET YOUR ID CARD";
         }
+      }
+      else if (!this.userb?.active&&this.userb?.jisajilis.length > 0) {
+        this.showWaitingApproval = true;
+      }
+      
+      else {
+        this.showPayment = true;
+      }
+    },
+    toggleQRContent() {
+      if (this.userb?.active&&this.userb?.jisajilis.length > 0) {
+        this.showContentQR = !this.showContentQR;
+        // if (this.showContentQR) {
+        //   this.peviewStatement = "HIDE PROFILE";
+        // } else {
+        //   this.peviewStatement = "SHOW YOUR PROFILE TO GET YOUR ID CARD";
+        // }
       }
       else if (!this.userb?.active&&this.userb?.jisajilis.length > 0) {
         this.showWaitingApproval = true;
@@ -880,7 +956,7 @@ export default {
 .centered-line2 {
   width: 100%;
   border: 3px solid rgb(26, 86, 182); /* Adjust thickness as needed */
-  margin: 8px auto; /* Adjust as needed */
+  margin: 0px auto; /* Adjust as needed */
 }
 .custom-card {
   background-image: url(/bg.jpg) !important;

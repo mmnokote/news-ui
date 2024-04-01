@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API = "/api/v1/users";
+const APIFILTER = "/api/v1/users/users/oneUser";
 const MAPROLES = "/api/v1/user-roles";
 const APIUSERQUERY = "/api/v1/user-queries";
 const APIALL = "/api/v1/users/users/search";
@@ -13,6 +14,10 @@ const wait = (ms: number, value) => {
 
 const get = async (payload: any) => {
   return await axios.get(`${API}`, { params: payload });
+  //.then(value => wait(5000, value))
+};
+const getfilter = async (payload: any) => {
+  return await axios.get(`${APIFILTER}`, { params: payload });
   //.then(value => wait(5000, value))
 };
 
@@ -87,4 +92,5 @@ export {
   sendMail,
   sendMailForSubmition,
   maprole,
+  getfilter,
 };

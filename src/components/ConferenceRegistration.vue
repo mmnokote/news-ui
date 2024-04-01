@@ -1,7 +1,7 @@
 <template>
-  <v-container class="mt-12">
+  <v-container class="mt-6">
     <v-col cols="12">
-      <h1 class="text-center mb-5 color-title">Select Category to Register</h1>
+      <h1 class="text-center mb-1 color-title">Select Category to Register</h1>
       <hr class="centered-line" />
       <v-divider class="mb-5"></v-divider>
     </v-col>

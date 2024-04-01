@@ -3,7 +3,7 @@
     <v-card-actions class="pa-0">
       <h2>{{ data.title }}</h2>
       <v-spacer></v-spacer>
-      <v-btn class="warning">
+      <v-btn class="warning d-none d-md-flex">
         <a
           :href="fileUrl"
           target="_blank"
@@ -16,7 +16,7 @@
           </span>
         </a>
       </v-btn>
-      <v-btn class="primary">
+      <v-btn class="teal d-none d-md-flex">
         <a
           :href="fileUrlWord"
           target="_blank"
@@ -30,6 +30,36 @@
         </a>
       </v-btn>
     </v-card-actions>
+    <p>
+      <v-btn block class="warning d-md-none">
+        <a
+          :href="fileUrl"
+          target="_blank"
+          style="text-decoration: none; color: inherit"
+        >
+          <span class="white--text">
+            <v-icon>mdi-file-powerpoint</v-icon>
+            {{ "Abstract PPT Template" }}
+            <v-icon>mdi-download</v-icon>
+          </span>
+        </a>
+      </v-btn>
+    </p>
+    <p>
+      <v-btn block class="teal d-md-none">
+        <a
+          :href="fileUrlWord"
+          target="_blank"
+          style="text-decoration: none; color: inherit"
+        >
+          <span class="white--text">
+            <v-icon>mdi-microsoft-word</v-icon>
+            {{ " Abstract Word Template" }}
+            <v-icon>mdi-download</v-icon>
+          </span>
+        </a>
+      </v-btn>
+    </p>
     <v-card>
       <!-- <v-data-table
         :headers="data.headers"

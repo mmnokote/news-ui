@@ -8,7 +8,6 @@
         Restore Trashed Users
       </v-btn>
       <v-btn
-        disabled
         large
         color="teal"
         class="white--text d-none d-md-flex"
@@ -17,7 +16,7 @@
         <!-- <v-icon>mdi-send</v-icon> -->
         <v-icon>mdi-send</v-icon>
 
-        Send Email For Payment Reminder
+        Send Email For Program Book
       </v-btn>
       <div class="text-center pl-5 d-none d-md-flex">
         <v-menu offset-y>
@@ -54,7 +53,6 @@
 
     <p>
       <v-btn
-        disabled
         large
         block
         color="teal"
@@ -62,7 +60,7 @@
         @click="openDialog"
       >
         <v-icon>mdi-send</v-icon>
-        Send Email For Payment Reminder
+        Send Email For QR Code Downloading
       </v-btn>
     </p>
     <div class="text-center pb-5 d-md-none">
@@ -102,12 +100,11 @@
         <template v-slot:top>
           <v-card-title>
             <v-spacer></v-spacer>
-            <v-col cols="6" sm="12" md="4" class="pa-0">
+            <v-col cols="12" sm="12" md="12" class="pa-0">
               <v-text-field
                 outlined
-                label="Search Users"
+                label="Search Applicnt by Email,First Name, Last name, Middle Name,Phone Number"
                 @keyup="filterUsers()"
-                :items="data.itemsToFilter"
                 v-model="data.searchTerm"
                 @click:clear="resetSearchText()"
                 clearable

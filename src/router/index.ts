@@ -33,6 +33,7 @@ import Authentication from "@/components/Authentication.vue";
 import Video2 from "@/components/Video2.vue";
 import Scan from "@/components/Scan.vue";
 import Doccuments from "@/components/Doccuments.vue";
+import outsideInsideRoutes from "@/components/routes/outer-routes";
 
 Vue.use(VueRouter);
 
@@ -60,16 +61,7 @@ const routes: Array<RouteConfig> = [
         name: "Notification",
         component: Video2,
       },
-      {
-        path: "/scan",
-        name: "Scan",
-        component: Scan,
-      },
-      {
-        path: "/about-page",
-        name: "Conference About",
-        component: About,
-      },
+
       {
         path: "/document-page",
         name: "Doccuments",
@@ -107,6 +99,7 @@ const routes: Array<RouteConfig> = [
     },
 
     children: [
+      ...outsideInsideRoutes,
       ...dashboardRoutes,
       ...userRoutes,
       ...financialYearRoutes,

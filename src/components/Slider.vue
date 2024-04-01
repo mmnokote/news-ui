@@ -26,8 +26,9 @@
                   <div class="row mx-auto">
                     <div class="white--text col-lg-10 col-12 pt-12">
                       <div
+                        v-show="item.cover"
                         class="v-card v-sheet theme--dark rounded-0"
-                        style="background-color: rgba(0, 0, 0, 0.5)"
+                        style="background-color: rgba(0, 0, 0, 0.4)"
                       >
                         <div class="container py-0">
                           <div class="row no-gutters">
@@ -35,7 +36,7 @@
                               <h1
                                 class="font-weight-black text-shadow text-h4 text-sm-h2 text-lg-h1"
                               >
-                                <span class="green--text"
+                                <span v-show="item.cover" class="grey--text"
                                   >1st International Primary Health Care
                                   Conference in Tanzania Date:
                                   25-27/03/2024</span
@@ -46,22 +47,23 @@
                           <div class="row no-gutters">
                             <div class="offset-lg-1 col col-10 offset-1">
                               <div
+                                v-show="item.cover"
                                 class="container text-shadow text-body-1 cols"
                               >
                                 <strong>Guest of Honor:</strong>
-                                <span class="green--text">
+                                <span class="grey--text">
                                   H.E. Dr. Samia Suluhu Hassan, The President of
                                   the United Republic of Tanzania.
                                 </span>
                                 <br />
                                 <strong> Venue: </strong>
-                                <span class="green--text">
+                                <span class="grey--text">
                                   Jakaya Mrisho Kikwete Convention Centre,
                                   Dodoma City Council.
                                 </span>
                                 <br />
                                 <strong> Main Theme:</strong>
-                                <span class="green--text">
+                                <span class="grey--text">
                                   Primary Health Care (PHC) as a vehicle for the
                                   journey to achieve Universal Health Coverage
                                   (UHC) in Tanzania.
@@ -72,11 +74,12 @@
                         </div>
                         <div class="row no-gutters">
                           <div class="text-right col">
+                            <p></p>
+                            <p></p>
                             <!-- <v-btn
                               @click="goHome"
                               class="pa-6 text-transform-none font-weight-bold v-btn v-btn--is-elevated v-btn--has-bg v-btn--router v-btn--tile theme--dark v-size--default success"
                               ><span class="v-btn__content">
-                                Register Now
                                 <i
                                   aria-hidden="true"
                                   class="v-icon notranslate mdi mdi-arrow-up-thin theme--dark"
@@ -101,12 +104,47 @@ export default {
   data() {
     return {
       items: [
+        // {
+        //   src: "slidera.jpg",
+        // },
         {
-          src: "slidera.jpg",
+          src: "/sliders/3.jpeg",
+          cover: true,
         },
 
         {
-          src: "president.jpg",
+          src: "/sliders/2.jpeg",
+          cover: true,
+        },
+        {
+          src: "/sliders/12.jpeg",
+          cover: true,
+        },
+
+        {
+          src: "/sliders/11.jpeg",
+          cover: true,
+        },
+
+        {
+          src: "/sliders/6.jpeg",
+          cover: true,
+        },
+        {
+          src: "/sliders/7.jpeg",
+          cover: true,
+        },
+        {
+          src: "/sliders/10.jpeg",
+          cover: true,
+        },
+        {
+          src: "/sliders/8.jpeg",
+          cover: true,
+        },
+        {
+          src: "/sliders/5.jpeg",
+          cover: false,
         },
       ],
       fadeTransition: "fade-transition",

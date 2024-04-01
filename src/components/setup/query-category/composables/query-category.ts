@@ -11,6 +11,7 @@ import {
   getStatuses,
   sendPaymentNotification,
   search,
+  searchByStatus,
 } from "../services/query-category.service";
 import {
   printReportJasper,
@@ -79,6 +80,7 @@ export const useQueryCategory = (): any => {
     itemtodelete: "",
     response: {},
     searchTerm: "",
+    searchTerm2: "",
     search: "",
     selectedAB: "",
   });
@@ -108,7 +110,15 @@ export const useQueryCategory = (): any => {
   const filterDocument = (item: any) => {
     const regSearchTerm = item ? item : data.searchTerm;
     search({ regSearchTerm }).then((response) => {
-      console.log("itemitem response:", response.data);
+      // console.log("itemitem response:", response.data);
+
+      data.items = response.data;
+    });
+  };
+  const filterDocumentByStatus = (item: any) => {
+    const regSearchTerm = item ? item : data.searchTerm2;
+    searchByStatus({ regSearchTerm }).then((response) => {
+      // console.log("itemitem response:", response.data);
 
       data.items = response.data;
     });
@@ -344,6 +354,7 @@ export const useQueryCategory = (): any => {
   return {
     data,
     filterDocument,
+    filterDocumentByStatus,
     saveFile,
     openUploadDialog,
     openDialog,

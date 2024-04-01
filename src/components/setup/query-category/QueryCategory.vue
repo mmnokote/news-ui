@@ -50,7 +50,7 @@
         <template v-slot:top>
           <v-card-title>
             <v-spacer></v-spacer>
-            <v-col cols="6" sm="12" md="4" class="pa-0">
+            <v-col cols="12" sm="12" md="4" class="pa-1">
               <v-select
                 @change="filterDocument()"
                 outlined
@@ -61,6 +61,21 @@
                 label="Filter By Sub-Theme"
                 clearable
                 class="align-left-dropdown"
+                @click:clear="initialize()"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" sm="12" md="4" class="pa-1">
+              <v-select
+                @change="filterDocumentByStatus()"
+                outlined
+                v-model="data.searchTerm2"
+                :items="data.statuses"
+                item-text="name"
+                item-value="id"
+                label="Filter By Status"
+                clearable
+                class="align-left-dropdown"
+                @click:clear="initialize()"
               ></v-select>
             </v-col>
             <!-- <v-col cols="6" sm="12" md="4" class="pa-0">
@@ -334,6 +349,7 @@ export default defineComponent({
       selectedFile,
       downloadFile,
       filterDocument,
+      filterDocumentByStatus,
       deleteDialog,
       users,
       printFromServer,
@@ -378,6 +394,7 @@ export default defineComponent({
       selectedFile,
       downloadFile,
       filterDocument,
+      filterDocumentByStatus,
       deleteDialog,
       printFromServer,
     };

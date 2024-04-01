@@ -25,6 +25,9 @@ const openFile = async (payload: any) => {
 const create = async (payload: any) => {
   return axios.post("/api/v1/abstarcts", payload);
 };
+const sendScnaedData = async (payload: any) => {
+  return axios.post("/api/v1/users/verifyQR", payload);
+};
 const registerUser = async (payload: any) => {
   return axios.post("/api/v1/users", payload);
 };
@@ -125,4 +128,5 @@ export {
   updateUser,
   getSubthemes,
   restoreRegistration,
+  sendScnaedData,
 };

@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <h1>IPHC REGISTRATION</h1>
+    <h2>
+      <span class="grey--text font-weight-bold">IPHC 2024 - </span>QRCODE
+      SCANING FOR REGISTRATION VERIFICATION
+    </h2>
+    <hr class="centered-line" />
+    <v-divider class="mb-5"></v-divider>
     <Scaner />
   </div>
 </template>
@@ -16,13 +21,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 </style>

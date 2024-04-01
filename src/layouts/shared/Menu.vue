@@ -35,7 +35,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
-        <v-list-item v-else :key="menu.title" @click="goTomenu(menu)">
+        <v-list-item class="" v-else :key="menu.title" @click="goTomenu(menu)">
           <v-list-item-action>
             <v-icon>{{ menu.icon }}</v-icon>
           </v-list-item-action>

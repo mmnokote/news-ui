@@ -19,6 +19,12 @@ const search = async (payload: any) => {
   console.log("data", payload);
   return await axios.get(`/api/v1/abstarcts/filter`, { params: payload });
 };
+const searchByStatus = async (payload: any) => {
+  console.log("data", payload);
+  return await axios.get(`/api/v1/abstarcts/filter/ByStatus`, {
+    params: payload,
+  });
+};
 
 const searchCategories = async (payload: any) => {
   return await axios.get(`/api/v1/docabstracts/`, {
@@ -55,4 +61,5 @@ export {
   searchCategories,
   getStatuses,
   sendPaymentNotification,
+  searchByStatus,
 };

@@ -37,17 +37,19 @@
           ><h3 class="font-weight-bold text-3 basil--text">About</h3></v-btn
         >
         <v-btn
+          disabled
           class="font-weight-bold text-3 basil--text"
           text
           @click="handleButtonClick1"
           ><h3 class="font-weight-bold text-3 basil--text">Register</h3></v-btn
         >
-        <!-- <v-btn
+        <v-btn
+          disabled
           class="font-weight-bold text-3 basil--text"
           text
           @click="handleButtonAbstract"
           ><h3 class="font-weight-bold text-3 basil--text">Abstract</h3></v-btn
-        > -->
+        >
         <v-btn
           class="font-weight-bold text-3 basil--text"
           text
@@ -278,7 +280,7 @@ export default {
   border: 4px solid rgb(242, 248, 248);
 }
 </style>
-<style>
+<style scoped>
 .backdrop {
   position: fixed;
   top: 0;

@@ -7,7 +7,7 @@
     <Slider class="mb-1" />
     <Video class="mag mt-12" />
     <Theme class="mb-1 pt-12" />
-    <!-- <Events class="mb-1 pt-12" /> -->
+    <Video2 class="mb-1 pt-12" />
 
     <Sponser class="mb-1 mt-12" />
 
@@ -24,6 +24,7 @@ import Footer from "../../components/Footer.vue";
 import Events from "../../components/Events.vue";
 import Video from "../../components/Video.vue";
 import Theme from "../../components/Theme.vue";
+import Video2 from "../../components/Video2.vue";
 </script>
 <style>
 .mag {
