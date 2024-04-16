@@ -3,7 +3,7 @@ name: Build Vue.js App
 on:
   push:
     branches:
-      - main
+      - gallery_c
 
 jobs:
   build:
