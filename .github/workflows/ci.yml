@@ -1,4 +1,4 @@
-name: Build Vue.js App
+name: Deploy Kofference.js App
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - gallery_c
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,15 +16,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: '16'
 
       - name: Install Dependencies
-        run: |
-          cd /var/www/html/koference-ui
-          npm install
+        run: npm install
 
       - name: Build Vue.js App
-<<<<<<< HEAD
         run: npm run build
 
       - name: Deploy to Server
@@ -36,8 +33,3 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           source: "dist/"
           target: "/var/www/html/dist/"
-=======
-        run: |
-          cd /var/www/html/koference-ui
-          npm run build
->>>>>>> parent of 1118b1a (testing auto deploy)
