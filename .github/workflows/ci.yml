@@ -1,4 +1,4 @@
-name: Build Vue.js App
+name: Deploy Kofference.js App
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - gallery_c
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,14 +16,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'
+          node-version: '16'
 
       - name: Install Dependencies
-        run: |
-          cd /var/www/html/koference-ui
-          npm install
+        run: npm install
 
       - name: Build Vue.js App
-        run: |
-          cd /var/www/html/koference-ui
-          npm run build
+        run: npm run build
+
+      - name: Deploy to Server
+        uses: appleboy/scp-action@gallery_c
+        with:
+          host: 172.16.18.148
+          username: tamisemi
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          source: "dist/"
+          target: "/var/www/html/dist/"
