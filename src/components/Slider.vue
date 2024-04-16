@@ -131,9 +131,18 @@ export default {
           cover: true,
         },
         {
-          src: "/sliders/7.jpeg",
+          src: "/sliders/278.jpg",
           cover: true,
         },
+        {
+          src: "/gallery/335.jpg",
+          cover: true,
+        },
+        {
+          src: "/sliders/7.jpg",
+          cover: true,
+        },
+
         {
           src: "/sliders/10.jpeg",
           cover: true,
@@ -142,6 +151,7 @@ export default {
           src: "/sliders/8.jpeg",
           cover: true,
         },
+
         {
           src: "/sliders/5.jpeg",
           cover: false,

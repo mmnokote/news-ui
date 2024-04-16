@@ -149,9 +149,11 @@
       </v-navigation-drawer>
     </v-app-bar>
 
-    <v-container class="mt-top">
-      <router-view></router-view>
-    </v-container>
+    <template>
+      <v-container fluid class="mt-top">
+        <router-view></router-view>
+      </v-container>
+    </template>
   </div>
 </template>
 

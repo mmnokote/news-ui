@@ -5,9 +5,12 @@
     <!-- Add margin and spacing to create space between components -->
     <!-- <v-container class="mt-1"> -->
     <Slider class="mb-1" />
-    <Video class="mag mt-12" />
-    <Theme class="mb-1 pt-12" />
+
     <Video2 class="mb-1 pt-12" />
+
+    <Theme class="mt-12 mb-1 pt-12" />
+
+    <Video class="mag mt-12" />
 
     <Sponser class="mb-1 mt-12" />
 

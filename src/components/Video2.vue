@@ -2,13 +2,14 @@
   <div class="gallery-container">
     <span class="color-title">
       <v-card-title class="text-center justify-center py-6">
-        <h1 class="font-weight-bold text-5 basil--text2">NEWS-IPHC 2024</h1>
+        <h1 class="font-weight-bold text-5 basil--text2">News-IPHC 2024</h1>
       </v-card-title>
     </span>
-    <div class="row mb-6 mt-10">
-      <div class="pt-0 mb-lg-0 mb-10 col-lg-4 col">
+    <div class="row mb-6 mt-10 pr-3">
+      <div class="pt-0 mb-lg-0 mb-10 col-lg-4 col-12">
         <div
           class="card card-shadow border-radius-xl py-5 text-center v-card v-sheet theme--light"
+          style="height: 730px"
         >
           <div class="mt-n11 mx-4 card-header position-relative z-index-2">
             <div class="d-block blur-shadow-image">
@@ -27,35 +28,49 @@
             ></div>
           </div>
 
-          <h5 class="font-weight-normal text-typo text-h5 mt-7 mb-2 px-4">
+          <!-- <h5 class="font-weight-normal text-typo text-h5 mt-7 mb-2 px-4">
             <a href="javascript:;" class="text-decoration-none text-default"
               >Cozy 5 Stars Apartment</a
             >
-          </h5>
+          </h5> -->
           <p class="mb-0 text-body font-weight-light px-5">
-            The place is close to Barceloneta Beach and bus stop just 2 min by
-            walk and near to 'Naviglio' where you can enjoy the main night life
-            in Barcelona.
+            <small>
+              The Deputy Prime Minister of Tanzania and Minister of Energy,
+              Honorable Dr. Doto Mashaka Biteko, has said that the government
+              will continue to improve primary healthcare services in the
+              country to ensure that no citizen lacks medical treatment as we
+              move towards universal healthcare. Dr. Doto Biteko made this
+              statement today, March 25, 2024, in Dodoma while delivering a
+              speech on behalf of Her Excellency Dr. Samia Suluhu Hassan,
+              President of the United Republic of Tanzania. He said that during
+              the Sixth Phase Government, the health sector was allocated a
+              significant amount of funds for building and renovating
+              infrastructure, purchasing medical equipment, medicines,
+              ambulances, and employing personnel.
+            </small>
           </p>
           <hr class="horizontal dark my-6" />
           <div class="d-flex text-body mx-2 px-4">
-            <p class="mb-0 font-weight-normal text-body">$899/night</p>
+            <p class="mb-0 font-weight-normal text-body">
+              <small> IPHC 2024 </small>
+            </p>
             <i
               class="material-icons-round position-relative ms-auto text-lg me-1 my-auto"
-              >place</i
+              ><small> Jakaya Mrisho Kikwete Convention Centre </small></i
             >
-            <p class="text-sm my-auto font-weight-light">Barcelona, Spain</p>
+            <p class="text-sm my-auto font-weight-light"></p>
           </div>
         </div>
       </div>
-      <div class="pt-0 mb-lg-0 mb-10 col-lg-4 col">
+      <div class="pt-0 mb-lg-0 mb-10 col-lg-4 col-12">
         <div
           class="card card-shadow border-radius-xl py-5 text-center v-card v-sheet theme--light"
+          style="height: 730px"
         >
           <div class="mt-n11 mx-4 card-header position-relative z-index-2">
             <div class="d-block blur-shadow-image">
               <img
-                src="/gallery/11.jpeg"
+                src="/gallery/293.jpg"
                 alt="/vuetify-material-dashboard-pro/img/product-1-min.a31de5a2.jpeg"
                 class="img-fluid shadow border-radius-lg shake-image"
                 style="max-width: 100%; height: auto"
@@ -69,35 +84,47 @@
             ></div>
           </div>
 
-          <h5 class="font-weight-normal text-typo text-h5 mt-7 mb-2 px-4">
+          <!-- <h5 class="font-weight-normal text-typo text-h5 mt-7 mb-2 px-4">
             <a href="javascript:;" class="text-decoration-none text-default"
               >Cozy 5 Stars Apartment</a
             >
-          </h5>
+          </h5> -->
           <p class="mb-0 text-body font-weight-light px-5">
-            The place is close to Barceloneta Beach and bus stop just 2 min by
-            walk and near to 'Naviglio' where you can enjoy the main night life
-            in Barcelona.
+            <small>
+              Deputy Minister of Health, Dr. Godwin Moleli, has urged Government
+              Authorities at the Ministry, Regional, Council, and Health Sector
+              Institutions levels not to be an obstacle to promoting investment
+              in the Health Sector in the country. Dr. Moleli made the statement
+              while closing the three-day international Primary Healthcare
+              conference held from March 27th to March 27th, 2024 in Dodoma,
+              which brought together stakeholders from within and outside the
+              country to discuss and exchange ideas on successes, challenges,
+              and investments in primary health care with the aim of improving
+              health services towards universal health coverage in Tanzania.
+            </small>
           </p>
           <hr class="horizontal dark my-6" />
           <div class="d-flex text-body mx-2 px-4">
-            <p class="mb-0 font-weight-normal text-body">$899/night</p>
+            <p class="mb-0 font-weight-normal text-body">
+              <small> IPHC 2024 </small>
+            </p>
             <i
               class="material-icons-round position-relative ms-auto text-lg me-1 my-auto"
-              >place</i
+              ><small> Jakaya Mrisho Kikwete Convention Centre </small></i
             >
-            <p class="text-sm my-auto font-weight-light">Barcelona, Spain</p>
+            <p class="text-sm my-auto font-weight-light"></p>
           </div>
         </div>
       </div>
-      <div class="pt-0 mb-lg-0 mb-10 col-lg-4 col">
+      <div class="pt-0 mb-lg-0 mb-10 col-lg-4 col-12">
         <div
           class="card card-shadow border-radius-xl py-5 text-center v-card v-sheet theme--light"
+          style="height: 730px"
         >
           <div class="mt-n11 mx-4 card-header position-relative z-index-2">
             <div class="d-block blur-shadow-image">
               <img
-                src="/gallery/32.jpeg"
+                src="/gallery/42.jpg"
                 alt="/vuetify-material-dashboard-pro/img/product-1-min.a31de5a2.jpeg"
                 class="img-fluid shadow border-radius-lg shake-image"
                 style="max-width: 100%; height: auto"
@@ -111,24 +138,38 @@
             ></div>
           </div>
 
-          <h5 class="font-weight-normal text-typo text-h5 mt-7 mb-2 px-4">
+          <!-- <h5 class="font-weight-normal text-typo text-h5 mt-7 mb-2 px-4">
             <a href="javascript:;" class="text-decoration-none text-default"
               >Cozy 5 Stars Apartment</a
             >
-          </h5>
+          </h5> -->
           <p class="mb-0 text-body font-weight-light px-5">
-            The place is close to Barceloneta Beach and bus stop just 2 min by
-            walk and near to 'Naviglio' where you can enjoy the main night life
-            in Barcelona.
+            <small>
+              Tanzania is urged to embrace a digital health system to promote
+              the delivery of healthcare for all under the Universal Health
+              Coverage (UHC). Health experts and stakeholders are concerned
+              about the need for the Ministry of Health to embrace the use of
+              digital technology in enhancing electronic medical records (EMRs).
+              The proposed cloud-based system, according to them, will help
+              revolutionize healthcare delivery in the country, pushing for
+              Universal Health Coverage (UHC). Presenting a paper titled
+              'Unlocking the Power of Digital Health' during the first
+              International Primary Healthcare (IPHC) Conference, Wendy Erasmus,
+              UNICEF's Health Chief, stated that digital health is a vital
+              source to help drive forward better health services, especially at
+              the primary level.
+            </small>
           </p>
           <hr class="horizontal dark my-6" />
           <div class="d-flex text-body mx-2 px-4">
-            <p class="mb-0 font-weight-normal text-body">$899/night</p>
+            <p class="mb-0 font-weight-normal text-body">
+              <small> IPHC 2024 </small>
+            </p>
             <i
               class="material-icons-round position-relative ms-auto text-lg me-1 my-auto"
-              >place</i
+              ><small> Jakaya Mrisho Kikwete Convention Centre </small></i
             >
-            <p class="text-sm my-auto font-weight-light">Barcelona, Spain</p>
+            <p class="text-sm my-auto font-weight-light"></p>
           </div>
         </div>
       </div>
@@ -176,8 +217,8 @@ export default {
   },
   data() {
     return {
-      images: this.generateImageArray(48), // Generate 50 images
-      visibleImageCount: 30,
+      images: this.generateImageArray(353), // Generate 50 images
+      visibleImageCount: 38,
     };
   },
   computed: {
@@ -185,7 +226,7 @@ export default {
       return this.visibleImageCount < this.images.length;
     },
     showLoadLessButton() {
-      return this.visibleImageCount > 30;
+      return this.visibleImageCount > 38;
     },
   },
   methods: {
@@ -199,8 +240,8 @@ export default {
       const images = [];
       for (let i = 1; i <= count; i++) {
         images.push({
-          largeURL: `/gallery/${i}.jpeg`,
-          thumbnailURL: `/gallery/${i}.jpeg`,
+          largeURL: `/gallery/${i}.jpg`,
+          thumbnailURL: `/gallery/${i}.jpg`,
           width: 5000,
           height: 3000,
         });

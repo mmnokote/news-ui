@@ -9,15 +9,12 @@
     </span>
     <div class="elementor-shape elementor-shape-top" data-negative="true">
       <v-row justify="center" align="center">
-        <v-col
-          v-for="image in images"
-          :key="image.id"
-          cols="12"
-          sm="2"
-          md="2"
-          lg="1"
-        >
-          <a :href="image.href" target="_blank" rel="noopener noreferrer">
+        <v-col cols="12" sm="8" md="12" lg="12">
+          <a
+            href="https://www.pharmaccess.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <v-card
               justify="center"
               align="center"
@@ -26,10 +23,10 @@
               elevation=""
             >
               <img
-                :src="image.src"
-                alt="Image"
+                src="/sponsers.png"
+                alt="Sponsor"
                 width="100%"
-                height="100%"
+                height="80%"
                 style="object-fit: cover"
               />
             </v-card>
@@ -53,27 +50,7 @@
 
 <script>
 export default {
-  data() {
-    return {
-      images: [
-        { id: 1, src: "pham.jpeg", href: "https://www.pharmaccess.org/" },
-
-        { id: 5, src: "unicef.png", href: "https://www.unicef.org/ " },
-        { id: 3, src: "who.png", href: "https://www.who.int/" },
-
-        { id: 2, src: "cds.jpeg", href: "https://africacdc.org/" },
-
-        { id: 4, src: "usaid.jpeg", href: "https://www.usaid.gov/" },
-        { id: 7, src: "aaph.png", href: "https://www.aaph.or.tz/" },
-        {
-          id: 8,
-          src: "pepfa.jpeg",
-          href: "https://www.hiv.gov/federal-response/pepfar-global-aids/pepfar/",
-        },
-        { id: 6, src: "ths-transparent.webp", href: "https://ths.or.tz/" },
-      ],
-    };
-  },
+  // Your script goes here
 };
 </script>
 

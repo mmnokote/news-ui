@@ -17,7 +17,7 @@
         rel="noreferrer"
       >
         <div class="image-frame">
-          <img :src="image.thumbnailURL" :width="100" :height="100" alt="" />
+          <img :src="image.thumbnailURL" :width="150" :height="100" alt="" />
         </div>
       </a>
     </v-col>
