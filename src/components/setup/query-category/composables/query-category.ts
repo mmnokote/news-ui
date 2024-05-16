@@ -13,10 +13,10 @@ import {
   search,
   searchByStatus,
 } from "../services/query-category.service";
-import {
-  printReportJasper,
-  printReportJasperWord,
-} from "../../../../components/report/services/report.services";
+// import {
+//   printReportJasper,
+//   printReportJasperWord,
+// } from "../../../../components/report/services/report.services";
 import { uploadFile } from "@/components/dashboard/services";
 import { getSubthemes } from "@/components/services";
 
@@ -27,23 +27,17 @@ export const useQueryCategory = (): any => {
   const data = reactive({
     subThemes: [],
     selectedFile: "",
-    formDataF: { path_file: "" },
+    formDataF: { urlToImage: "" },
     openUploadDialogForm: false,
     statuses: [],
     file: "",
-    title: "Manage Abstracts",
+    title: "Manage News",
     modalTitle: "",
     headers: [
-      {
-        text: "Submitted by",
-        align: "start",
-        sortable: false,
-        value: "fullName",
-      },
       { text: "Author", align: "start", sortable: false, value: "author" },
       { text: "Date", align: "start", sortable: false, value: "createdAt" },
       {
-        text: "Sub Theme",
+        text: "Category",
         align: "start",
         sortable: false,
         value: "subTheme.name",
@@ -53,12 +47,14 @@ export const useQueryCategory = (): any => {
         align: "start",
         sortable: false,
         value: "title",
+        width: "20%",
       },
       {
-        text: "Status",
+        text: "Description",
         align: "start",
         sortable: false,
-        value: "rejectionComment",
+        value: "description",
+        width: "50%",
       },
 
       { text: "Actions", value: "actions", sortable: false },
@@ -132,14 +128,6 @@ export const useQueryCategory = (): any => {
     console.log("itemitem:", data.selectedAB);
 
     if (file) {
-      // Check if the selected file is an ODP file
-      if (file.type !== "application/vnd.oasis.opendocument.presentation") {
-        // Inform the user that only ODP files are allowed
-        alert("Only ODP files are allowed");
-        clearFile();
-        return;
-      }
-
       const formData = new FormData();
       formData.append("file", file);
 
@@ -156,7 +144,7 @@ export const useQueryCategory = (): any => {
           file_path: response.data.current_name,
         };
         console.log("path:", data.formDataF);
-        data.formDataF.path_file = response.data.current_name;
+        data.formDataF.urlToImage = response.data.current_name;
         //remove duplicates but keep the last updated score!
         // data.formData.files.reverse();
         // data.formData.files = _.uniqBy(data.formDataF, "current_name");
@@ -174,26 +162,18 @@ export const useQueryCategory = (): any => {
     const params = {
       abstract_id: abstractId,
     };
-    printReportJasperWord("abstract", params);
+    // printReportJasperWord("abstract", params);
   };
 
   const initialize = () => {
     get().then((response: AxiosResponse) => {
-      console.log("res", response.data);
+      console.log("res res", response.data);
       const { from, to, total, current_page, per_page, last_page } =
         response.data;
       data.response = { from, to, total, current_page, per_page, last_page };
       data.items = response.data;
       data.itemsToFilter = response.data;
     });
-    // get({ per_page: 10 }).then((response: AxiosResponse) => {
-    //   console.log("res", response.data);
-    //   const { from, to, total, current_page, per_page, last_page } =
-    //     response.data;
-    //   data.response = { from, to, total, current_page, per_page, last_page };
-    //   data.items = response.data;
-    //   data.itemsToFilter = response.data;
-    // });
   };
 
   const searchCategory = (item: string) => {
@@ -284,8 +264,11 @@ export const useQueryCategory = (): any => {
   const openDialog1 = (formData?: any) => {
     if (formData.id) {
       data.formData = formData;
-      data.modalTitle = "Set Approval Status";
+      data.modalTitle = "Update News";
+    } else {
+      data.modalTitle = "Create News";
     }
+
     data.modal = !data.modal;
   };
   const openDialog = (formData?: any) => {

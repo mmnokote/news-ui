@@ -5,14 +5,7 @@ import VueRouteMiddleware from "vue-route-middleware";
 import { dashboardRoutes } from "@/components/dashboard";
 import { userRoutes } from "@/components/user";
 import { roleRoutes } from "@/components/role";
-import { registryRoutes } from "@/components/registry";
-import { levelRoutes } from "@/components/admin-area/level";
-import { adminAreaRoutes } from "@/components/admin-area/admin-area";
-import { queryRoutes } from "@/components/query";
-import { queryDetailRoutes } from "@/components/query-detail";
-import { queryDetailUserRoutes } from "@/components/query-detail-user";
 import { financialYearRoutes } from "@/components/setup/financial-year";
-import { queryUserRoutes } from "@/components/query-user";
 import { queryPriorityRoutes } from "@/components/setup/query-priority";
 
 import { queryCategoryRoutes } from "@/components/setup/query-category";
@@ -20,7 +13,6 @@ import { queryCategoryRoutes as myAb } from "@/components/setup/query-category c
 import { queryStatusRoutes } from "@/components/setup/query-status";
 import { queryDocumentTypeRoutes } from "@/components/setup/query-document_type";
 import { menuRoutes } from "@/components/menu";
-import { reportFilterRoutes } from "@/components/report/report-filters/";
 import { notFoundRoute } from "@/components/404";
 //import route middlewares
 import { auth, setHeaders, setTitle, validateToken } from "@/middleware";
@@ -103,21 +95,13 @@ const routes: Array<RouteConfig> = [
       ...dashboardRoutes,
       ...userRoutes,
       ...financialYearRoutes,
-      ...levelRoutes,
-      ...adminAreaRoutes,
       ...queryCategoryRoutes,
       ...myAb,
       ...queryStatusRoutes,
       ...queryDocumentTypeRoutes,
       ...roleRoutes,
       ...menuRoutes,
-      ...reportFilterRoutes,
-      ...queryRoutes,
-      ...queryDetailRoutes,
-      ...queryDetailUserRoutes,
-      ...queryUserRoutes,
       ...queryPriorityRoutes,
-      ...registryRoutes,
       ...notFoundRoute,
     ],
   },

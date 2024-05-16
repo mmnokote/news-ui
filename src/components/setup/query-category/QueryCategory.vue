@@ -3,30 +3,12 @@
     <v-card-actions class="pa-0">
       <h2>{{ data.title }}</h2>
       <v-spacer></v-spacer>
-      <v-btn
-        disabled
-        large
-        color="teal"
-        class="white--text d-none d-md-flex"
-        @click="openDialog"
-      >
-        <!-- <v-icon>mdi-send</v-icon> -->
-        Send Email For Abstract Correction
+      <v-btn x-large color="#1B629D" class="white--text" @click="openDialog1">
+        <v-icon>mdi-plus</v-icon>
+        Add New
       </v-btn>
     </v-card-actions>
-    <p>
-      <v-btn
-        disabled
-        block
-        large
-        color="teal"
-        class="white--text d-md-none"
-        @click="openDialog"
-      >
-        <!-- <v-icon>mdi-send</v-icon> -->
-        Send Email For Abstract Correction
-      </v-btn>
-    </p>
+
     <v-card>
       <!-- <v-data-table
         :headers="data.headers"
@@ -38,7 +20,7 @@
       > -->
       <v-data-table
         :headers="data.headers"
-        :items="users"
+        :items="data.items"
         :single-expand="true"
         class="elevation-1"
       >
@@ -64,58 +46,27 @@
                 @click:clear="initialize()"
               ></v-select>
             </v-col>
-            <v-col cols="12" sm="12" md="4" class="pa-1">
-              <v-select
-                @change="filterDocumentByStatus()"
-                outlined
-                v-model="data.searchTerm2"
-                :items="data.statuses"
-                item-text="name"
-                item-value="id"
-                label="Filter By Status"
-                clearable
-                class="align-left-dropdown"
-                @click:clear="initialize()"
-              ></v-select>
-            </v-col>
-            <!-- <v-col cols="6" sm="12" md="4" class="pa-0">
-              <v-text-field
-                outlined
-                label="Search"
-                @keyup="filterDocument()"
-                :items="data.itemsToFilter"
-                v-model="data.searchTerm"
-                @click:clear="resetSearchText()"
-                clearable
-              ></v-text-field>
-            </v-col> -->
           </v-card-title>
         </template>
-        <template v-slot:[`item.rejectionComment`]="{ item }">
-          <span
-            v-if="item.rejectionComment === 'Abstract Accepted'"
-            class="green--text"
-            >{{ item.rejectionComment }}</span
-          >
-          <span v-else class="red--text">{{ item.rejectionComment }}</span>
-        </template>
+
         <template v-slot:[`item.actions`]="{ item }">
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-icon
-                @click="printFromServer(item.id)"
+                large
                 v-bind="attrs"
                 v-on="on"
-                class="mr-2"
+                @click="openUploadDialog(item)"
+                >mdi-upload</v-icon
               >
-                mdi-briefcase-eye
-              </v-icon>
             </template>
-            <span>Preview</span>
+            <span>Upload {{ item.template }}</span>
           </v-tooltip>
+
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-icon
+                large
                 v-bind="attrs"
                 v-on="on"
                 class="mr-2"
@@ -124,32 +75,24 @@
                 mdi-pencil
               </v-icon>
             </template>
-            <span>Aproval</span>
+            <span>Update</span>
           </v-tooltip>
 
-          <!-- <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-icon v-bind="attrs" v-on="on" @click="openUploadDialog(item)"
-                >mdi-upload</v-icon
-              >
-            </template>
-            <span>Upload PPT</span>
-          </v-tooltip> -->
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
               <a
-                v-if="item.path_file"
-                :href="getFullFilePath(item.path_file)"
+                v-if="item.urlToImage"
+                :href="getFullFilePath(item.urlToImage)"
                 download
                 target="_blank"
               >
-                <v-icon color="green" v-bind="attrs" v-on="on"
+                <v-icon large color="green" v-bind="attrs" v-on="on"
                   >mdi-download</v-icon
                 >
               </a>
               <v-icon v-else disabled>mdi-download</v-icon>
             </template>
-            <span v-if="item.path_file">Download PPT</span>
+            <span v-if="item.urlToImage">Download</span>
             <span v-else>No file available</span>
           </v-tooltip>
         </template>
@@ -164,7 +107,7 @@
     </v-card>
     <Modal :modal="data.openUploadDialogForm" :width="600">
       <template v-slot:header>
-        <ModalHeader @closeDialog="cancelDialogx()" :title="`PPT Document`" />
+        <ModalHeader @closeDialog="cancelDialogx()" :title="`News Image`" />
       </template>
       <template v-slot:body>
         <div class="pa-5">
@@ -184,16 +127,11 @@
                     filled
                     outlined
                     v-model="data.selectedFile"
-                    label="Select ODP file"
-                    accept="application/vnd.oasis.opendocument.presentation"
+                    label="Select Image"
+                    accept="image/*"
                     :show-size="1000"
                   >
                   </v-file-input>
-                  <!-- <v-file-input
-                    accept="application/vnd.oasis.opendocument.presentation"
-                    label="Select ODP file"
-                    @change="saveFile($event)"
-                  ></v-file-input> -->
                 </v-col>
               </v-row>
             </v-container>
@@ -209,7 +147,90 @@
         </ModalFooter>
       </template>
     </Modal>
-    <Modal :modal="data.modal" :width="750">
+    <Modal :modal="data.modal" :width="1500">
+      <template v-slot:header>
+        <ModalHeader
+          @closeDialog="cancelDialog()"
+          :title="`${data.modalTitle}`"
+        />
+      </template>
+      <template v-slot:body>
+        <ModalBody v-if="data.formData">
+          <v-form v-model="valid" @submit.prevent="submitForm">
+            <v-container>
+              <!-- Select Category -->
+              <v-row justify="center">
+                <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="data.formData.title"
+                    label="Title"
+                    required
+                    outlined
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+
+              <v-row>
+                <v-col cols="12">
+                  <v-select
+                    outlined
+                    v-model="data.formData.subTheme"
+                    :items="data.subThemes"
+                    item-text="name"
+                    item-value="id"
+                    label="Select Conference Sub-Theme"
+                    clearable
+                    class="align-left-dropdown"
+                  ></v-select>
+                </v-col>
+              </v-row>
+
+              <v-row justify="center">
+                <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="data.formData.author"
+                    label="Authors"
+                    required
+                    outlined
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+
+              <v-row justify="center">
+                <v-col cols="12" md="12">
+                  <v-textarea
+                    height="250"
+                    outlined
+                    v-model="data.formData.content"
+                    label="Contents"
+                  ></v-textarea>
+                </v-col>
+              </v-row>
+
+              <v-row justify="center">
+                <v-col cols="12" md="12">
+                  <v-textarea
+                    height="250"
+                    outlined
+                    v-model="data.formData.description"
+                    label="Description"
+                  ></v-textarea>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-form>
+        </ModalBody>
+      </template>
+      <template v-slot:footer>
+        <ModalFooter>
+          <v-btn color="red darken-1" text @click="cancelDialog">Cancel</v-btn>
+          <v-btn color="green darken-1" text @click="save"
+            >{{ "Update" }}
+          </v-btn>
+        </ModalFooter>
+      </template>
+    </Modal>
+    <!-- <Modal :modal="data.modal" :width="750">
       <template v-slot:header>
         <ModalHeader
           @closeDialog="cancelDialog()"
@@ -268,7 +289,7 @@
           <v-btn color="green darken-1" text @click="save">{{ "Save" }} </v-btn>
         </ModalFooter>
       </template>
-    </Modal>
+    </Modal> -->
     <Modal :modal="data.modal2" :width="750">
       <template v-slot:header>
         <ModalHeader @closeDialog="cancelDialog2()" :title="`Send Email`" />

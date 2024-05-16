@@ -62,15 +62,7 @@ const setUser = async (payload: any) => {
       code: "10024",
       created_by: null,
     },
-    {
-      id: 1,
-      name: "My Abstract",
-      state: "my-abstracts",
-      url: "my-abstracts",
-      icon: "mdi-book",
-      code: "10024",
-      created_by: null,
-    },
+
     ...sorted,
   ];
 

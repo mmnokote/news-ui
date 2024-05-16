@@ -7,14 +7,10 @@
         <v-icon>mdi-delete-empty-outline</v-icon>
         Restore Trashed Users
       </v-btn>
-      <v-btn large color="teal" class="white--text" @click="openDialog">
+      <v-btn x-large color="#1B629D" class="white--text" @click="openDialog">
         <v-icon>mdi-plus</v-icon>
         Add New
       </v-btn>
-      <!-- <v-btn large color="teal" class="white--text" @click="printFromServer()">
-        <v-icon>mdi-plus</v-icon>
-        Print Summary Report
-      </v-btn> -->
     </v-card-actions>
 
     <v-card>

@@ -1,18 +1,20 @@
 <template>
   <div>
-    <v-app-bar fixed height="150px" elevation="0" color="#052f69">
+    <v-app-bar fixed height="150px" elevation="0" color="#124269">
       <div class="pl-10 d-none d-md-flex">
         <img class="coat" :src="coat" />
       </div>
       <div class="pl-10 d-md-none">
         <img class="coat2" :src="coat" />
       </div>
-      <!-- <el-col class="d-md-none" :md="12"> IPHCC </el-col> -->
+      <!-- <el-col class="d-md-none" :md="12"> NEWS MANAGER </el-col> -->
 
-      <h1 class="font-weight-bold text-1 basil--text pl-10 d-md-none">IPHCC</h1>
+      <h1 class="font-weight-bold text-1 basil--text pl-10 d-md-none">
+        Enjoy the News, Explore the World
+      </h1>
       <el-col class="d-none d-md-flex">
         <h1 class="font-weight-bold text-1 basil--text pl-3 ttt">
-          International Primary Health Care Conference
+          Enjoy the News, Explore the World
         </h1>
       </el-col>
       <!-- Align buttons to the right -->
@@ -27,38 +29,23 @@
       </el-button>
 
       <div class="d-none d-md-flex margin-right">
-        <v-btn class="font-weight-bold text-3 basil--text" text @click="goHome"
+        <v-btn
+          x-large
+          class="font-weight-bold text-3 basil--text"
+          text
+          @click="goHome"
           ><h3 class="font-weight-bold text-3 basil--text">Home</h3></v-btn
         >
-        <v-btn
+        <!-- <v-btn
           class="font-weight-bold text-3 basil--text"
           text
           @click="handleButtonClick2"
           ><h3 class="font-weight-bold text-3 basil--text">About</h3></v-btn
-        >
-        <v-btn
-          disabled
-          class="font-weight-bold text-3 basil--text"
-          text
-          @click="handleButtonClick1"
-          ><h3 class="font-weight-bold text-3 basil--text">Register</h3></v-btn
-        >
-        <v-btn
-          disabled
-          class="font-weight-bold text-3 basil--text"
-          text
-          @click="handleButtonAbstract"
-          ><h3 class="font-weight-bold text-3 basil--text">Abstract</h3></v-btn
-        >
+        > -->
         <v-btn
           class="font-weight-bold text-3 basil--text"
           text
-          @click="handleButtonDcocument"
-          ><h3 class="font-weight-bold text-3 basil--text">Documents</h3></v-btn
-        >
-        <v-btn
-          class="font-weight-bold text-3 basil--text"
-          text
+          x-large
           @click="handleButtonClick3"
           ><h3 class="font-weight-bold text-3 basil--text">Login</h3></v-btn
         >
@@ -80,7 +67,7 @@
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title>IPHC Conference</v-list-item-title>
+              <v-list-item-title>NEWS MANAGER</v-list-item-title>
               <!-- <v-list-item-subtitle>Tanzania</v-list-item-subtitle> -->
             </v-list-item-content>
           </v-list-item>
@@ -270,7 +257,7 @@ export default {
 .coat {
   /* border-radius: 30%; */
   height: 70px;
-  width: 70px;
+  width: 100px;
   /* border: 4px solid rgb(242, 248, 248); */
 }
 .coat2 {

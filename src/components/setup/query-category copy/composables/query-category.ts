@@ -11,7 +11,7 @@ import {
   getSubthemes,
   sendPaymentNotification,
 } from "../services/query-category.service";
-import { printReportJasper } from "../../../report/services/report.services";
+// import { printReportJasper } from "../../../report/services/report.services";
 import { uploadFile } from "@/components/dashboard/services";
 
 export const useQueryCategory = (): any => {
@@ -95,7 +95,7 @@ export const useQueryCategory = (): any => {
     const params = {
       abstract_id: abstractId,
     };
-    printReportJasper("abstract", params);
+    // printReportJasper("abstract", params);
   };
 
   const initialize = () => {

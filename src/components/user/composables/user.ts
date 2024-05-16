@@ -13,7 +13,7 @@ import {
   restoreUser,
   getfilter,
 } from "../services/user.service";
-import { printReportJasper } from "../../../components/report/services/report.services";
+// import { printReportJasper } from "../../../components/report/services/report.services";
 
 // import { get as getApprovalRoles } from "@/components/approval/role/services/approval-role-services";
 import { get as getFacilities } from "@/components/facility/facility/services/facility.service";
@@ -134,7 +134,7 @@ export const useUser = (type?: string): Record<string, unknown> => {
   // });
   const printFromServer = () => {
     const params = {};
-    printReportJasper("summary", params);
+    // printReportJasper("summary", params);
   };
 
   const filterTrushedUser = () => {

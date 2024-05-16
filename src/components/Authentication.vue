@@ -3,7 +3,7 @@
     <v-row class="mb-1 pt-12" justify="center">
       <v-col cols="12" sm="12" md="8">
         <v-card flat>
-          <v-card-title class="text-h6">Login</v-card-title>
+          <v-card-title class="text-h6">Sigin</v-card-title>
           <v-card-text>
             <v-form
               ref="form"
@@ -29,13 +29,17 @@
                 outlined
                 class="mr-3 ml-3"
               ></v-text-field>
-              <v-card-actions class="mr-1 ml-0 mt-n4">
-                <v-btn @click="openDialog" color="warning" class="white--text">
-                  <v-icon left>mdi-ask</v-icon>FORGOT PASSWORD ?
-                </v-btn>
-                <v-spacer></v-spacer>
 
-                <v-btn color="green" class="white--text" type="submit">
+              <v-card-actions class="mr-1 ml-0 mt-n4">
+                <v-spacer></v-spacer>
+                <v-btn
+                  block
+                  x-large
+                  text
+                  color="green"
+                  class="white--text"
+                  type="submit"
+                >
                   <v-icon left>mdi-login</v-icon>LOGIN
                 </v-btn>
               </v-card-actions>
@@ -64,17 +68,6 @@
                           class="mr-3 ml-3"
                         ></v-text-field>
                       </v-col>
-                      <!-- <v-col cols="12" sm="12" md="12">
-                        <v-text-field
-                          prepend-inner-icon="mdi-email"
-                          label="Valid email"
-                          v-model="data.formData2.email"
-                          required
-                          outlined
-                          :rules="data.emailRules"
-                          class="mr-3 ml-3"
-                        ></v-text-field>
-                      </v-col> -->
                     </v-row>
                   </v-container>
                 </v-form>
@@ -124,23 +117,7 @@ export default Vue.extend({
       usernameRestore: "",
       username: "",
       password: "",
-      items: [
-        { title: "Lalamika", icon: "mdi-send", method: "openClaimForm" },
-        { title: "Fuatilia", icon: "mdi-magnify", method: "searchQuery" },
-        { title: "Ingia(Login)", icon: "mdi-login", method: "openLogin" },
-      ],
-      resetOption: [
-        {
-          title: "Namba ya utambuzi",
-          icon: "mdi-magnify",
-          method: "searchQuery",
-        },
-        {
-          title: "Namba ya ufuatiliaji",
-          icon: "mdi-send",
-          method: "openClaimForm",
-        },
-      ],
+
       drawer: false, // Initial state of the navigation drawer
       filePreviewmodal: false,
       isClaim: false,

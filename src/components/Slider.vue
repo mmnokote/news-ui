@@ -37,9 +37,7 @@
                                 class="font-weight-black text-shadow text-h4 text-sm-h2 text-lg-h1"
                               >
                                 <span v-show="item.cover" class="grey--text"
-                                  >1st International Primary Health Care
-                                  Conference in Tanzania Date:
-                                  25-27/03/2024</span
+                                  >News Management Portal</span
                                 ><br />
                               </h1>
                             </div>
@@ -50,24 +48,23 @@
                                 v-show="item.cover"
                                 class="container text-shadow text-body-1 cols"
                               >
-                                <strong>Guest of Honor:</strong>
+                                <strong>Categories:</strong>
                                 <span class="grey--text">
-                                  H.E. Dr. Samia Suluhu Hassan, The President of
-                                  the United Republic of Tanzania.
+                                  Sport,Life Style,Technology,Music
                                 </span>
                                 <br />
-                                <strong> Venue: </strong>
+                                <!-- <strong> Venue: </strong>
                                 <span class="grey--text">
                                   Jakaya Mrisho Kikwete Convention Centre,
                                   Dodoma City Council.
-                                </span>
+                                </span> -->
                                 <br />
-                                <strong> Main Theme:</strong>
+                                <!-- <strong> Main Theme:</strong>
                                 <span class="grey--text">
                                   Primary Health Care (PHC) as a vehicle for the
                                   journey to achieve Universal Health Coverage
                                   (UHC) in Tanzania.
-                                </span>
+                                </span> -->
                               </div>
                             </div>
                           </div>
@@ -104,57 +101,9 @@ export default {
   data() {
     return {
       items: [
-        // {
-        //   src: "slidera.jpg",
-        // },
         {
-          src: "/sliders/3.jpeg",
+          src: "/mn.jpg",
           cover: true,
-        },
-
-        {
-          src: "/sliders/2.jpeg",
-          cover: true,
-        },
-        {
-          src: "/sliders/12.jpeg",
-          cover: true,
-        },
-
-        {
-          src: "/sliders/11.jpeg",
-          cover: true,
-        },
-
-        {
-          src: "/sliders/6.jpeg",
-          cover: true,
-        },
-        {
-          src: "/sliders/278.jpg",
-          cover: true,
-        },
-        {
-          src: "/gallery/335.jpg",
-          cover: true,
-        },
-        {
-          src: "/sliders/7.jpg",
-          cover: true,
-        },
-
-        {
-          src: "/sliders/10.jpeg",
-          cover: true,
-        },
-        {
-          src: "/sliders/8.jpeg",
-          cover: true,
-        },
-
-        {
-          src: "/sliders/5.jpeg",
-          cover: false,
         },
       ],
       fadeTransition: "fade-transition",

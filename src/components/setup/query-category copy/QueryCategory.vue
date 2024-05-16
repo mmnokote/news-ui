@@ -168,7 +168,7 @@
     </v-card>
     <Modal :modal="data.openUploadDialogForm" :width="600">
       <template v-slot:header>
-        <ModalHeader @closeDialog="cancelDialogx()" :title="`PPT Document`" />
+        <ModalHeader @closeDialog="cancelDialogx()" :title="`News Image`" />
       </template>
       <template v-slot:body>
         <div class="pa-5">
@@ -188,7 +188,7 @@
                     filled
                     outlined
                     v-model="data.selectedFile"
-                    label="Select ODP file"
+                    label="Select Image"
                     accept="application/vnd.oasis.opendocument.presentation"
                     :show-size="1000"
                   >
@@ -414,37 +414,6 @@
           <v-btn color="red darken-1" text @click="cancelDialog">Cancel</v-btn>
           <v-btn color="green darken-1" text @click="save"
             >{{ "Update" }}
-          </v-btn>
-        </ModalFooter>
-      </template>
-    </Modal>
-    <Modal :modal="data.modal2" :width="750">
-      <template v-slot:header>
-        <ModalHeader @closeDialog="cancelDialog2()" :title="`Send Email`" />
-      </template>
-      <template v-slot:body>
-        <ModalBody v-if="data.formData">
-          <v-form ref="form" enctype="multipart/form-data">
-            <v-container>
-              <v-row>
-                <v-col cols="12" md="12" class="mb-n8">
-                  <v-textarea
-                    v-model="data.formData2.body"
-                    outlined
-                    label="Email Body"
-                    required
-                  ></v-textarea>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-form>
-        </ModalBody>
-      </template>
-      <template v-slot:footer>
-        <ModalFooter>
-          <v-btn color="red darken-1" text @click="cancelDialog2">Cancel</v-btn>
-          <v-btn color="green darken-1" text @click="save2"
-            >{{ "Send" }}
           </v-btn>
         </ModalFooter>
       </template>

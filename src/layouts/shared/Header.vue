@@ -1,5 +1,11 @@
 <template>
-  <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="#052f69">
+  <v-app-bar
+    fixed
+    :clipped-left="$vuetify.breakpoint.lgAndUp"
+    app
+    height="80%"
+    color="#124269"
+  >
     <v-app-bar-nav-icon
       color="white"
       large
