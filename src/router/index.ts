@@ -22,7 +22,6 @@ import ConferenceRegistration from "@/components/ConferenceRegistration.vue";
 
 import Abstract from "@/components/Abstract.vue";
 import Authentication from "@/components/Authentication.vue";
-import Video2 from "@/components/Video2.vue";
 import Scan from "@/components/Scan.vue";
 import Doccuments from "@/components/Doccuments.vue";
 import outsideInsideRoutes from "@/components/routes/outer-routes";
@@ -47,11 +46,6 @@ const routes: Array<RouteConfig> = [
         // this generates a separate chunk (Home-[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         // component: () => import('@/views/Home.vue'),
-      },
-      {
-        path: "/notification",
-        name: "Notification",
-        component: Video2,
       },
 
       {

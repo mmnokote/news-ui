@@ -3,13 +3,11 @@ import { AxiosResponse } from "axios";
 import router from "@/router";
 
 import { get, create, update, deleteRole } from "../services/role-services";
-import { get as getLevels } from "@/components/admin-area/level/services/level-services";
 import { Role } from "../types/Role";
-import { Level } from "@/components/admin-area/level/types/Level";
 
 export const useRole = (): any => {
   const dataItems: Array<Role> = [];
-  const levelItems: Array<Level> = [];
+  const levelItems: Array<any> = [];
   const roleData = {} as Role;
   const data = reactive({
     title: "Manage Roles",
@@ -21,7 +19,12 @@ export const useRole = (): any => {
     headers: [
       { text: "Name", value: "name" },
       { text: "Description", value: "description" },
-      { text: "Display Name", align: "start", sortable: false, value: "display_name" },
+      {
+        text: "Display Name",
+        align: "start",
+        sortable: false,
+        value: "display_name",
+      },
       { text: "Actions", value: "actions", sortable: false },
     ],
     modal: false,
@@ -37,7 +40,8 @@ export const useRole = (): any => {
 
   const initialize = () => {
     get({}).then((response: AxiosResponse) => {
-      const { from, to, total, current_page, per_page, last_page } = response.data.data;
+      const { from, to, total, current_page, per_page, last_page } =
+        response.data.data;
       data.items = response.data.data.data;
       data.response = { from, to, total, current_page, per_page, last_page };
     });
@@ -94,7 +98,7 @@ export const useRole = (): any => {
         cancelDialog();
         initialize();
       }
-    })
+    });
   };
 
   const openConfirmDialog = (item: Role) => {

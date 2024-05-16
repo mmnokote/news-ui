@@ -12,7 +12,6 @@
 
     <Video class="mag mt-12" />
 
-    <Sponser class="mb-1 mt-12" />
 
     <Footer class="mb-1 pt-12" /> -->
     <!-- </v-container> -->
@@ -22,12 +21,6 @@
 <script setup>
 import DefaultBar from "./AppBar.vue";
 import Slider from "../../components/Slider.vue";
-import Sponser from "../../components/Sponser.vue";
-import Footer from "../../components/Footer.vue";
-import Events from "../../components/Events.vue";
-import Video from "../../components/Video.vue";
-import Theme from "../../components/Theme.vue";
-import Video2 from "../../components/Video2.vue";
 </script>
 <style>
 .mag {
