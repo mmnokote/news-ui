@@ -169,7 +169,6 @@ Vue.use(PerfectScrollbar);
 Vue.use(VueAxios, axios, moment);
 Vue.use(filters);
 Vue.use(VueMask);
-
 Vue.config.productionTip = false;
 
 new Vue({

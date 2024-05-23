@@ -105,12 +105,7 @@
 </template>
 
 <script lang="ts">
-import {
-  reactive,
-  PropType,
-  onMounted,
-  defineComponent,
-} from "vue";
+import { reactive, PropType, onMounted, defineComponent } from "vue";
 
 import _ from "lodash";
 

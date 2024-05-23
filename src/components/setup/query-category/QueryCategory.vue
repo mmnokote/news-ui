@@ -5,7 +5,7 @@
       <v-spacer></v-spacer>
       <v-btn x-large color="#1B629D" class="white--text" @click="openDialog1">
         <v-icon>mdi-plus</v-icon>
-        Add New
+        Add News
       </v-btn>
     </v-card-actions>
 
@@ -207,14 +207,20 @@
                 </v-col>
               </v-row>
 
+              <span> Descriptions </span>
               <v-row justify="center">
                 <v-col cols="12" md="12">
-                  <v-textarea
-                    height="250"
+                  <vue-editor v-model="data.formData.description"></vue-editor>
+                </v-col>
+              </v-row>
+              <v-row justify="center">
+                <v-col cols="12" md="12">
+                  <v-text-field
+                    v-model="data.formData.url"
+                    label="URL"
+                    required
                     outlined
-                    v-model="data.formData.description"
-                    label="Description"
-                  ></v-textarea>
+                  ></v-text-field>
                 </v-col>
               </v-row>
             </v-container>
@@ -230,66 +236,7 @@
         </ModalFooter>
       </template>
     </Modal>
-    <!-- <Modal :modal="data.modal" :width="750">
-      <template v-slot:header>
-        <ModalHeader
-          @closeDialog="cancelDialog()"
-          :title="`${data.modalTitle}`"
-        />
-      </template>
-      <template v-slot:body>
-        <ModalBody v-if="data.formData">
-          <v-form ref="form" enctype="multipart/form-data">
-            <v-container>
-              <v-row>
-                <v-col cols="12">
-                  <v-select
-                    outlined
-                    v-model="data.formData.status"
-                    :items="data.statuses"
-                    item-text="name"
-                    item-value="id"
-                    label="Select Approval Status"
-                    clearable
-                    return-object
-                    class="align-left-dropdown"
-                  ></v-select>
-                </v-col>
-                <v-col cols="12" md="12">
-                  <v-select
-                    v-if="!shouldShowRejectionComment"
-                    outlined
-                    v-model="data.formData.template"
-                    :items="['PPT', 'POSTER']"
-                    label="Template to upload"
-                  >
-                  </v-select>
-                </v-col>
-                <v-col
-                  cols="12"
-                  md="12"
-                  class="mb-n8"
-                  v-if="shouldShowRejectionComment"
-                >
-                  <v-textarea
-                    v-model="data.formData.rejectionComment"
-                    outlined
-                    label="Comment"
-                    required
-                  ></v-textarea>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-form>
-        </ModalBody>
-      </template>
-      <template v-slot:footer>
-        <ModalFooter>
-          <v-btn color="red darken-1" text @click="cancelDialog">Cancel</v-btn>
-          <v-btn color="green darken-1" text @click="save">{{ "Save" }} </v-btn>
-        </ModalFooter>
-      </template>
-    </Modal> -->
+
     <Modal :modal="data.modal2" :width="750">
       <template v-slot:header>
         <ModalHeader @closeDialog="cancelDialog2()" :title="`Send Email`" />
@@ -344,8 +291,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useQueryCategory } from "./composables/query-category";
+import { VueEditor } from "vue2-editor";
 
 export default defineComponent({
+  components: {
+    VueEditor,
+  },
   name: "QueryCategoryComponent",
   setup() {
     const {
