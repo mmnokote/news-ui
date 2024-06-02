@@ -13,10 +13,7 @@ import {
   search,
   searchByStatus,
 } from "../services/query-category.service";
-// import {
-//   printReportJasper,
-//   printReportJasperWord,
-// } from "../../../../components/report/services/report.services";
+
 import { uploadFile } from "@/components/dashboard/services";
 import { getSubthemes } from "@/components/services";
 
@@ -25,40 +22,60 @@ export const useQueryCategory = (): any => {
   let documentCategoryData: QueryCategory;
 
   const data = reactive({
+    sortBy: ["title", "author", "url", "url", "createdAt", "subTheme"],
+    sortDesc: false,
+    meta: {
+      currentPage: "",
+      totalItems: "",
+      itemCount: "",
+      itemsPerPage: "",
+      totalPages: "",
+    },
     subThemes: [],
     selectedFile: "",
     formDataF: { urlToImage: "" },
+    valid: true,
     openUploadDialogForm: false,
     statuses: [],
     file: "",
     title: "Manage News",
     modalTitle: "",
     headers: [
-      { text: "Author", align: "start", sortable: false, value: "author" },
-      { text: "Date", align: "start", sortable: false, value: "createdAt" },
-      {
-        text: "Category",
-        align: "start",
-        sortable: false,
-        value: "subTheme.name",
-      },
       {
         text: "Title",
         align: "start",
-        sortable: false,
-        value: "title",
+        sortable: true,
         width: "20%",
+        value: "title",
       },
       {
-        text: "Description",
+        text: "Category",
         align: "start",
-        sortable: false,
-        value: "description",
-        width: "50%",
+        sortable: true,
+        width: "10%",
+        value: "subTheme.name",
       },
 
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Author", align: "start", sortable: true, value: "author" },
+      { text: "Date", align: "start", sortable: true, value: "createdAt" },
+
+      {
+        text: "External Link",
+        align: "start",
+        sortable: true,
+
+        value: "url",
+      },
+      {
+        text: "Actions",
+        sortable: false,
+        width: "8%",
+        value: "actions",
+        align: "end",
+      }, // Actions column at the end
     ],
+    expanded: [],
+
     modal: false,
     modal2: false,
     deletemodal: false,
@@ -72,7 +89,7 @@ export const useQueryCategory = (): any => {
       body: null,
     },
     documentcategories: [],
-    rows: ["10", "20", "50", "100"],
+    rows: ["5", "10", "15", "20", "50", "100"],
     itemtodelete: "",
     response: {},
     searchTerm: "",
@@ -105,11 +122,19 @@ export const useQueryCategory = (): any => {
 
   const filterDocument = (item: any) => {
     const regSearchTerm = item ? item : data.searchTerm;
-    search({ regSearchTerm }).then((response) => {
-      // console.log("itemitem response:", response.data);
-
-      data.items = response.data;
-    });
+    if (data.searchTerm) {
+      search({ regSearchTerm }).then((response) => {
+        console.log("res", response.data);
+        const { from, to, total, current_page, per_page, last_page } =
+          response.data;
+        data.response = { from, to, total, current_page, per_page, last_page };
+        data.items = response.data.items;
+        data.itemsToFilter = response.data;
+        data.meta = response.data.meta;
+      });
+    } else {
+      initialize();
+    }
   };
   const filterDocumentByStatus = (item: any) => {
     const regSearchTerm = item ? item : data.searchTerm2;
@@ -166,13 +191,15 @@ export const useQueryCategory = (): any => {
   };
 
   const initialize = () => {
-    get().then((response: AxiosResponse) => {
-      console.log("res res", response.data);
+    data.items = [];
+    get({ per_page: 10 }).then((response: AxiosResponse) => {
+      console.log("res", response.data);
       const { from, to, total, current_page, per_page, last_page } =
         response.data;
       data.response = { from, to, total, current_page, per_page, last_page };
-      data.items = response.data;
+      data.items = response.data.items;
       data.itemsToFilter = response.data;
+      data.meta = response.data.meta;
     });
   };
 
@@ -283,7 +310,7 @@ export const useQueryCategory = (): any => {
     const { fullName, ...newData } = data; // Create a new object without the 'fullName' key
     update(newData).then(() => {
       reloadData();
-      cancelDialogx();
+      cancelDialog();
     });
   };
 
@@ -296,12 +323,14 @@ export const useQueryCategory = (): any => {
     });
   };
 
-  const getData = (params: any) => {
-    console.log("res", params);
-    data.response = params;
-    get(params).then((response: AxiosResponse) => {
-      data.response = response.data.data;
-      data.items = response.data.data.data;
+  const getData = (dataz) => {
+    get(dataz).then((response) => {
+      data.meta.currentPage = dataz.page;
+      data.meta.itemCount = response.data.meta.itemCount;
+      data.meta.itemsPerPage = response.data.meta.itemsPerPage;
+      data.meta.totalPages = response.data.meta.totalPages;
+      data.items = response.data.items;
+      console.log("dataz", response.data.meta);
     });
   };
 
@@ -327,22 +356,35 @@ export const useQueryCategory = (): any => {
       });
   });
 
-  const shouldShowRejectionComment = computed(() => {
-    return (
-      data.formData.status?.code === "RJ" ||
-      data.formData.status?.code === "PAAC"
+  const colorRow1 = (item) => {
+    // console.log("Evaluating colorRow1 for item:", item);
+    const isExpanded = data.expanded.some(
+      (expandedItem) => expandedItem.id === item.id
     );
-  });
+    // console.log("Is item expanded:", isExpanded);
+    return isExpanded ? "red-row" : "";
+  };
+
+  const toggleExpanded = (item) => {
+    // Toggle the expanded item
+    const index = data.expanded.indexOf(item);
+    if (index !== -1) {
+      data.expanded.splice(index, 1); // Item is expanded, so collapse it
+    } else {
+      data.expanded = [item]; // Item is collapsed, so expand it and collapse others
+    }
+  };
 
   return {
     data,
+    colorRow1,
+    toggleExpanded,
     filterDocument,
     filterDocumentByStatus,
     saveFile,
     openUploadDialog,
     openDialog,
     openDialog1,
-    shouldShowRejectionComment,
     cancelDialog,
     cancelDialogx,
     cancelDialog2,
@@ -362,5 +404,6 @@ export const useQueryCategory = (): any => {
     savePPT,
     getFullFilePath,
     fetchSubthemese,
+    initialize,
   };
 };

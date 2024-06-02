@@ -16,8 +16,16 @@
       >
       </v-select>
     </v-col>
+    <!-- <v-col lg="1" md="3" sm="3" class="number-list">
+      {{ params.itemCount }}-{{ params.itemsPerPage }} of
+      {{ params.totalItems }}
+    </v-col> -->
     <v-col lg="1" md="3" sm="3" class="number-list">
-      {{ params.from }}-{{ params.to }} of {{ params.total }}
+      {{ (params.currentPage - 1) * params.itemsPerPage + 1 }}-
+      {{
+        Math.min(params.currentPage * params.itemsPerPage, params.totalItems)
+      }}
+      of {{ params.totalItems }}
     </v-col>
     <v-col lg="1" md="3" sm="3" class="prev-next-buttons">
       <v-row>
@@ -35,6 +43,7 @@
 <script lang="ts">
 import { defineComponent, reactive, computed } from "vue";
 export default defineComponent({
+  name: "Pagination",
   props: {
     params: {
       type: Object,
@@ -57,14 +66,15 @@ export default defineComponent({
     });
 
     const isPrevBtnDisabled = computed(() => {
-      return props.params.current_page === 1;
+      return props.params.currentPage === 1;
     });
 
     const isNextBtnDisabled = computed(() => {
-      return (
-        props.params.current_page === props.params.total ||
-        props.params.current_page === props.params.last_page
-      );
+      return props.params.currentPage === props.params.totalPages;
+    });
+
+    const currentPage = computed(() => {
+      return props.params.currentPage;
     });
 
     const fetchData = (params: any) => {
@@ -72,18 +82,18 @@ export default defineComponent({
     };
 
     const nextPage = () => {
-      let currentPage = props.params.current_page + 1;
+      let currentPage = props.params.currentPage + 1;
       let params = {
-        per_page: parseInt(props.params.per_page),
-        page: parseInt(currentPage),
+        limit: props.params.itemsPerPage, // Use the current limit value from props
+        page: currentPage,
       };
       emit("onPageChange", params);
     };
 
     const previousPage = () => {
-      let previousPage = props.params.current_page - 1;
+      let previousPage = props.params.currentPage - 1;
       let params = {
-        per_page: parseInt(props.params.per_page),
+        limit: props.params.itemsPerPage, // Use the current limit value from props
         page: previousPage,
       };
       emit("onPageChange", params);
@@ -91,8 +101,8 @@ export default defineComponent({
 
     const updateRowsPerPage = (value: any) => {
       let params = {
-        per_page: parseInt(value),
-        page: props.params.current_page,
+        limit: parseInt(value),
+        page: props.params.currentPage,
       };
       emit("onPageChange", params);
     };
@@ -109,6 +119,7 @@ export default defineComponent({
       previousPage,
       updateRowsPerPage,
       fetchData,
+      currentPage,
     };
   },
 });

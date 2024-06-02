@@ -1,15 +1,17 @@
 <template>
   <v-snackbar
-    @click="dismiss"
+    @input="dismiss"
     v-if="show"
-    color="green darken-2"
+    :color="message.color"
     v-model="show"
     :title="true"
+    :right="true"
     :bottom="true"
-    :right="false"
+    :shaped="true"
+    width="550"
+    max-width="550"
     :vertical="message.color !== 'success'"
     :multi-line="data.multiline"
-    timeout="-1"
     class="white--text"
   >
     <v-row v-if="message.color === 'success'" @click="dismiss">

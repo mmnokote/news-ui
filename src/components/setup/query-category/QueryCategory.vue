@@ -1,109 +1,178 @@
 <template>
   <div class="">
-    <v-card-actions class="pa-0">
-      <h2>{{ data.title }}</h2>
-      <v-spacer></v-spacer>
-      <v-btn x-large color="#1B629D" class="white--text" @click="openDialog1">
-        <v-icon>mdi-plus</v-icon>
-        Add News
-      </v-btn>
-    </v-card-actions>
+    <div class="pt-12">
+      <v-app-bar color="" dark>
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-    <v-card>
-      <!-- <v-data-table
-        :headers="data.headers"
-        :items="users"
-        :single-expand="true"
-        class="elevation-1"
-        disable-pagination
-        hide-default-footer
-      > -->
-      <v-data-table
-        :headers="data.headers"
-        :items="data.items"
-        :single-expand="true"
-        class="elevation-1"
-      >
-        <!-- disable-pagination -->
+        <v-toolbar-title>
+          <h2 class="white--text">{{ data.title }}</h2>
+        </v-toolbar-title>
 
-        <template v-slot:[`item.createdAt`]="{ item }">
-          <span>{{ item.createdAt | format() }}</span>
-        </template>
-        <template v-slot:top>
-          <v-card-title>
-            <v-spacer></v-spacer>
-            <v-col cols="12" sm="12" md="4" class="pa-1">
-              <v-select
-                @change="filterDocument()"
-                outlined
-                v-model="data.searchTerm"
-                :items="data.subThemes"
-                item-text="name"
-                item-value="id"
-                label="Filter By Sub-Theme"
-                clearable
-                class="align-left-dropdown"
-                @click:clear="initialize()"
-              ></v-select>
-            </v-col>
-          </v-card-title>
-        </template>
+        <v-spacer></v-spacer>
 
-        <template v-slot:[`item.actions`]="{ item }">
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-icon
-                large
-                v-bind="attrs"
-                v-on="on"
-                @click="openUploadDialog(item)"
-                >mdi-upload</v-icon
+        <v-col cols="3">
+          <v-text-field
+            v-model="data.search"
+            append-icon="mdi-magnify"
+            label="Search"
+            placeholder="search here ..."
+            outlined
+            dense
+            clearable
+            class="pt-8 pr-0"
+          ></v-text-field>
+        </v-col>
+
+        <v-menu left bottom> </v-menu>
+      </v-app-bar>
+    </div>
+    <v-card flat class="pr-1 pl-1">
+      <template>
+        <v-data-table
+          :headers="data.headers"
+          :items="data.items"
+          :sort-by="data.sortBy"
+          :sort-desc="data.sortDesc"
+          hide-default-footer
+          :expanded.sync="data.expanded"
+          item-key="description"
+          class="elevation-0 max-height-table custom-header-style"
+        >
+          <!-- <template v-slot:header.author="{ header }">
+            <SharedHeaderTemplate :header="header" />
+          </template>
+
+          <template v-slot:header.createdAt="{ header }">
+            <SharedHeaderTemplate :header="header" />
+          </template>
+          <template v-slot:header.subTheme.name="{ header }">
+            <SharedHeaderTemplate :header="header" />
+          </template> -->
+
+          <template v-slot:top>
+            <v-card-actions class="pa-0">
+              <v-col cols="12" sm="12" md="4" class="pa-5">
+                <v-select
+                  @change="filterDocument"
+                  outlined
+                  v-model="data.searchTerm"
+                  :items="data.subThemes"
+                  item-text="name"
+                  item-value="id"
+                  label="Filter By Category"
+                  clearable
+                  class="align-left-dropdown"
+                ></v-select>
+              </v-col>
+              <v-spacer></v-spacer>
+              <v-btn
+                x-large
+                color="#1B629D"
+                class="white--text"
+                @click="openDialog1"
               >
-            </template>
-            <span>Upload {{ item.template }}</span>
-          </v-tooltip>
+                <v-icon>mdi-plus</v-icon>
+                Add News
+              </v-btn>
+            </v-card-actions>
+          </template>
 
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <v-icon
-                large
-                v-bind="attrs"
-                v-on="on"
-                class="mr-2"
-                @click="openDialog1(item)"
-              >
-                mdi-pencil
-              </v-icon>
-            </template>
-            <span>Update</span>
-          </v-tooltip>
+          <template v-slot:item="{ item }">
+            <span>{{ item.createdAt | format() }}</span>
+          </template>
 
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on, attrs }">
-              <a
-                v-if="item.urlToImage"
-                :href="getFullFilePath(item.urlToImage)"
-                download
-                target="_blank"
+          <template v-slot:item="{ item }">
+            <tr :class="colorRow1(item)">
+              <td v-for="header in data.headers" :key="header.value">
+                <span v-if="header.value === 'actions'">
+                  <v-icon @click.stop="toggleExpanded(item)">
+                    {{
+                      data.expanded.some(
+                        (expandedItem) => expandedItem.id === item.id
+                      )
+                        ? "mdi-chevron-up"
+                        : "mdi-chevron-down"
+                    }}
+                  </v-icon>
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="openUploadDialog(item)"
+                      >
+                        mdi-upload
+                      </v-icon>
+                    </template>
+                    <span>Upload</span>
+                  </v-tooltip>
+
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-icon
+                        v-bind="attrs"
+                        v-on="on"
+                        class="mr-2"
+                        @click="openDialog1(item)"
+                      >
+                        mdi-pencil
+                      </v-icon>
+                    </template>
+                    <span>Update</span>
+                  </v-tooltip>
+
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <a
+                        :href="getFullFilePath(item.urlToImage)"
+                        download
+                        target="_blank"
+                      >
+                        <v-icon
+                          :disabled="!item.urlToImage"
+                          color="green"
+                          v-bind="attrs"
+                          v-on="on"
+                        >
+                          mdi-download
+                        </v-icon>
+                      </a>
+                    </template>
+                    <span v-if="item.urlToImage">Download</span>
+                    <span v-else>No file available</span>
+                  </v-tooltip>
+                </span>
+                <span v-else>{{ item[header.value] }}</span>
+              </td>
+            </tr>
+          </template>
+
+          <template v-slot:footer>
+            <Paginate
+              :params="data.meta"
+              :rows="data.rows"
+              @onPageChange="getData"
+            />
+          </template>
+
+          <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+              <p class="pt-5">
+                <span class="teal--text"> <small> DESCRIPTION </small> </span>
+              </p>
+              <v-alert
+                text
+                dense
+                color="teal"
+                icon="mdi-format-list-bulleted-square"
+                border="left"
               >
-                <v-icon large color="green" v-bind="attrs" v-on="on"
-                  >mdi-download</v-icon
-                >
-              </a>
-              <v-icon v-else disabled>mdi-download</v-icon>
-            </template>
-            <span v-if="item.urlToImage">Download</span>
-            <span v-else>No file available</span>
-          </v-tooltip>
-        </template>
-        <!-- <template v-slot:footer>
-          <Paginate
-            :params="data.response"
-            :rows="data.rows"
-            @onPageChange="getData"
-          />
-        </template> -->
-      </v-data-table>
+                <span v-html="item.description"></span>
+              </v-alert>
+            </td>
+          </template>
+        </v-data-table>
+      </template>
     </v-card>
     <Modal :modal="data.openUploadDialogForm" :width="600">
       <template v-slot:header>
@@ -147,7 +216,7 @@
         </ModalFooter>
       </template>
     </Modal>
-    <Modal :modal="data.modal" :width="1500">
+    <Modal :fullScreen="true" :modal="data.modal" :width="2000">
       <template v-slot:header>
         <ModalHeader
           @closeDialog="cancelDialog()"
@@ -156,7 +225,7 @@
       </template>
       <template v-slot:body>
         <ModalBody v-if="data.formData">
-          <v-form v-model="valid" @submit.prevent="submitForm">
+          <v-form v-model="data.valid" @submit.prevent="submitForm">
             <v-container>
               <!-- Select Category -->
               <v-row justify="center">
@@ -231,39 +300,7 @@
         <ModalFooter>
           <v-btn color="red darken-1" text @click="cancelDialog">Cancel</v-btn>
           <v-btn color="green darken-1" text @click="save"
-            >{{ "Update" }}
-          </v-btn>
-        </ModalFooter>
-      </template>
-    </Modal>
-
-    <Modal :modal="data.modal2" :width="750">
-      <template v-slot:header>
-        <ModalHeader @closeDialog="cancelDialog2()" :title="`Send Email`" />
-      </template>
-      <template v-slot:body>
-        <ModalBody v-if="data.formData">
-          <v-form ref="form" enctype="multipart/form-data">
-            <v-container>
-              <v-row>
-                <v-col cols="12" md="12" class="mb-n8">
-                  <v-textarea
-                    v-model="data.formData2.body"
-                    outlined
-                    label="Email Body"
-                    required
-                  ></v-textarea>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-form>
-        </ModalBody>
-      </template>
-      <template v-slot:footer>
-        <ModalFooter>
-          <v-btn color="red darken-1" text @click="cancelDialog2">Cancel</v-btn>
-          <v-btn color="green darken-1" text @click="save2"
-            >{{ "Send" }}
+            >{{ data.modalTitle }}
           </v-btn>
         </ModalFooter>
       </template>
@@ -301,6 +338,7 @@ export default defineComponent({
   setup() {
     const {
       data,
+      colorRow1,
       shouldShowRejectionComment,
       openDialog,
       getData,
@@ -333,11 +371,13 @@ export default defineComponent({
       saveFile,
       getFullFilePath,
       fetchSubthemese,
+      toggleExpanded,
     } = useQueryCategory();
 
     return {
       data,
       saveFile,
+      colorRow1,
       fetchSubthemese,
       getFullFilePath,
       cancelDialogx,
@@ -369,9 +409,15 @@ export default defineComponent({
       filterDocumentByStatus,
       deleteDialog,
       printFromServer,
+      toggleExpanded,
     };
   },
 });
 </script>
 
 <style scoped></style>
+<style scoped>
+.red-row {
+  background-color: rgba(0, 128, 128, 0.349);
+}
+</style>

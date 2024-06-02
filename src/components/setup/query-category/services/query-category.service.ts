@@ -1,8 +1,8 @@
 import axios from "axios";
 const ABSMENTnOTIFICATION = "/api/v1/abstarcts/abstract-mails";
 
-const get = async () => {
-  return await axios.get("/api/v1/abstarcts");
+const get = async (payload: any) => {
+  return await axios.get("/api/v1/abstarcts", { params: payload });
 };
 
 const sendPaymentNotification = async (payload: any) => {

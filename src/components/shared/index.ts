@@ -24,3 +24,7 @@ Vue.component("Loader", () => import("./Loader.vue"));
 Vue.component("AppLocationHeader", () => import("./AppLocationHeader.vue"));
 Vue.component("EqualHeights", () => import("./equal-heights/EqualHeights.vue"));
 Vue.component("DatePickerReport", () => import("./DatePickerReport.vue"));
+Vue.component(
+  "SharedHeaderTemplate",
+  () => import("./SharedHeaderTemplate.vue")
+);

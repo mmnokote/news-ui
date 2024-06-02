@@ -24,3 +24,13 @@ h4 {
 .v-picker .v-card .v-picker--date {
   width: 100%;
 }
+
+.custom-header-style th {
+  /* Apply your custom styles to all header cells */
+  background-color: #c7c7c7; /* Example background color */
+  color: #181515; /* Example text color */
+  font-weight: bold; /* Example font weight */
+
+  max-height: 400px; /* Set the maximum height here */
+  // overflow-y: auto; /* Add vertical scroll if content overflows */
+}
