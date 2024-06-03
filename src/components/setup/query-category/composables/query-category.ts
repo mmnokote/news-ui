@@ -236,9 +236,10 @@ export const useQueryCategory = (): any => {
 
   const cancelDialog = () => {
     data.formData = {};
-    data.modal = !data.modal;
+    data.openUploadDialogForm = !data.modal;
     data.openUploadDialogForm = false;
   };
+
   const cancelDialogx = () => {
     data.openUploadDialogForm = false;
   };
