@@ -114,7 +114,8 @@ export const useQueryCategory = (): any => {
   });
 
   const getImagePath = (path) => {
-    return `uploads/${path}`;
+    return `http://75.119.149.23/uploads/${path}`;
+    // return `uploads/${path}`;
   };
 
   const fetchSubthemes = () => {
