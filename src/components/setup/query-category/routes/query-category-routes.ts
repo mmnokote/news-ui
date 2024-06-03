@@ -7,7 +7,7 @@ const queryCategoryRoutes = [
       import(/* webpackChunkName: "QueryCategory" */ "../QueryCategory.vue"),
     meta: {
       requiresAuth: true,
-      title: "Manage Abstracts",
+      title: "Manage News",
       middleware: [setTitle, validateToken, setHeaders, auth],
     },
   },

@@ -222,7 +222,7 @@
                     :items="data.subThemes"
                     item-text="name"
                     item-value="id"
-                    label="Select Conference Sub-Theme"
+                    label="Select News Category"
                     clearable
                     class="align-left-dropdown"
                   ></v-select>
@@ -251,7 +251,9 @@
                 </v-col>
               </v-row>
 
-              <span> Descriptions </span>
+              <span class="error white--text">
+                Descriptions To Be Seen as Contents in APK
+              </span>
               <v-row justify="center">
                 <v-col cols="12" md="12">
                   <vue-editor v-model="data.formData.description"></vue-editor>
