@@ -2,8 +2,9 @@
   <div class="">
     <div class="pt-12">
       <v-app-bar color="" dark>
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
-
+        <v-icon large class="pr-5"
+          >mdi-newspaper-variant-multiple-outline</v-icon
+        >
         <v-toolbar-title>
           <h2 class="white--text">{{ data.title }}</h2>
         </v-toolbar-title>
@@ -35,20 +36,14 @@
           :sort-desc="data.sortDesc"
           hide-default-footer
           :expanded.sync="data.expanded"
+          :single-expand="data.singleExpand"
+          show-expand
           item-key="description"
-          class="elevation-0 max-height-table custom-header-style"
+          class="pa-3 elevation-1 max-height-table custom-header-style"
         >
-          <!-- <template v-slot:header.author="{ header }">
-            <SharedHeaderTemplate :header="header" />
+          <template v-slot:[`item.createdAt`]="{ item }">
+            <span>{{ item.createdAt | format() }}</span>
           </template>
-
-          <template v-slot:header.createdAt="{ header }">
-            <SharedHeaderTemplate :header="header" />
-          </template>
-          <template v-slot:header.subTheme.name="{ header }">
-            <SharedHeaderTemplate :header="header" />
-          </template> -->
-
           <template v-slot:top>
             <v-card-actions class="pa-0">
               <v-col cols="12" sm="12" md="4" class="pa-5">
@@ -77,84 +72,6 @@
             </v-card-actions>
           </template>
 
-          <template v-slot:item="{ item }">
-            <span>{{ item.createdAt | format() }}</span>
-          </template>
-
-          <template v-slot:item="{ item }">
-            <tr :class="colorRow1(item)">
-              <td v-for="header in data.headers" :key="header.value">
-                <span v-if="header.value === 'actions'">
-                  <v-icon @click.stop="toggleExpanded(item)">
-                    {{
-                      data.expanded.some(
-                        (expandedItem) => expandedItem.id === item.id
-                      )
-                        ? "mdi-chevron-up"
-                        : "mdi-chevron-down"
-                    }}
-                  </v-icon>
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-icon
-                        v-bind="attrs"
-                        v-on="on"
-                        @click="openUploadDialog(item)"
-                      >
-                        mdi-upload
-                      </v-icon>
-                    </template>
-                    <span>Upload</span>
-                  </v-tooltip>
-
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-icon
-                        v-bind="attrs"
-                        v-on="on"
-                        class="mr-2"
-                        @click="openDialog1(item)"
-                      >
-                        mdi-pencil
-                      </v-icon>
-                    </template>
-                    <span>Update</span>
-                  </v-tooltip>
-
-                  <v-tooltip bottom>
-                    <template v-slot:activator="{ on, attrs }">
-                      <a
-                        :href="getFullFilePath(item.urlToImage)"
-                        download
-                        target="_blank"
-                      >
-                        <v-icon
-                          :disabled="!item.urlToImage"
-                          color="green"
-                          v-bind="attrs"
-                          v-on="on"
-                        >
-                          mdi-download
-                        </v-icon>
-                      </a>
-                    </template>
-                    <span v-if="item.urlToImage">Download</span>
-                    <span v-else>No file available</span>
-                  </v-tooltip>
-                </span>
-                <span v-else>{{ item[header.value] }}</span>
-              </td>
-            </tr>
-          </template>
-
-          <template v-slot:footer>
-            <Paginate
-              :params="data.meta"
-              :rows="data.rows"
-              @onPageChange="getData"
-            />
-          </template>
-
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
               <p class="pt-5">
@@ -170,6 +87,64 @@
                 <span v-html="item.description"></span>
               </v-alert>
             </td>
+          </template>
+
+          <template v-slot:[`item.actions`]="{ item }">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon
+                  v-bind="attrs"
+                  v-on="on"
+                  @click="openUploadDialog(item)"
+                >
+                  mdi-upload
+                </v-icon>
+              </template>
+              <span>Upload</span>
+            </v-tooltip>
+
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-icon
+                  v-bind="attrs"
+                  v-on="on"
+                  class="mr-2"
+                  @click="openDialog1(item)"
+                >
+                  mdi-pencil
+                </v-icon>
+              </template>
+              <span>Update</span>
+            </v-tooltip>
+
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <a
+                  :href="getFullFilePath(item.urlToImage)"
+                  download
+                  target="_blank"
+                >
+                  <v-icon
+                    :disabled="!item.urlToImage"
+                    color="green"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    mdi-download
+                  </v-icon>
+                </a>
+              </template>
+              <span v-if="item.urlToImage">Download</span>
+              <span v-else>No file available</span>
+            </v-tooltip>
+          </template>
+
+          <template v-slot:footer>
+            <Paginate
+              :params="data.meta"
+              :rows="data.rows"
+              @onPageChange="getData"
+            />
           </template>
         </v-data-table>
       </template>
@@ -338,8 +313,6 @@ export default defineComponent({
   setup() {
     const {
       data,
-      colorRow1,
-      shouldShowRejectionComment,
       openDialog,
       getData,
       cancelDialog,
@@ -371,19 +344,16 @@ export default defineComponent({
       saveFile,
       getFullFilePath,
       fetchSubthemese,
-      toggleExpanded,
     } = useQueryCategory();
 
     return {
       data,
       saveFile,
-      colorRow1,
       fetchSubthemese,
       getFullFilePath,
       cancelDialogx,
       cancelDialog2,
       save2,
-      shouldShowRejectionComment,
       fetchSubthemes,
       users,
       openDialog,
@@ -409,7 +379,6 @@ export default defineComponent({
       filterDocumentByStatus,
       deleteDialog,
       printFromServer,
-      toggleExpanded,
     };
   },
 });

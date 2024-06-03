@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h2>
-      <span class="grey--text font-weight-bold">IPHC 2024 - </span>QRCODE
+      <span class="grey--text font-weight-bold">MnNews 2024 - </span>QRCODE
       SCANING FOR REGISTRATION VERIFICATION
     </h2>
     <hr class="centered-line" />

@@ -3,7 +3,7 @@ import axios from "axios";
 import VueJwtDecode from "vue-jwt-decode";
 import store from "@/store";
 
-const DEFAULT_TITLE = "IPHC Conference";
+const DEFAULT_TITLE = "MnNews";
 
 const getCurrentUser = () => {
   return store.getters["Auth/getCurrentUser"];
@@ -17,9 +17,7 @@ const getLoginStatus = async (): Promise<any> => {
 const setTitle = async (to, from, next) => {
   Vue.nextTick(() => {
     document.title =
-      to.meta && to.meta.title
-        ? `${to.meta.title} -IPHC Conference`
-        : DEFAULT_TITLE;
+      to.meta && to.meta.title ? `${to.meta.title} -MnNews` : DEFAULT_TITLE;
   });
   next();
 };

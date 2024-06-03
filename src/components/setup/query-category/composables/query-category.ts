@@ -22,7 +22,7 @@ export const useQueryCategory = (): any => {
   let documentCategoryData: QueryCategory;
 
   const data = reactive({
-    sortBy: ["title", "author", "url", "url", "createdAt", "subTheme"],
+    sortBy: ["title", "author", "url", "url", "createdAt", "subTheme.name"],
     sortDesc: false,
     meta: {
       currentPage: "",
@@ -66,6 +66,7 @@ export const useQueryCategory = (): any => {
 
         value: "url",
       },
+      { text: "Description", value: "data-table-expand" },
       {
         text: "Actions",
         sortable: false,
@@ -75,6 +76,7 @@ export const useQueryCategory = (): any => {
       }, // Actions column at the end
     ],
     expanded: [],
+    singleExpand: true,
 
     modal: false,
     modal2: false,
@@ -356,29 +358,8 @@ export const useQueryCategory = (): any => {
       });
   });
 
-  const colorRow1 = (item) => {
-    // console.log("Evaluating colorRow1 for item:", item);
-    const isExpanded = data.expanded.some(
-      (expandedItem) => expandedItem.id === item.id
-    );
-    // console.log("Is item expanded:", isExpanded);
-    return isExpanded ? "red-row" : "";
-  };
-
-  const toggleExpanded = (item) => {
-    // Toggle the expanded item
-    const index = data.expanded.indexOf(item);
-    if (index !== -1) {
-      data.expanded.splice(index, 1); // Item is expanded, so collapse it
-    } else {
-      data.expanded = [item]; // Item is collapsed, so expand it and collapse others
-    }
-  };
-
   return {
     data,
-    colorRow1,
-    toggleExpanded,
     filterDocument,
     filterDocumentByStatus,
     saveFile,
