@@ -44,6 +44,17 @@
           <template v-slot:[`item.createdAt`]="{ item }">
             <span>{{ item.createdAt | format() }}</span>
           </template>
+          <template v-slot:[`item.display_path`]="{ item }">
+            <span>
+              <img
+                class="pt-1"
+                :src="getImagePath(item.display_path)"
+                alt="Image"
+                width="90"
+                height="70"
+              />
+            </span>
+          </template>
           <template v-slot:top>
             <v-card-actions class="pa-0">
               <v-col cols="12" sm="12" md="4" class="pa-5">
@@ -346,10 +357,12 @@ export default defineComponent({
       saveFile,
       getFullFilePath,
       fetchSubthemese,
+      getImagePath,
     } = useQueryCategory();
 
     return {
       data,
+      getImagePath,
       saveFile,
       fetchSubthemese,
       getFullFilePath,

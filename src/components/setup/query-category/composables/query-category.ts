@@ -66,6 +66,13 @@ export const useQueryCategory = (): any => {
 
         value: "url",
       },
+      {
+        text: "News Image",
+        align: "start",
+        sortable: true,
+
+        value: "display_path",
+      },
       { text: "Description", value: "data-table-expand" },
       {
         text: "Actions",
@@ -105,6 +112,10 @@ export const useQueryCategory = (): any => {
     fetchSubthemes();
     fetchSubthemese();
   });
+
+  const getImagePath = (path) => {
+    return `uploads/${path}`;
+  };
 
   const fetchSubthemes = () => {
     getStatuses().then((response) => {
@@ -389,5 +400,6 @@ export const useQueryCategory = (): any => {
     getFullFilePath,
     fetchSubthemese,
     initialize,
+    getImagePath,
   };
 };
