@@ -79,9 +79,9 @@ const errorHandler = (error: any) => {
   const payload: SnackBarPayload = {
     error: error.data.errorDetails.message,
     title: capitalize("Something wrong"),
-    color: "warning",
+    color: "error",
     icon: "mdi-alert-box",
-    class: "info--text",
+    class: "white--text",
   };
 
   switch (error.data.message) {

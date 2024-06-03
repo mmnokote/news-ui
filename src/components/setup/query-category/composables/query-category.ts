@@ -33,7 +33,7 @@ export const useQueryCategory = (): any => {
     },
     subThemes: [],
     selectedFile: "",
-    formDataF: { urlToImage: "" },
+    formDataF: { urlToImage: "", display_path: "" },
     valid: true,
     openUploadDialogForm: false,
     statuses: [],
@@ -172,6 +172,7 @@ export const useQueryCategory = (): any => {
         };
         console.log("path:", data.formDataF);
         data.formDataF.urlToImage = response.data.current_name;
+        data.formDataF.display_path = response.data.dispaly_path;
         //remove duplicates but keep the last updated score!
         // data.formData.files.reverse();
         // data.formData.files = _.uniqBy(data.formDataF, "current_name");
@@ -238,6 +239,7 @@ export const useQueryCategory = (): any => {
     data.formData = {};
     data.openUploadDialogForm = !data.modal;
     data.openUploadDialogForm = false;
+    data.modal = false;
   };
 
   const cancelDialogx = () => {
