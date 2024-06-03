@@ -45,7 +45,7 @@ export const useQueryCategory = (): any => {
         text: "Title",
         align: "start",
         sortable: true,
-        width: "20%",
+        width: "50%",
         value: "title",
       },
       {

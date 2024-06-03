@@ -38,7 +38,7 @@
           :expanded.sync="data.expanded"
           :single-expand="data.singleExpand"
           show-expand
-          item-key="description"
+          item-key="id"
           class="pa-3 elevation-1 max-height-table custom-header-style"
         >
           <template v-slot:[`item.createdAt`]="{ item }">
