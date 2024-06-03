@@ -7,6 +7,7 @@ import {
   create,
   update,
   destroy,
+  sendNotification,
   searchCategories,
   getStatuses,
   sendPaymentNotification,
@@ -56,14 +57,20 @@ export const useQueryCategory = (): any => {
         value: "subTheme.name",
       },
 
-      { text: "Author", align: "start", sortable: true, value: "author" },
+      {
+        text: "Author",
+        width: "8%",
+        align: "start",
+        sortable: true,
+        value: "author",
+      },
       { text: "Date", align: "start", sortable: true, value: "createdAt" },
 
       {
         text: "External Link",
         align: "start",
         sortable: true,
-
+        width: "2%",
         value: "url",
       },
       {
@@ -73,7 +80,6 @@ export const useQueryCategory = (): any => {
 
         value: "display_path",
       },
-      { text: "Description", value: "data-table-expand" },
       {
         text: "Actions",
         sortable: false,
@@ -81,6 +87,7 @@ export const useQueryCategory = (): any => {
         value: "actions",
         align: "end",
       }, // Actions column at the end
+      { text: "Description", align: "start", value: "data-table-expand" },
     ],
     expanded: [],
     singleExpand: true,
@@ -90,16 +97,13 @@ export const useQueryCategory = (): any => {
     deletemodal: false,
     items: dataItems,
     itemsToFilter: [],
-    formData: {
-      status: null,
-      rejectionComment: "",
-    },
-    formData2: {
-      body: null,
-    },
+    formData: {},
+    formData2: {},
     documentcategories: [],
     rows: ["5", "10", "15", "20", "50", "100"],
     itemtodelete: "",
+    itemtonotify: "",
+    notificationmodal: false,
     response: {},
     searchTerm: "",
     searchTerm2: "",
@@ -208,7 +212,7 @@ export const useQueryCategory = (): any => {
   const initialize = () => {
     data.items = [];
     get({ per_page: 10 }).then((response: AxiosResponse) => {
-      console.log("res", response.data);
+      // console.log("res", response.data);
       const { from, to, total, current_page, per_page, last_page } =
         response.data;
       data.response = { from, to, total, current_page, per_page, last_page };
@@ -228,17 +232,8 @@ export const useQueryCategory = (): any => {
         data.documentcategories = response.data.data.data;
       });
     } else {
-      reloadData();
+      initialize();
     }
-  };
-
-  const reloadData = () => {
-    get({ per_page: 10 }).then((response: AxiosResponse) => {
-      const { from, to, total, current_page, per_page, last_page } =
-        response.data;
-      data.response = { from, to, total, current_page, per_page, last_page };
-      data.items = response.data;
-    });
   };
 
   const getDocument = () => {
@@ -265,13 +260,7 @@ export const useQueryCategory = (): any => {
   const cancelConfirmDialog = () => {
     data.formData = {} as QueryCategory;
     data.deletemodal = false;
-  };
-
-  const remove = () => {
-    destroy(data.itemtodelete).then(() => {
-      reloadData();
-      data.deletemodal = false;
-    });
+    data.notificationmodal = false;
   };
 
   const save = () => {
@@ -326,7 +315,7 @@ export const useQueryCategory = (): any => {
   const updateQueryCategory = (data: any) => {
     const { fullName, ...newData } = data; // Create a new object without the 'fullName' key
     update(newData).then(() => {
-      reloadData();
+      initialize();
       cancelDialog();
     });
   };
@@ -334,7 +323,7 @@ export const useQueryCategory = (): any => {
   const createData = (data: any) => {
     create(data).then((response) => {
       if (response.status === 201) {
-        reloadData();
+        initialize();
         cancelDialog();
       }
     });
@@ -356,6 +345,24 @@ export const useQueryCategory = (): any => {
     data.itemtodelete = deleteId;
     // console.log("delete year", data);
   };
+  const notificationDialog = (deleteId: any) => {
+    data.notificationmodal = !data.modal;
+    data.itemtonotify = deleteId;
+    // console.log("delete year", data);
+  };
+  const remove = () => {
+    destroy(data.itemtodelete).then(() => {
+      initialize();
+      data.deletemodal = false;
+    });
+  };
+  const notify = () => {
+    sendNotification(data.itemtonotify).then(() => {
+      initialize();
+      data.notificationmodal = false;
+    });
+  };
+
   const users = computed(() => {
     return data.items
       .map((item: any) => {
@@ -388,19 +395,20 @@ export const useQueryCategory = (): any => {
     updateQueryCategory,
     save,
     save2,
-    reloadData,
+    initialize,
     remove,
+    notify,
     cancelConfirmDialog,
     searchCategory,
     getData,
     deleteDialog,
+    notificationDialog,
     users,
     printFromServer,
     fetchSubthemes,
     savePPT,
     getFullFilePath,
     fetchSubthemese,
-    initialize,
     getImagePath,
   };
 };

@@ -41,6 +41,9 @@
           item-key="id"
           class="pa-3 elevation-1 max-height-table custom-header-style"
         >
+          <template v-slot:[`item.title`]="{ item }">
+            <span class="">{{ item.title }}</span>
+          </template>
           <template v-slot:[`item.createdAt`]="{ item }">
             <span>{{ item.createdAt | format() }}</span>
           </template>
@@ -53,6 +56,13 @@
                 width="90"
                 height="70"
               />
+            </span>
+          </template>
+          <template v-slot:[`item.url`]="{ item }">
+            <span>
+              <a :href="item.url" target="_blank" rel="noopener noreferrer">{{
+                item.url
+              }}</a>
             </span>
           </template>
           <template v-slot:top>
@@ -94,9 +104,38 @@
                 color="teal"
                 icon="mdi-format-list-bulleted-square"
                 border="left"
+                class="pl-10"
               >
-                <span v-html="item.description"></span>
+                <span class="black--text" v-html="item.description"></span>
               </v-alert>
+              <v-card-actions>
+                <v-col cols="12" sm="12" md="4" class="">
+                  <v-btn
+                    v-if="!item.published"
+                    @click="deleteDialog(item)"
+                    block
+                    class="green lighten-2 white--text"
+                    >Publish</v-btn
+                  >
+                  <v-btn
+                    v-else
+                    @click="deleteDialog(item)"
+                    block
+                    class="deep-orange lighten-1 white--text"
+                    >Unpublish</v-btn
+                  >
+                </v-col>
+                <v-col cols="12" sm="12" md="4" class="">
+                  <v-btn
+                    v-if="item.published"
+                    @click="notificationDialog(item)"
+                    block
+                    class="green lighten-2 white--text"
+                    >Send Notification</v-btn
+                  >
+                </v-col>
+                <v-spacer></v-spacer>
+              </v-card-actions>
             </td>
           </template>
 
@@ -111,7 +150,7 @@
                   mdi-upload
                 </v-icon>
               </template>
-              <span>Upload</span>
+              <span>Upload Image</span>
             </v-tooltip>
 
             <v-tooltip bottom>
@@ -119,7 +158,7 @@
                 <v-icon
                   v-bind="attrs"
                   v-on="on"
-                  class="mr-2"
+                  class="ml-5"
                   @click="openDialog1(item)"
                 >
                   mdi-pencil
@@ -128,7 +167,7 @@
               <span>Update</span>
             </v-tooltip>
 
-            <v-tooltip bottom>
+            <!-- <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
                 <a
                   :href="getFullFilePath(item.urlToImage)"
@@ -147,7 +186,7 @@
               </template>
               <span v-if="item.urlToImage">Download</span>
               <span v-else>No file available</span>
-            </v-tooltip>
+            </v-tooltip> -->
           </template>
 
           <template v-slot:footer>
@@ -294,9 +333,12 @@
       </template>
     </Modal>
 
-    <Modal :modal="data.deletemodal" :width="320">
+    <Modal :modal="data.deletemodal" :width="600">
       <template v-slot:header>
-        <ModalHeader :title="`Delete Document `" />
+        <ModalHeader
+          @closeDialog="cancelConfirmDialog"
+          :title="`Publish News `"
+        />
       </template>
       <template v-slot:body>
         <ModalBody> Are you sure? </ModalBody>
@@ -307,6 +349,26 @@
             >Cancel</v-btn
           >
           <v-btn color="red darken-1" text @click="remove">Yes</v-btn>
+        </ModalFooter>
+      </template>
+    </Modal>
+
+    <Modal :modal="data.notificationmodal" :width="600">
+      <template v-slot:header>
+        <ModalHeader
+          @closeDialog="cancelConfirmDialog"
+          :title="`Send Notification `"
+        />
+      </template>
+      <template v-slot:body>
+        <ModalBody> Are you sure? </ModalBody>
+      </template>
+      <template v-slot:footer>
+        <ModalFooter>
+          <v-btn color="green darken-1" text @click="cancelConfirmDialog"
+            >Cancel</v-btn
+          >
+          <v-btn color="red darken-1" text @click="notify">Yes</v-btn>
         </ModalFooter>
       </template>
     </Modal>
@@ -335,6 +397,7 @@ export default defineComponent({
       savePPT,
       reloadData,
       remove,
+      notify,
       cancelConfirmDialog,
       searchCategory,
       initialize,
@@ -347,6 +410,7 @@ export default defineComponent({
       filterDocument,
       filterDocumentByStatus,
       deleteDialog,
+      notificationDialog,
       users,
       printFromServer,
       fetchSubthemes,
@@ -381,6 +445,7 @@ export default defineComponent({
       savePPT,
       reloadData,
       remove,
+      notify,
       cancelConfirmDialog,
       searchCategory,
       initialize,
@@ -393,6 +458,7 @@ export default defineComponent({
       filterDocument,
       filterDocumentByStatus,
       deleteDialog,
+      notificationDialog,
       printFromServer,
     };
   },

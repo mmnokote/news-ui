@@ -48,7 +48,12 @@ const update = async (payload: any) => {
 };
 const destroy = async (payload: any) => {
   console.log("payload", payload);
-  return await axios.delete(`/api/v1/abstarcts/` + payload);
+  return await axios.patch(`/api/v1/abstarcts/publish/` + payload.id);
+};
+const sendNotification = async (payload: any) => {
+  return await axios.post(
+    `/api/v1/abstarcts/abstract-notifications/` + payload.id
+  );
 };
 
 export {
@@ -62,4 +67,5 @@ export {
   getStatuses,
   sendPaymentNotification,
   searchByStatus,
+  sendNotification,
 };
