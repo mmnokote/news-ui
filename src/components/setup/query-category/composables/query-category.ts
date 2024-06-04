@@ -23,8 +23,10 @@ export const useQueryCategory = (): any => {
   let documentCategoryData: QueryCategory;
 
   const data = reactive({
-    sortBy: ["title", "author", "url", "url", "createdAt", "subTheme.name"],
-    sortDesc: false,
+    // sortBy: ["title", "author", "url", "url",  "subTheme.name"],
+
+    sortBy: ["createdAt"],
+    sortDesc: true,
     meta: {
       currentPage: "",
       totalItems: "",

@@ -167,26 +167,6 @@
               <span>Update</span>
             </v-tooltip>
 
-            <!-- <v-tooltip bottom>
-              <template v-slot:activator="{ on, attrs }">
-                <a
-                  :href="getFullFilePath(item.urlToImage)"
-                  download
-                  target="_blank"
-                >
-                  <v-icon
-                    :disabled="!item.urlToImage"
-                    color="green"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    mdi-download
-                  </v-icon>
-                </a>
-              </template>
-              <span v-if="item.urlToImage">Download</span>
-              <span v-else>No file available</span>
-            </v-tooltip> -->
           </template>
 
           <template v-slot:footer>
